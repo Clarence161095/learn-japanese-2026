@@ -1,0 +1,879 @@
+{
+    "schema_explanation_for_GOI": {
+    "description": "Cấu trúc JSON chi tiết dùng để lưu trữ dữ liệu câu hỏi phần GOI (Từ vựng) cho ứng dụng học tiếng Nhật.",
+    "type": "object",
+    "properties": {
+      "goi_data": {
+        "type": "array",
+        "description": "Danh sách các câu hỏi trắc nghiệm từ vựng.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Mã định danh duy nhất cho câu hỏi (VD: 'q_goi_n4n5_002')."
+            },
+            "book_level": {
+              "type": "string",
+              "description": "Cấp độ N của cuốn sách (VD: 'N4-N5', 'N3', 'N2', 'N1')."
+            },
+            "chapter": {
+              "type": "object",
+              "description": "Thông tin về vị trí câu hỏi trong sách.",
+              "properties": {
+                "week": { "type": "string", "description": "Tuần học (VD: '第1週')." },
+                "day": { "type": "string", "description": "Ngày học (VD: '1日目')." },
+                "section": { "type": "string", "description": "Phần thi (Luôn là 'GOI' cho schema này)." }
+              }
+            },
+            "question": {
+              "type": "object",
+              "description": "Nội dung câu hỏi.",
+              "properties": {
+                "number": { "type": "integer", "description": "Số thứ tự câu hỏi trong bài." },
+                "type": { "type": "string", "description": "Loại câu hỏi (VD: 'fill_in_the_blank', 'synonym_replacement')." },
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "original": { "type": "string", "description": "Câu hỏi gốc không có furigana." },
+                    "with_ruby": { "type": "string", "description": "Câu hỏi dạng HTML có thẻ <ruby> để hiển thị furigana." }
+                  }
+                }
+              }
+            },
+            "options": {
+              "type": "array",
+              "description": "Danh sách 4 đáp án để lựa chọn.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "integer", "description": "ID của đáp án (1, 2, 3, 4)." },
+                  "text": { "type": "string", "description": "Nội dung đáp án." },
+                  "is_correct": { "type": "boolean", "description": "Đánh dấu đáp án đúng (true/false)." }
+                }
+              }
+            },
+            "correct_answer_id": {
+              "type": "integer",
+              "description": "ID của đáp án đúng (tương ứng với id trong options)."
+            },
+            "explanation": {
+              "type": "object",
+              "description": "Phần giải thích chi tiết cho câu hỏi và các từ vựng liên quan.",
+              "properties": {
+                "translations": {
+                  "type": "object",
+                  "description": "Bản dịch của toàn bộ câu hỏi.",
+                  "properties": {
+                    "english": { "type": "string", "description": "Dịch sang tiếng Anh." },
+                    "vietnamese": { "type": "string", "description": "Dịch sang tiếng Việt." }
+                  }
+                },
+                "grammar_and_usage_context": {
+                  "type": "string",
+                  "description": "Giải thích bối cảnh ngữ pháp, cách sử dụng từ hoặc lý do chọn đáp án đúng/sai."
+                },
+                "vocabulary_analysis": {
+                  "type": "array",
+                  "description": "Phân tích chi tiết từng từ vựng xuất hiện trong câu hỏi hoặc các đáp án (bao gồm cả từ sai để học thêm).",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "word": { "type": "string", "description": "Từ vựng dạng nguyên thể hoặc hiragana." },
+                      "kanji_writing": { "type": "string", "description": "Cách viết bằng Kanji (nếu có)." },
+                      "kanji_components": {
+                        "type": "array",
+                        "description": "Phân tích các chữ Hán cấu tạo nên từ.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "kanji": { "type": "string", "description": "Chữ Hán đơn lẻ." },
+                            "sino_vietnamese": { "type": "string", "description": "Âm Hán Việt." },
+                            "meanings": { "type": "string", "description": "Nghĩa của chữ Hán đó." }
+                          }
+                        }
+                      },
+                      "meaning_vi": { "type": "string", "description": "Ý nghĩa tiếng Việt của từ." },
+                      "meaning_en": { "type": "string", "description": "Ý nghĩa tiếng Anh của từ." },
+                      "usage_notes": { "type": "string", "description": "Lưu ý cách dùng từ (Tha động từ, tự động từ, sắc thái nghĩa, trường hợp sử dụng)." },
+                      "antonyms": {
+                        "type": "array",
+                        "description": "Các từ trái nghĩa (nếu có), giúp mở rộng vốn từ.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "word": { "type": "string", "description": "Từ trái nghĩa." },
+                            "kanji_writing": { "type": "string", "description": "Cách viết Kanji của từ trái nghĩa." },
+                            "kanji_components": { "type": "array", "description": "Thành phần Kanji tương tự như trên." },
+                            "meaning_vi": { "type": "string", "description": "Nghĩa tiếng Việt của từ trái nghĩa." }
+                          }
+                        }
+                      },
+                      "examples_for_it_context": {
+                        "type": "array",
+                        "description": "Ít nhất 2 ví dụ thực tế về cách dùng từ, ưu tiên ngữ cảnh liên quan đến ngành IT/Phần mềm.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "original": { "type": "string", "description": "Câu ví dụ tiếng Nhật gốc." },
+                            "with_ruby": { "type": "string", "description": "Câu ví dụ có kèm furigana bằng thẻ <ruby>." },
+                            "english": { "type": "string", "description": "Dịch nghĩa ví dụ sang tiếng Anh." },
+                            "vietnamese": { "type": "string", "description": "Dịch nghĩa ví dụ sang tiếng Việt." }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "metadata": {
+              "type": "object",
+              "description": "Siêu dữ liệu phục vụ cho việc lọc và quản lý trên ứng dụng.",
+              "properties": {
+                "section_type": { "type": "string", "description": "Luôn là 'GOI'." },
+                "difficulty": { "type": "integer", "description": "Độ khó ước lượng từ 1 đến 5." },
+                "tags": {
+                  "type": "array",
+                  "description": "Các nhãn để phân loại (VD: 'verbs', 'antonyms', 'vocabulary_usage', 'IT_context').",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "goi_data": [
+    {
+      "id": "q_goi_n4n5_002",
+      "book_level": "N4-N5",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "GOI"
+      },
+      "question": {
+        "number": 2,
+        "type": "fill_in_the_blank",
+        "content": {
+          "original": "暑いですね。エアコンを___。",
+          "with_ruby": "<ruby>暑<rt>あつ</rt></ruby>いですね。エアコンを___。"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "つけましょう", "is_correct": true },
+        { "id": 2, "text": "あけましょう", "is_correct": false },
+        { "id": 3, "text": "おしましょう", "is_correct": false },
+        { "id": 4, "text": "ひらきましょう", "is_correct": false }
+      ],
+      "correct_answer_id": 1,
+      "explanation": {
+        "translations": {
+          "english": "It's hot. Let's turn the air conditioner on.",
+          "vietnamese": "Nóng nhỉ! Bật điều hòa lên đi!"
+        },
+        "grammar_and_usage_context": "V~ましょう dùng để rủ rê hoặc đề nghị cùng làm một việc gì đó. Với thiết bị điện (エアコン, テレビ, 電気), động từ bật là つける và tắt là けす. Không dùng あける (mở cửa/hộp) hay ひらく (mở sách/dù) cho thiết bị điện.",
+        "vocabulary_analysis": [
+          {
+            "word": "つける",
+            "kanji_writing": "点ける",
+            "kanji_components": [
+              {
+                "kanji": "点",
+                "sino_vietnamese": "ĐIỂM",
+                "meanings": "Điểm, đốt, thắp (lửa, điện)"
+              }
+            ],
+            "meaning_vi": "Bật (thiết bị điện, công tắc)",
+            "meaning_en": "To turn on",
+            "usage_notes": "Tha động từ. Dùng cho các thiết bị điện máy, máy móc. Thường đi với trợ từ を.",
+            "antonyms": [
+              {
+                "word": "けす",
+                "kanji_writing": "消す",
+                "kanji_components": [
+                  {
+                    "kanji": "消",
+                    "sino_vietnamese": "TIÊU",
+                    "meanings": "Tắt, xóa, làm biến mất"
+                  }
+                ],
+                "meaning_vi": "Tắt (thiết bị điện)"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "テストサーバーの電源をつけましょう。",
+                "with_ruby": "テストサーバーの<ruby>電源<rt>でんげん</rt></ruby>をつけましょう。",
+                "english": "Let's turn on the power for the test server.",
+                "vietnamese": "Hãy bật nguồn máy chủ test lên nào."
+              },
+              {
+                "original": "ミーティングが始まるので、マイクをつけてください。",
+                "with_ruby": "ミーティングが<ruby>始<rt>はじ</rt></ruby>まるので、マイクをつけてください。",
+                "english": "The meeting is starting, so please turn on your microphone.",
+                "vietnamese": "Cuộc họp sắp bắt đầu nên vui lòng bật micro lên."
+              }
+            ]
+          },
+          {
+            "word": "あける",
+            "kanji_writing": "開ける",
+            "kanji_components": [
+              {
+                "kanji": "開",
+                "sino_vietnamese": "KHAI",
+                "meanings": "Mở ra, khai thông"
+              }
+            ],
+            "meaning_vi": "Mở (cửa, hộp, tài khoản)",
+            "meaning_en": "To open",
+            "usage_notes": "Tha động từ. Dùng để mở vật có không gian khép kín (cửa, ngăn kéo, hộp) hoặc tạo ra khoảng trống.",
+            "antonyms": [
+              {
+                "word": "しめる",
+                "kanji_writing": "閉める",
+                "kanji_components": [
+                  {
+                    "kanji": "閉",
+                    "sino_vietnamese": "BẾ",
+                    "meanings": "Đóng lại, bế mạc"
+                  }
+                ],
+                "meaning_vi": "Đóng (cửa, hộp)"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "ファイアウォールのポートを開けてください。",
+                "with_ruby": "ファイアウォールのポートを<ruby>開<rt>あ</rt></ruby>けてください。",
+                "english": "Please open the firewall port.",
+                "vietnamese": "Vui lòng mở port của tường lửa."
+              },
+              {
+                "original": "フォルダを開けて、ログファイルを確認します。",
+                "with_ruby": "フォルダを<ruby>開<rt>あ</rt></ruby>けて、ログファイルを<ruby>確認<rt>かくにん</rt></ruby>します。",
+                "english": "Open the folder and check the log file.",
+                "vietnamese": "Mở thư mục ra và kiểm tra file log."
+              }
+            ]
+          },
+          {
+            "word": "おす",
+            "kanji_writing": "押す",
+            "kanji_components": [
+              {
+                "kanji": "押",
+                "sino_vietnamese": "ÁP",
+                "meanings": "Ấn, ép, đẩy"
+              }
+            ],
+            "meaning_vi": "Ấn, bấm, đẩy",
+            "meaning_en": "To push, to press",
+            "usage_notes": "Tha động từ. Dùng khi tác dụng lực vào một bề mặt, nút bấm, phím.",
+            "antonyms": [
+              {
+                "word": "ひく",
+                "kanji_writing": "引く",
+                "kanji_components": [
+                  {
+                    "kanji": "引",
+                    "sino_vietnamese": "DẪN",
+                    "meanings": "Kéo, rút"
+                  }
+                ],
+                "meaning_vi": "Kéo"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "送信ボタンを押すと、APIが叩かれます。",
+                "with_ruby": "<ruby>送信<rt>そうしん</rt></ruby>ボタンを<ruby>押<rt>お</rt></ruby>すと、APIが<ruby>叩<rt>たた</rt></ruby>かれます。",
+                "english": "When you press the submit button, the API is called.",
+                "vietnamese": "Khi nhấn nút gửi, API sẽ được gọi."
+              },
+              {
+                "original": "キーボードのEnterキーを押して実行します。",
+                "with_ruby": "キーボードのEnterキーを<ruby>押<rt>お</rt></ruby>して<ruby>実行<rt>じっこう</rt></ruby>します。",
+                "english": "Press the Enter key on the keyboard to execute.",
+                "vietnamese": "Nhấn phím Enter trên bàn phím để thực thi."
+              }
+            ]
+          },
+          {
+            "word": "ひらく",
+            "kanji_writing": "開く",
+            "kanji_components": [
+              {
+                "kanji": "開",
+                "sino_vietnamese": "KHAI",
+                "meanings": "Mở ra, khai thông"
+              }
+            ],
+            "meaning_vi": "Mở (sách, ô, sự kiện, file, trình duyệt)",
+            "meaning_en": "To open (books, umbrellas, files)",
+            "usage_notes": "Tha động từ / Tự động từ. Dùng để mở những vật đang được gấp lại hoặc đóng kín tỏa ra hai bên (sách, dù, hoa, trình duyệt web).",
+            "antonyms": [
+              {
+                "word": "とじる",
+                "kanji_writing": "閉じる",
+                "kanji_components": [
+                  {
+                    "kanji": "閉",
+                    "sino_vietnamese": "BẾ",
+                    "meanings": "Đóng lại, bế mạc"
+                  }
+                ],
+                "meaning_vi": "Đóng (sách, trình duyệt, ứng dụng)"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "ブラウザを開いて、ローカルホストにアクセスします。",
+                "with_ruby": "ブラウザを<ruby>開<rt>ひら</rt></ruby>いて、ローカルホストにアクセスします。",
+                "english": "Open the browser and access localhost.",
+                "vietnamese": "Mở trình duyệt lên và truy cập vào localhost."
+              },
+              {
+                "original": "ドロップダウンメニューを開くと、エラーが出ます。",
+                "with_ruby": "ドロップダウンメニューを<ruby>開<rt>ひら</rt></ruby>くと、エラーが<ruby>出<rt>で</rt></ruby>ます。",
+                "english": "When you open the dropdown menu, an error occurs.",
+                "vietnamese": "Khi mở menu dropdown ra thì bị lỗi."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "GOI",
+        "difficulty": 1,
+        "tags": ["vocabulary_usage", "verbs", "antonyms", "electronics"]
+      }
+    },
+    {
+      "id": "q_goi_n3_002",
+      "book_level": "N3",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "GOI"
+      },
+      "question": {
+        "number": 2,
+        "type": "fill_in_the_blank",
+        "content": {
+          "original": "荷物が届きましたが、それは私が注文したのと___。",
+          "with_ruby": "<ruby>荷物<rt>にもつ</rt></ruby>が<ruby>届<rt>とど</rt></ruby>きましたが、それは<ruby>私<rt>わたし</rt></ruby>が<ruby>注文<rt>ちゅうもん</rt></ruby>したのと___。"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "ちがかったです", "is_correct": false },
+        { "id": 2, "text": "まちがったです", "is_correct": false },
+        { "id": 3, "text": "ちがっていました", "is_correct": true },
+        { "id": 4, "text": "まちがえていました", "is_correct": false }
+      ],
+      "correct_answer_id": 3,
+      "explanation": {
+        "translations": {
+          "english": "The package arrived, but it was different from what I ordered.",
+          "vietnamese": "Hàng đã tới nhưng nó khác với đồ tôi đã đặt mua."
+        },
+        "grammar_and_usage_context": "Phân biệt 違う (Tự động từ: Khác nhau, sai lệch) và 間違える (Tha động từ: Làm sai, nhầm lẫn). Ở đây miêu tả trạng thái đồ vật nhận được 'khác' so với đồ đã đặt nên dùng 違っていました (trạng thái tiếp diễn/kết quả trong quá khứ). ちがかったです là sai ngữ pháp do 違う là động từ, không chia theo đuôi tính từ đuôi -i.",
+        "vocabulary_analysis": [
+          {
+            "word": "違う",
+            "kanji_writing": "違う",
+            "kanji_components": [
+              {
+                "kanji": "違",
+                "sino_vietnamese": "VI",
+                "meanings": "Sai khác, vi phạm, trái ngược"
+              }
+            ],
+            "meaning_vi": "Khác, sai",
+            "meaning_en": "To be different, to be wrong",
+            "usage_notes": "Tự động từ. Thường chia ở Vている để chỉ trạng thái. Cách dùng: AはBと違う (A khác B).",
+            "antonyms": [
+              {
+                "word": "おなじ",
+                "kanji_writing": "同じ",
+                "kanji_components": [
+                  {
+                    "kanji": "同",
+                    "sino_vietnamese": "ĐỒNG",
+                    "meanings": "Cùng, giống nhau"
+                  }
+                ],
+                "meaning_vi": "Giống nhau"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "APIのレスポンス形式が仕様書と違っています。",
+                "with_ruby": "APIのレスポンス<ruby>形式<rt>けいしき</rt></ruby>が<ruby>仕様書<rt>しようしょ</rt></ruby>と<ruby>違<rt>ちが</rt></ruby>っています。",
+                "english": "The API response format is different from the specification.",
+                "vietnamese": "Định dạng phản hồi của API khác với tài liệu đặc tả."
+              },
+              {
+                "original": "本番環境のバージョンと開発環境のバージョンが違います。",
+                "with_ruby": "<ruby>本番<rt>ほんばん</rt></ruby><ruby>環境<rt>かんきょう</rt></ruby>のバージョンと<ruby>開発<rt>かいはつ</rt></ruby><ruby>環境<rt>かんきょう</rt></ruby>のバージョンが<ruby>違<rt>ちが</rt></ruby>います。",
+                "english": "The version in the production environment is different from the development environment.",
+                "vietnamese": "Version của môi trường production khác với môi trường development."
+              }
+            ]
+          },
+          {
+            "word": "間違える",
+            "kanji_writing": "間違える",
+            "kanji_components": [
+              {
+                "kanji": "間",
+                "sino_vietnamese": "GIAN",
+                "meanings": "Khoảng cách, ở giữa"
+              },
+              {
+                "kanji": "違",
+                "sino_vietnamese": "VI",
+                "meanings": "Sai khác"
+              }
+            ],
+            "meaning_vi": "Làm sai, nhầm lẫn",
+            "meaning_en": "To make a mistake",
+            "usage_notes": "Tha động từ. Chỉ hành động của con người gây ra sự nhầm lẫn. Cách dùng: ~を間違える (Nhầm lẫn cái gì đó).",
+            "antonyms": [
+              {
+                "word": "ただす",
+                "kanji_writing": "正す",
+                "kanji_components": [
+                  {
+                    "kanji": "正",
+                    "sino_vietnamese": "CHÍNH",
+                    "meanings": "Đúng, sửa lại cho đúng"
+                  }
+                ],
+                "meaning_vi": "Sửa lại cho đúng"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "データベースのクエリを間違えて実行しました。",
+                "with_ruby": "データベースのクエリを<ruby>間違<rt>まちが</rt></ruby>えて<ruby>実行<rt>じっこう</rt></ruby>しました。",
+                "english": "I mistakenly executed the wrong database query.",
+                "vietnamese": "Tôi đã lỡ chạy nhầm câu query của database."
+              },
+              {
+                "original": "パスワードを間違えると、アカウントがロックされます。",
+                "with_ruby": "パスワードを<ruby>間違<rt>まちが</rt></ruby>えると、アカウントがロックされます。",
+                "english": "If you make a mistake with the password, your account will be locked.",
+                "vietnamese": "Nếu bạn nhập sai mật khẩu, tài khoản sẽ bị khóa."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "GOI",
+        "difficulty": 2,
+        "tags": ["vocabulary_usage", "intransitive_vs_transitive", "common_mistakes"]
+      }
+    },
+    {
+      "id": "q_goi_n2_001",
+      "book_level": "N2",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "GOI"
+      },
+      "question": {
+        "number": 2,
+        "type": "fill_in_the_blank",
+        "content": {
+          "original": "電子レンジは、50年前は珍しかったが、今ではどこの家にでもある___電化製品です。",
+          "with_ruby": "<ruby>電子<rt>でんし</rt></ruby>レンジは、50<ruby>年前<rt>ねんまえ</rt></ruby>は<ruby>珍<rt>めずら</rt></ruby>しかったが、<ruby>今<rt>いま</rt></ruby>ではどこの<ruby>家<rt>いえ</rt></ruby>にでもある___<ruby>電化製品<rt>でんかせいひん</rt></ruby>です。"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "ありふれた", "is_correct": true },
+        { "id": 2, "text": "おだやかな", "is_correct": false },
+        { "id": 3, "text": "なつかしい", "is_correct": false },
+        { "id": 4, "text": "ふさわしい", "is_correct": false }
+      ],
+      "correct_answer_id": 1,
+      "explanation": {
+        "translations": {
+          "english": "Microwaves were rare 50 years ago, but now, they are commonplace household appliances everywhere.",
+          "vietnamese": "Khoảng 50 năm trước, lò vi sóng còn hiếm thấy, nhưng bây giờ đã là thiết bị điện bình thường mà gia đình nào cũng có."
+        },
+        "grammar_and_usage_context": "Vế trước dùng 珍しい (hiếm) cùng từ nối が biểu thị sự tương phản. Vế sau cần một từ mang nghĩa phổ biến, bình thường. ありふれた (thông thường, quen thuộc tới mức nhàm chán/đâu cũng thấy) là từ phù hợp nhất.",
+        "vocabulary_analysis": [
+          {
+            "word": "ありふれた",
+            "kanji_writing": "有り触れた",
+            "kanji_components": [
+              {
+                "kanji": "有",
+                "sino_vietnamese": "HỮU",
+                "meanings": "Có, tồn tại"
+              },
+              {
+                "kanji": "触",
+                "sino_vietnamese": "XÚC",
+                "meanings": "Chạm vào, tiếp xúc"
+              }
+            ],
+            "meaning_vi": "Bình thường, thông thường, đâu cũng có",
+            "meaning_en": "Commonplace, garden variety",
+            "usage_notes": "Xuất phát từ động từ ありふれる chia ở thể た. Thường dùng miêu tả những thứ quá đỗi bình thường, thiếu sự độc đáo.",
+            "antonyms": [
+              {
+                "word": "めずらしい",
+                "kanji_writing": "珍しい",
+                "kanji_components": [
+                  {
+                    "kanji": "珍",
+                    "sino_vietnamese": "TRÂN",
+                    "meanings": "Hiếm, quý báu"
+                  }
+                ],
+                "meaning_vi": "Hiếm, lạ"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "このエラーは開発中にありふれた問題です。",
+                "with_ruby": "このエラーは<ruby>開発中<rt>かいはつちゅう</rt></ruby>にありふれた<ruby>問題<rt>もんだい</rt></ruby>です。",
+                "english": "This error is a commonplace problem during development.",
+                "vietnamese": "Lỗi này là một vấn đề rất đỗi bình thường hay gặp trong quá trình phát triển."
+              },
+              {
+                "original": "ありふれたUIデザインではなく、革新的なものを作りたい。",
+                "with_ruby": "ありふれたUIデザインではなく、<ruby>革新的<rt>かくしんてき</rt></ruby>なものを<ruby>作<rt>つく</rt></ruby>りたい。",
+                "english": "I want to create something innovative, not a commonplace UI design.",
+                "vietnamese": "Tôi muốn tạo ra một thứ gì đó đột phá thay vì một thiết kế UI nhạt nhòa phổ thông."
+              }
+            ]
+          },
+          {
+            "word": "おだやかな",
+            "kanji_writing": "穏やかな",
+            "kanji_components": [
+              {
+                "kanji": "穏",
+                "sino_vietnamese": "ỔN",
+                "meanings": "Ổn định, yên ả"
+              }
+            ],
+            "meaning_vi": "Ôn hòa, điềm tĩnh, êm đềm",
+            "meaning_en": "Calm, gentle, peaceful",
+            "usage_notes": "Tính từ đuôi な. Dùng để chỉ tính cách con người ôn hòa, hoặc thời tiết/tình trạng êm đềm.",
+            "antonyms": [
+              {
+                "word": "はげしい",
+                "kanji_writing": "激しい",
+                "kanji_components": [
+                  {
+                    "kanji": "激",
+                    "sino_vietnamese": "KHÍCH",
+                    "meanings": "Mãnh liệt, dữ dội"
+                  }
+                ],
+                "meaning_vi": "Mãnh liệt, dữ dội"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "リリース後のサーバーの稼働状況は穏やかです。",
+                "with_ruby": "リリース<ruby>後<rt>ご</rt></ruby>のサーバーの<ruby>稼働<rt>かどう</rt></ruby><ruby>状況<rt>じょうきょう</rt></ruby>は<ruby>穏<rt>おだ</rt></ruby>やかです。",
+                "english": "The server's operation status after release is calm.",
+                "vietnamese": "Tình trạng hoạt động của server sau khi release rất ổn định/êm đềm."
+              },
+              {
+                "original": "プロジェクトマネージャーは穏やかな性格で、チームをまとめます。",
+                "with_ruby": "プロジェクトマネージャーは<ruby>穏<rt>おだ</rt></ruby>やかな<ruby>性格<rt>せいかく</rt></ruby>で、チームをまとめます。",
+                "english": "The project manager has a gentle personality and brings the team together.",
+                "vietnamese": "Project Manager có tính cách ôn hòa, giúp gắn kết cả team."
+              }
+            ]
+          },
+          {
+            "word": "なつかしい",
+            "kanji_writing": "懐かしい",
+            "kanji_components": [
+              {
+                "kanji": "懐",
+                "sino_vietnamese": "HOÀI",
+                "meanings": "Nhớ nhung, hoài niệm"
+              }
+            ],
+            "meaning_vi": "Nhớ tiếc, hoài niệm",
+            "meaning_en": "Nostalgic",
+            "usage_notes": "Tính từ đuôi い. Dùng khi nhớ về một điều gì đó trong quá khứ với cảm xúc bồi hồi.",
+            "antonyms": [],
+            "examples_for_it_context": [
+              {
+                "original": "昔書いたレガシーコードを見ると、懐かしい気持ちになります。",
+                "with_ruby": "<ruby>昔<rt>むかし</rt></ruby><ruby>書<rt>か</rt></ruby>いたレガシーコードを<ruby>見<rt>み</rt></ruby>ると、<ruby>懐<rt>なつ</rt></ruby>かしい<ruby>気持<rt>きも</rt></ruby>ちになります。",
+                "english": "Looking at the legacy code I wrote a long time ago makes me feel nostalgic.",
+                "vietnamese": "Nhìn lại đoạn code legacy viết ngày xưa khiến tôi cảm thấy thật hoài niệm."
+              },
+              {
+                "original": "IE対応の苦労は、今となっては懐かしい思い出です。",
+                "with_ruby": "IE<ruby>対応<rt>たいおう</rt></ruby>の<ruby>苦労<rt>くろう</rt></ruby>は、<ruby>今<rt>いま</rt></ruby>となっては<ruby>懐<rt>なつ</rt></ruby>かしい<ruby>思<rt>おも</rt></ruby>い<ruby>出<rt>で</rt></ruby>です。",
+                "english": "The struggle of supporting IE is now a nostalgic memory.",
+                "vietnamese": "Nỗi khổ khi phải support trình duyệt IE giờ đã thành một kỷ niệm hoài cổ."
+              }
+            ]
+          },
+          {
+            "word": "ふさわしい",
+            "kanji_writing": "相応しい",
+            "kanji_components": [
+              {
+                "kanji": "相",
+                "sino_vietnamese": "TƯƠNG",
+                "meanings": "Cùng nhau, hỗ trợ"
+              },
+              {
+                "kanji": "応",
+                "sino_vietnamese": "ỨNG",
+                "meanings": "Đáp lại, phản ứng"
+              }
+            ],
+            "meaning_vi": "Phù hợp, thích hợp",
+            "meaning_en": "Fitting, worthy, appropriate",
+            "usage_notes": "Tính từ đuôi い. Đi kèm trợ từ に (AにふさわしいB = B phù hợp với A).",
+            "antonyms": [
+              {
+                "word": "ふさわしくない",
+                "kanji_writing": "相応しくない",
+                "kanji_components": [],
+                "meaning_vi": "Không phù hợp"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "この大規模システムにふさわしいアーキテクチャを選定します。",
+                "with_ruby": "この<ruby>大規模<rt>だいきぼ</rt></ruby>システムにふさわしいアーキテクチャを<ruby>選定<rt>せんてい</rt></ruby>します。",
+                "english": "We will select an architecture fitting for this large-scale system.",
+                "vietnamese": "Chúng ta sẽ lựa chọn kiến trúc phù hợp cho hệ thống quy mô lớn này."
+              },
+              {
+                "original": "彼はテックリードにふさわしい技術力を持っています。",
+                "with_ruby": "<ruby>彼<rt>かれ</rt></ruby>はテックリードにふさわしい<ruby>技術力<rt>ぎじゅつりょく</rt></ruby>を<ruby>持<rt>も</rt></ruby>っています。",
+                "english": "He has the technical skills appropriate for a tech lead.",
+                "vietnamese": "Anh ấy sở hữu năng lực kỹ thuật xứng tầm với vị trí Tech Lead."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "GOI",
+        "difficulty": 3,
+        "tags": ["adjectives", "vocabulary_context", "antonyms"]
+      }
+    },
+    {
+      "id": "q_goi_n1_001",
+      "book_level": "N1",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "GOI"
+      },
+      "question": {
+        "number": 2,
+        "type": "fill_in_the_blank",
+        "content": {
+          "original": "___言葉で話しかけてくる営業マンに、注意しよう。",
+          "with_ruby": "___<ruby>言葉<rt>ことば</rt></ruby>で<ruby>話<rt>はな</rt></ruby>しかけてくる<ruby>営業<rt>えいぎょう</rt></ruby>マンに、<ruby>注意<rt>ちゅうい</rt></ruby>しよう。"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "なれなれしい", "is_correct": true },
+        { "id": 2, "text": "すがすがしい", "is_correct": false },
+        { "id": 3, "text": "はなばなしい", "is_correct": false },
+        { "id": 4, "text": "そうぞうしい", "is_correct": false }
+      ],
+      "correct_answer_id": 1,
+      "explanation": {
+        "translations": {
+          "english": "Be careful of salespeople who try to talk to you in an overly friendly manner.",
+          "vietnamese": "Hãy thận trọng với những nhân viên kinh doanh có cách nói năng suồng sã."
+        },
+        "grammar_and_usage_context": "Câu mang ý nghĩa khuyên răn/cảnh giác (注意しよう). Thái độ giao tiếp của nhân viên kinh doanh cần được điền ở đây mang ý nghĩa tiêu cực, không giữ khoảng cách lịch sự cần thiết. なれなれしい (suồng sã, tỏ ra thân thiết quá mức) hoàn toàn phù hợp với bối cảnh này.",
+        "vocabulary_analysis": [
+          {
+            "word": "なれなれしい",
+            "kanji_writing": "馴れ馴れしい",
+            "kanji_components": [
+              {
+                "kanji": "馴",
+                "sino_vietnamese": "TUẦN",
+                "meanings": "Quen, thuần phục (động vật)"
+              }
+            ],
+            "meaning_vi": "Suồng sã, thân mật thái quá",
+            "meaning_en": "Overly friendly, familiar",
+            "usage_notes": "Tính từ miêu tả người không giữ phép lịch sự cơ bản, tỏ ra thân thiết như bạn bè lâu năm dù mới quen, mang sắc thái phê phán.",
+            "antonyms": [
+              {
+                "word": "よそよそしい",
+                "kanji_writing": "他所他所しい",
+                "kanji_components": [
+                  {
+                    "kanji": "他",
+                    "sino_vietnamese": "THA",
+                    "meanings": "Khác, người khác"
+                  },
+                  {
+                    "kanji": "所",
+                    "sino_vietnamese": "SỞ",
+                    "meanings": "Nơi chốn"
+                  }
+                ],
+                "meaning_vi": "Lạnh nhạt, xa cách"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "クライアントに馴れ馴れしいメールを送ってはいけません。",
+                "with_ruby": "クライアントに<ruby>馴<rt>な</rt></ruby>れ<ruby>馴<rt>な</rt></ruby>れしいメールを<ruby>送<rt>おく</rt></ruby>ってはいけません。",
+                "english": "You must not send overly familiar emails to clients.",
+                "vietnamese": "Không được gửi email với giọng điệu suồng sã cho khách hàng."
+              },
+              {
+                "original": "初対面のベンダーなのに、馴れ馴れしい態度をとられて不快だった。",
+                "with_ruby": "<ruby>初対面<rt>しょたいめん</rt></ruby>のベンダーなのに、<ruby>馴<rt>な</rt></ruby>れ<ruby>馴<rt>な</rt></ruby>れしい<ruby>態度<rt>たいど</rt></ruby>をとられて<ruby>不快<rt>ふかい</rt></ruby>だった。",
+                "english": "Even though it was my first time meeting the vendor, their overly familiar attitude made me uncomfortable.",
+                "vietnamese": "Dù là đối tác mới gặp lần đầu nhưng thái độ thân mật thái quá của họ khiến tôi khó chịu."
+              }
+            ]
+          },
+          {
+            "word": "すがすがしい",
+            "kanji_writing": "清々しい",
+            "kanji_components": [
+              {
+                "kanji": "清",
+                "sino_vietnamese": "THANH",
+                "meanings": "Trong sạch, thanh khiết"
+              }
+            ],
+            "meaning_vi": "Tươi tắn, sảng khoái, trong trẻo",
+            "meaning_en": "Refreshing",
+            "usage_notes": "Dùng để diễn tả cảm giác sảng khoái, trong lành (ví dụ: buổi sáng, thời tiết, tâm trạng, code sạch).",
+            "antonyms": [
+              {
+                "word": "うっとうしい",
+                "kanji_writing": "鬱陶しい",
+                "kanji_components": [],
+                "meaning_vi": "U ám, bức bối"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "古いコードをリファクタリングした後は、清々しい気分になります。",
+                "with_ruby": "<ruby>古<rt>ふる</rt></ruby>いコードをリファクタリングした<ruby>後<rt>あと</rt></ruby>は、<ruby>清<rt>すが</rt></ruby>々しい<ruby>気分<rt>きぶん</rt></ruby>になります。",
+                "english": "After refactoring old code, I feel refreshed.",
+                "vietnamese": "Sau khi refactor xong đống code cũ, tôi cảm thấy tâm trạng thật sảng khoái."
+              },
+              {
+                "original": "エラーが一つもない清々しいログ画面ですね。",
+                "with_ruby": "エラーが<ruby>一<rt>ひと</rt></ruby>つもない<ruby>清<rt>すが</rt></ruby>々しいログ<ruby>画面<rt>がめん</rt></ruby>ですね。",
+                "english": "It's a refreshing log screen with no errors at all.",
+                "vietnamese": "Một màn hình log trong trẻo không có lấy một lỗi nào nhỉ."
+              }
+            ]
+          },
+          {
+            "word": "はなばなしい",
+            "kanji_writing": "華々しい",
+            "kanji_components": [
+              {
+                "kanji": "華",
+                "sino_vietnamese": "HOA",
+                "meanings": "Hoa, tráng lệ, lộng lẫy"
+              }
+            ],
+            "meaning_vi": "Rực rỡ, lộng lẫy, hoành tráng",
+            "meaning_en": "Spectacular, brilliant",
+            "usage_notes": "Dùng để miêu tả sự thành công, sự kiện hoành tráng gây chú ý lớn.",
+            "antonyms": [
+              {
+                "word": "みすぼらしい",
+                "kanji_writing": "見すぼらしい",
+                "kanji_components": [],
+                "meaning_vi": "Tồi tàn, nghèo nàn"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "新しいアプリの華々しいローンチイベントが行われました。",
+                "with_ruby": "<ruby>新<rt>あたら</rt></ruby>しいアプリの<ruby>華<rt>はな</rt></ruby>々しいローンチイベントが<ruby>行<rt>おこな</rt></ruby>われました。",
+                "english": "A spectacular launch event for the new app was held.",
+                "vietnamese": "Một sự kiện ra mắt ứng dụng mới vô cùng hoành tráng đã được tổ chức."
+              },
+              {
+                "original": "彼はAIの分野で華々しい活躍をしています。",
+                "with_ruby": "<ruby>彼<rt>かれ</rt></ruby>はAIの<ruby>分野<rt>ぶんや</rt></ruby>で<ruby>華<rt>はな</rt></ruby>々しい<ruby>活躍<rt>かつやく</rt></ruby>をしています。",
+                "english": "He is doing brilliantly in the field of AI.",
+                "vietnamese": "Anh ấy đang hoạt động cực kỳ rực rỡ trong lĩnh vực AI."
+              }
+            ]
+          },
+          {
+            "word": "そうぞうしい",
+            "kanji_writing": "騒々しい",
+            "kanji_components": [
+              {
+                "kanji": "騒",
+                "sino_vietnamese": "TAO",
+                "meanings": "Ồn ào, làm ồn"
+              }
+            ],
+            "meaning_vi": "Ồn ào, huyên náo",
+            "meaning_en": "Noisy",
+            "usage_notes": "Đồng nghĩa với うるさい. Dùng để tả âm thanh, môi trường ồn ào không yên tĩnh.",
+            "antonyms": [
+              {
+                "word": "しずかな",
+                "kanji_writing": "静かな",
+                "kanji_components": [
+                  {
+                    "kanji": "静",
+                    "sino_vietnamese": "TĨNH",
+                    "meanings": "Yên tĩnh"
+                  }
+                ],
+                "meaning_vi": "Yên tĩnh"
+              }
+            ],
+            "examples_for_it_context": [
+              {
+                "original": "障害対応で、Slackのチャンネルが騒々しくなっています。",
+                "with_ruby": "<ruby>障害<rt>しょうがい</rt></ruby><ruby>対応<rt>たいおう</rt></ruby>で、Slackのチャンネルが<ruby>騒<rt>そう</rt></ruby>々しくなっています。",
+                "english": "The Slack channel is becoming noisy due to incident response.",
+                "vietnamese": "Kênh Slack đang trở nên ồn ào hỗn loạn do phải xử lý sự cố."
+              },
+              {
+                "original": "オフィスが騒々しくて、コーディングに集中できません。",
+                "with_ruby": "オフィスが<ruby>騒<rt>そう</rt></ruby>々しくて、コーディングに<ruby>集中<rt>しゅうちゅう</rt></ruby>できません。",
+                "english": "The office is so noisy that I can't concentrate on coding.",
+                "vietnamese": "Văn phòng ồn ào quá nên tôi không thể tập trung code được."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "GOI",
+        "difficulty": 4,
+        "tags": ["adjectives", "advanced_vocabulary", "social_nuance", "antonyms"]
+      }
+    }
+  ]
+}

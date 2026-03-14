@@ -1,0 +1,595 @@
+[
+  {
+    "id": "q_n1_001",
+    "book_level": "N1",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "MOJI"
+    },
+    "question": {
+      "number": 1,
+      "type": "kanji_reading",
+      "content": {
+        "original": "税金を納めるのは、国民の義務です。",
+        "with_ruby": "<ruby>税金<rt>ぜいきん</rt></ruby>を<ruby>納<rt>おさ</rt></ruby>めるのは、<ruby>国民<rt>こくみん</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>です。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "せめる",
+        "is_correct": false
+      },
+      {
+        "id": 2,
+        "text": "ながめる",
+        "is_correct": false
+      },
+      {
+        "id": 3,
+        "text": "しめる",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "おさめる",
+        "is_correct": true
+      }
+    ],
+    "correct_answer_id": 4,
+    "explanation": {
+      "translations": {
+        "english": "It is your obligation as a citizen to pay taxes.",
+        "vietnamese": "Nộp thuế là nghĩa vụ của công dân."
+      },
+      "kanji_focus": [
+        {
+          "kanji": "納",
+          "sino_vietnamese": "NẠP",
+          "meanings": {
+            "english": "Pay, supply, store",
+            "vietnamese": "Nộp, đóng, thu nạp"
+          },
+          "readings": {
+            "onyomi": [
+              "ノウ",
+              "ナッ"
+            ],
+            "kunyomi": [
+              "おさ.まる",
+              "おさ.める"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "納入",
+              "reading": "のうにゅう",
+              "meaning_vi": "Nộp, cung cấp, bàn giao",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "システムをクライアントに納入しました。",
+                  "with_ruby": "システムをクライアントに<ruby>納入<rt>のうにゅう</rt></ruby>しました。",
+                  "english": "Delivered the system to the client.",
+                  "vietnamese": "Đã bàn giao hệ thống cho khách hàng."
+                },
+                {
+                  "original": "AWSの料金を納入するのを忘れました。",
+                  "with_ruby": "AWSの<ruby>料金<rt>りょうきん</rt></ruby>を<ruby>納入<rt>のうにゅう</rt></ruby>するのを<ruby>忘<rt>わす</rt></ruby>れました。",
+                  "english": "I forgot to pay the AWS fees.",
+                  "vietnamese": "Tôi đã quên nộp phí AWS."
+                }
+              ]
+            },
+            {
+              "word": "納得",
+              "reading": "なっとく",
+              "meaning_vi": "Đồng ý, thấu hiểu",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "顧客は新しいアーキテクチャに納得しました。",
+                  "with_ruby": "<ruby>顧客<rt>こきゃく</rt></ruby>は<ruby>新<rt>あたら</rt></ruby>しいアーキテクチャに<ruby>納得<rt>なっとく</rt></ruby>しました。",
+                  "english": "The client agreed to the new architecture.",
+                  "vietnamese": "Khách hàng đã đồng ý với kiến trúc mới."
+                },
+                {
+                  "original": "バグの原因がやっと納得できました。",
+                  "with_ruby": "バグの<ruby>原因<rt>げんいん</rt></ruby>がやっと<ruby>納得<rt>なっとく</rt></ruby>できました。",
+                  "english": "I finally understood the cause of the bug.",
+                  "vietnamese": "Cuối cùng tôi đã hiểu rõ nguyên nhân của lỗi."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kanji": "攻",
+          "sino_vietnamese": "CÔNG",
+          "meanings": {
+            "english": "Attack",
+            "vietnamese": "Tấn công, công kích"
+          },
+          "readings": {
+            "onyomi": [
+              "コウ"
+            ],
+            "kunyomi": [
+              "せ.める"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "攻撃",
+              "reading": "こうげき",
+              "meaning_vi": "Tấn công",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "サーバーがDDoS攻撃を受けました。",
+                  "with_ruby": "サーバーがDDoS<ruby>攻撃<rt>こうげき</rt></ruby>を<ruby>受<rt>う</rt></ruby>けました。",
+                  "english": "The server received a DDoS attack.",
+                  "vietnamese": "Máy chủ đã bị tấn công DDoS."
+                },
+                {
+                  "original": "サイバー攻撃からシステムを守ります。",
+                  "with_ruby": "サイバー<ruby>攻撃<rt>こうげき</rt></ruby>からシステムを<ruby>守<rt>まも</rt></ruby>ります。",
+                  "english": "Protect the system from cyber attacks.",
+                  "vietnamese": "Bảo vệ hệ thống khỏi các cuộc tấn công mạng."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kanji": "締",
+          "sino_vietnamese": "ĐẾ",
+          "meanings": {
+            "english": "Tie, tighten",
+            "vietnamese": "Buộc, thắt, siết chặt"
+          },
+          "readings": {
+            "onyomi": [
+              "テイ"
+            ],
+            "kunyomi": [
+              "し.まる",
+              "し.める"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "締め切り",
+              "reading": "しめきり",
+              "meaning_vi": "Hạn chót (Deadline)",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "タスクの締め切りは金曜日です。",
+                  "with_ruby": "タスクの<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>りは<ruby>金曜日<rt>きんようび</rt></ruby>です。",
+                  "english": "The deadline for the task is Friday.",
+                  "vietnamese": "Hạn chót của task là thứ Sáu."
+                },
+                {
+                  "original": "プロジェクトの締め切りを守ります。",
+                  "with_ruby": "プロジェクトの<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>りを<ruby>守<rt>まも</rt></ruby>ります。",
+                  "english": "I will keep the project deadline.",
+                  "vietnamese": "Tôi sẽ đảm bảo đúng hạn chót của dự án."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "MOJI",
+      "difficulty": 4,
+      "source_file": "N1.pdf",
+      "tags": [
+        "vocabulary",
+        "kanji_reading",
+        "distractors_kanji"
+      ]
+    }
+  },
+  {
+    "id": "q_goi_n1_001",
+    "book_level": "N1",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "GOI"
+    },
+    "question": {
+      "number": 2,
+      "type": "fill_in_the_blank",
+      "content": {
+        "original": "___言葉で話しかけてくる営業マンに、注意しよう。",
+        "with_ruby": "___<ruby>言葉<rt>ことば</rt></ruby>で<ruby>話<rt>はな</rt></ruby>しかけてくる<ruby>営業<rt>えいぎょう</rt></ruby>マンに、<ruby>注意<rt>ちゅうい</rt></ruby>しよう。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "なれなれしい",
+        "is_correct": true
+      },
+      {
+        "id": 2,
+        "text": "すがすがしい",
+        "is_correct": false
+      },
+      {
+        "id": 3,
+        "text": "はなばなしい",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "そうぞうしい",
+        "is_correct": false
+      }
+    ],
+    "correct_answer_id": 1,
+    "explanation": {
+      "translations": {
+        "english": "Be careful of salespeople who try to talk to you in an overly friendly manner.",
+        "vietnamese": "Hãy thận trọng với những nhân viên kinh doanh có cách nói năng suồng sã."
+      },
+      "grammar_and_usage_context": "Câu mang ý nghĩa khuyên răn/cảnh giác (注意しよう). Thái độ giao tiếp của nhân viên kinh doanh cần được điền ở đây mang ý nghĩa tiêu cực, không giữ khoảng cách lịch sự cần thiết. なれなれしい (suồng sã, tỏ ra thân thiết quá mức) hoàn toàn phù hợp với bối cảnh này.",
+      "vocabulary_analysis": [
+        {
+          "word": "なれなれしい",
+          "kanji_writing": "馴れ馴れしい",
+          "kanji_components": [
+            {
+              "kanji": "馴",
+              "sino_vietnamese": "TUẦN",
+              "meanings": "Quen, thuần phục (động vật)"
+            }
+          ],
+          "meaning_vi": "Suồng sã, thân mật thái quá",
+          "meaning_en": "Overly friendly, familiar",
+          "usage_notes": "Tính từ miêu tả người không giữ phép lịch sự cơ bản, tỏ ra thân thiết như bạn bè lâu năm dù mới quen, mang sắc thái phê phán.",
+          "antonyms": [
+            {
+              "word": "よそよそしい",
+              "kanji_writing": "他所他所しい",
+              "kanji_components": [
+                {
+                  "kanji": "他",
+                  "sino_vietnamese": "THA",
+                  "meanings": "Khác, người khác"
+                },
+                {
+                  "kanji": "所",
+                  "sino_vietnamese": "SỞ",
+                  "meanings": "Nơi chốn"
+                }
+              ],
+              "meaning_vi": "Lạnh nhạt, xa cách"
+            }
+          ],
+          "examples_for_it_context": [
+            {
+              "original": "クライアントに馴れ馴れしいメールを送ってはいけません。",
+              "with_ruby": "クライアントに<ruby>馴<rt>な</rt></ruby>れ<ruby>馴<rt>な</rt></ruby>れしいメールを<ruby>送<rt>おく</rt></ruby>ってはいけません。",
+              "english": "You must not send overly familiar emails to clients.",
+              "vietnamese": "Không được gửi email với giọng điệu suồng sã cho khách hàng."
+            },
+            {
+              "original": "初対面のベンダーなのに、馴れ馴れしい態度をとられて不快だった。",
+              "with_ruby": "<ruby>初対面<rt>しょたいめん</rt></ruby>のベンダーなのに、<ruby>馴<rt>な</rt></ruby>れ<ruby>馴<rt>な</rt></ruby>れしい<ruby>態度<rt>たいど</rt></ruby>をとられて<ruby>不快<rt>ふかい</rt></ruby>だった。",
+              "english": "Even though it was my first time meeting the vendor, their overly familiar attitude made me uncomfortable.",
+              "vietnamese": "Dù là đối tác mới gặp lần đầu nhưng thái độ thân mật thái quá của họ khiến tôi khó chịu."
+            }
+          ]
+        },
+        {
+          "word": "すがすがしい",
+          "kanji_writing": "清々しい",
+          "kanji_components": [
+            {
+              "kanji": "清",
+              "sino_vietnamese": "THANH",
+              "meanings": "Trong sạch, thanh khiết"
+            }
+          ],
+          "meaning_vi": "Tươi tắn, sảng khoái, trong trẻo",
+          "meaning_en": "Refreshing",
+          "usage_notes": "Dùng để diễn tả cảm giác sảng khoái, trong lành (ví dụ: buổi sáng, thời tiết, tâm trạng, code sạch).",
+          "antonyms": [
+            {
+              "word": "うっとうしい",
+              "kanji_writing": "鬱陶しい",
+              "kanji_components": [],
+              "meaning_vi": "U ám, bức bối"
+            }
+          ],
+          "examples_for_it_context": [
+            {
+              "original": "古いコードをリファクタリングした後は、清々しい気分になります。",
+              "with_ruby": "<ruby>古<rt>ふる</rt></ruby>いコードをリファクタリングした<ruby>後<rt>あと</rt></ruby>は、<ruby>清<rt>すが</rt></ruby>々しい<ruby>気分<rt>きぶん</rt></ruby>になります。",
+              "english": "After refactoring old code, I feel refreshed.",
+              "vietnamese": "Sau khi refactor xong đống code cũ, tôi cảm thấy tâm trạng thật sảng khoái."
+            },
+            {
+              "original": "エラーが一つもない清々しいログ画面ですね。",
+              "with_ruby": "エラーが<ruby>一<rt>ひと</rt></ruby>つもない<ruby>清<rt>すが</rt></ruby>々しいログ<ruby>画面<rt>がめん</rt></ruby>ですね。",
+              "english": "It's a refreshing log screen with no errors at all.",
+              "vietnamese": "Một màn hình log trong trẻo không có lấy một lỗi nào nhỉ."
+            }
+          ]
+        },
+        {
+          "word": "はなばなしい",
+          "kanji_writing": "華々しい",
+          "kanji_components": [
+            {
+              "kanji": "華",
+              "sino_vietnamese": "HOA",
+              "meanings": "Hoa, tráng lệ, lộng lẫy"
+            }
+          ],
+          "meaning_vi": "Rực rỡ, lộng lẫy, hoành tráng",
+          "meaning_en": "Spectacular, brilliant",
+          "usage_notes": "Dùng để miêu tả sự thành công, sự kiện hoành tráng gây chú ý lớn.",
+          "antonyms": [
+            {
+              "word": "みすぼらしい",
+              "kanji_writing": "見すぼらしい",
+              "kanji_components": [],
+              "meaning_vi": "Tồi tàn, nghèo nàn"
+            }
+          ],
+          "examples_for_it_context": [
+            {
+              "original": "新しいアプリの華々しいローンチイベントが行われました。",
+              "with_ruby": "<ruby>新<rt>あたら</rt></ruby>しいアプリの<ruby>華<rt>はな</rt></ruby>々しいローンチイベントが<ruby>行<rt>おこな</rt></ruby>われました。",
+              "english": "A spectacular launch event for the new app was held.",
+              "vietnamese": "Một sự kiện ra mắt ứng dụng mới vô cùng hoành tráng đã được tổ chức."
+            },
+            {
+              "original": "彼はAIの分野で華々しい活躍をしています。",
+              "with_ruby": "<ruby>彼<rt>かれ</rt></ruby>はAIの<ruby>分野<rt>ぶんや</rt></ruby>で<ruby>華<rt>はな</rt></ruby>々しい<ruby>活躍<rt>かつやく</rt></ruby>をしています。",
+              "english": "He is doing brilliantly in the field of AI.",
+              "vietnamese": "Anh ấy đang hoạt động cực kỳ rực rỡ trong lĩnh vực AI."
+            }
+          ]
+        },
+        {
+          "word": "そうぞうしい",
+          "kanji_writing": "騒々しい",
+          "kanji_components": [
+            {
+              "kanji": "騒",
+              "sino_vietnamese": "TAO",
+              "meanings": "Ồn ào, làm ồn"
+            }
+          ],
+          "meaning_vi": "Ồn ào, huyên náo",
+          "meaning_en": "Noisy",
+          "usage_notes": "Đồng nghĩa với うるさい. Dùng để tả âm thanh, môi trường ồn ào không yên tĩnh.",
+          "antonyms": [
+            {
+              "word": "しずかな",
+              "kanji_writing": "静かな",
+              "kanji_components": [
+                {
+                  "kanji": "静",
+                  "sino_vietnamese": "TĨNH",
+                  "meanings": "Yên tĩnh"
+                }
+              ],
+              "meaning_vi": "Yên tĩnh"
+            }
+          ],
+          "examples_for_it_context": [
+            {
+              "original": "障害対応で、Slackのチャンネルが騒々しくなっています。",
+              "with_ruby": "<ruby>障害<rt>しょうがい</rt></ruby><ruby>対応<rt>たいおう</rt></ruby>で、Slackのチャンネルが<ruby>騒<rt>そう</rt></ruby>々しくなっています。",
+              "english": "The Slack channel is becoming noisy due to incident response.",
+              "vietnamese": "Kênh Slack đang trở nên ồn ào hỗn loạn do phải xử lý sự cố."
+            },
+            {
+              "original": "オフィスが騒々しくて、コーディングに集中できません。",
+              "with_ruby": "オフィスが<ruby>騒<rt>そう</rt></ruby>々しくて、コーディングに<ruby>集中<rt>しゅうちゅう</rt></ruby>できません。",
+              "english": "The office is so noisy that I can't concentrate on coding.",
+              "vietnamese": "Văn phòng ồn ào quá nên tôi không thể tập trung code được."
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "GOI",
+      "difficulty": 4,
+      "tags": [
+        "adjectives",
+        "advanced_vocabulary",
+        "social_nuance",
+        "antonyms"
+      ]
+    }
+  },
+  {
+    "id": "q_bunpo_n4n5_001",
+    "book_level": "N4-N5",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "BUNPO"
+    },
+    "question": {
+      "number": 3,
+      "type": "multiple_choice",
+      "content": {
+        "original": "黒いペン___書いてください。",
+        "with_ruby": "<ruby>黒<rt>くろ</rt></ruby>いペン___<ruby>書<rt>か</rt></ruby>いてください。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "を",
+        "is_correct": false
+      },
+      {
+        "id": 2,
+        "text": "に",
+        "is_correct": false
+      },
+      {
+        "id": 3,
+        "text": "が",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "で",
+        "is_correct": true
+      }
+    ],
+    "correct_answer_id": 4,
+    "explanation": {
+      "translations": {
+        "english": "Please write with a black pen.",
+        "vietnamese": "Vui lòng viết bằng bút đen."
+      },
+      "general_explanation": "Trợ từ で có nhiều cách sử dụng, nhưng trong trường hợp này nó chỉ ra công cụ, phương tiện để thực hiện hành động. Để hiểu sâu hơn, ta sẽ phân tích thêm các cách dùng khác của で và cấu trúc tương đương.",
+      "grammar_breakdown": [
+        {
+          "grammar_pattern": "N ＋ で (Phương tiện / Công cụ)",
+          "meaning_vi": "Bằng (công cụ, phương tiện, phương pháp, ngôn ngữ)",
+          "meaning_en": "By means of, with, using",
+          "formation": "Danh từ (Phương tiện) ＋ で",
+          "usage_notes": "Sử dụng để biểu thị việc dùng vật gì, công cụ gì hoặc ngôn ngữ gì để thực hiện hành động.",
+          "textbook_examples": [
+            {
+              "original": "黒いペンで書いてください。",
+              "with_ruby": "<ruby>黒<rt>くろ</rt></ruby>いペンで<ruby>書<rt>か</rt></ruby>いてください。",
+              "english": "Please write with a black pen.",
+              "vietnamese": "Vui lòng viết bằng bút đen."
+            }
+          ],
+          "it_context_examples": [
+            {
+              "original": "バックエンドはPythonで開発しています。",
+              "with_ruby": "バックエンドはPythonで<ruby>開発<rt>かいはつ</rt></ruby>しています。",
+              "english": "We are developing the backend with Python.",
+              "vietnamese": "Chúng tôi đang phát triển backend bằng Python."
+            },
+            {
+              "original": "Dockerでテスト環境を構築しました。",
+              "with_ruby": "Dockerでテスト<ruby>環境<rt>かんきょう</rt></ruby>を<ruby>構築<rt>こうちく</rt></ruby>しました。",
+              "english": "I built the test environment using Docker.",
+              "vietnamese": "Tôi đã xây dựng môi trường test bằng Docker."
+            },
+            {
+              "original": "APIの動作はPostmanで確認できます。",
+              "with_ruby": "APIの<ruby>動作<rt>どうさ</rt></ruby>はPostmanで<ruby>確認<rt>かくにん</rt></ruby>できます。",
+              "english": "You can verify the API's behavior using Postman.",
+              "vietnamese": "Có thể kiểm tra hoạt động của API bằng Postman."
+            }
+          ]
+        },
+        {
+          "grammar_pattern": "N ＋ を使って",
+          "meaning_vi": "Sử dụng... (Cấu trúc tương đương Nで)",
+          "meaning_en": "Using... (Equivalent to Nで)",
+          "formation": "Danh từ ＋ を使って (を使います)",
+          "usage_notes": "Là cách diễn đạt rõ ràng hơn của hành động 'sử dụng một cái gì đó' làm công cụ. Hoàn toàn có thể thay thế cho Nで trong ý nghĩa công cụ.",
+          "textbook_examples": [],
+          "it_context_examples": [
+            {
+              "original": "Reactを使って、フロントエンドを実装します。",
+              "with_ruby": "Reactを<ruby>使<rt>つか</rt></ruby>って、フロントエンドを<ruby>実装<rt>じっそう</rt></ruby>します。",
+              "english": "We will implement the frontend using React.",
+              "vietnamese": "Chúng ta sẽ implement phần frontend sử dụng React."
+            },
+            {
+              "original": "SSHを使って、リモートサーバーにログインします。",
+              "with_ruby": "SSHを<ruby>使<rt>つか</rt></ruby>って、リモートサーバーにログインします。",
+              "english": "I will log in to the remote server using SSH.",
+              "vietnamese": "Tôi sẽ đăng nhập vào remote server sử dụng giao thức SSH."
+            },
+            {
+              "original": "このライブラリを使って、グラフを描画してください。",
+              "with_ruby": "このライブラリを<ruby>使<rt>つか</rt></ruby>って、グラフを<ruby>描画<rt>びょうが</rt></ruby>してください。",
+              "english": "Please draw the graph using this library.",
+              "vietnamese": "Vui lòng vẽ biểu đồ sử dụng thư viện này."
+            }
+          ]
+        },
+        {
+          "grammar_pattern": "N ＋ で (Nguyên nhân / Lý do)",
+          "meaning_vi": "Vì, do (Nguyên nhân)",
+          "meaning_en": "Due to, because of",
+          "formation": "Danh từ (Tai nạn, thiên tai, lỗi...) ＋ で",
+          "usage_notes": "Một cách dùng khác rất phổ biến của で, chỉ ra nguyên nhân khách quan dẫn đến một hệ quả nào đó.",
+          "textbook_examples": [],
+          "it_context_examples": [
+            {
+              "original": "急なトラフィック増加で、サーバーがダウンしました。",
+              "with_ruby": "<ruby>急<rt>きゅう</rt></ruby>なトラフィック<ruby>増加<rt>ぞうか</rt></ruby>で、サーバーがダウンしました。",
+              "english": "Due to a sudden increase in traffic, the server went down.",
+              "vietnamese": "Do lượng truy cập tăng đột biến, server đã bị sập."
+            },
+            {
+              "original": "タイポのミスで、ビルドが失敗してしまった。",
+              "with_ruby": "タイポのミスで、ビルドが<ruby>失敗<rt>しっぱい</rt></ruby>してしまった。",
+              "english": "Due to a typo mistake, the build failed.",
+              "vietnamese": "Do lỗi gõ nhầm (typo) mà quá trình build đã thất bại."
+            },
+            {
+              "original": "ネットワークの障害で、データベースに接続できません。",
+              "with_ruby": "ネットワークの<ruby>障害<rt>しょうがい</rt></ruby>で、データベースに<ruby>接続<rt>せつぞく</rt></ruby>できません。",
+              "english": "Due to a network failure, I cannot connect to the database.",
+              "vietnamese": "Vì sự cố mạng nên không thể kết nối tới cơ sở dữ liệu."
+            }
+          ]
+        },
+        {
+          "grammar_pattern": "N ＋ に (Điểm đến / Nơi tồn tại)",
+          "meaning_vi": "Ở, tại, vào (Thời gian, Không gian)",
+          "meaning_en": "At, in, on (Target, Location)",
+          "formation": "Danh từ (Thời gian, Địa điểm) ＋ に",
+          "usage_notes": "Là đáp án sai trong câu hỏi, nhưng là trợ từ hay bị nhầm với で. に nhấn mạnh ĐIỂM ĐẾN của hành động (viết vào đâu) hoặc NƠI TỒN TẠI (có ở đâu).",
+          "textbook_examples": [],
+          "it_context_examples": [
+            {
+              "original": "ログをテキストファイルに書き出してください。",
+              "with_ruby": "ログをテキストファイルに<ruby>書<rt>か</rt></ruby>き<ruby>出<rt>だ</rt></ruby>してください。",
+              "english": "Please write the logs out to a text file.",
+              "vietnamese": "Vui lòng xuất log ra vào một file text."
+            },
+            {
+              "original": "変更をマスターブランチにマージします。",
+              "with_ruby": "<ruby>変更<rt>へんこう</rt></ruby>をマスターブランチにマージします。",
+              "english": "I will merge the changes into the master branch.",
+              "vietnamese": "Tôi sẽ merge các thay đổi vào nhánh master."
+            },
+            {
+              "original": "新しいデータをデータベースに保存しました。",
+              "with_ruby": "<ruby>新<rt>あたら</rt></ruby>しいデータをデータベースに<ruby>保存<rt>ほぞん</rt></ruby>しました。",
+              "english": "I saved the new data into the database.",
+              "vietnamese": "Tôi đã lưu dữ liệu mới vào cơ sở dữ liệu."
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "BUNPO",
+      "difficulty": 1,
+      "tags": [
+        "particles",
+        "tool_means",
+        "basic_grammar",
+        "particle_contrast"
+      ]
+    }
+  }
+]

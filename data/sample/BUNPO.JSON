@@ -1,0 +1,752 @@
+{
+  "schema_explanation_for_BUNPO": {
+    "description": "Cấu trúc JSON chi tiết đỉnh cao dùng để lưu trữ dữ liệu câu hỏi phần BUNPO (Ngữ pháp) cho ứng dụng học tiếng Nhật. Schema này được thiết kế để mở rộng tối đa, bao phủ mọi ngữ pháp con, ngữ pháp tương đương, và tích hợp hàng loạt ví dụ ứng dụng thực tế theo domain (IT).",
+    "type": "object",
+    "properties": {
+      "bunpo_data": {
+        "type": "array",
+        "description": "Danh sách các câu hỏi trắc nghiệm ngữ pháp.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string", "description": "Mã định danh duy nhất (VD: 'q_bunpo_n1_003')." },
+            "book_level": { "type": "string", "description": "Cấp độ N (VD: 'N1', 'N2')." },
+            "chapter": {
+              "type": "object",
+              "properties": {
+                "week": { "type": "string" },
+                "day": { "type": "string" },
+                "section": { "type": "string", "description": "Luôn là 'BUNPO'." }
+              }
+            },
+            "question": {
+              "type": "object",
+              "properties": {
+                "number": { "type": "integer" },
+                "type": { "type": "string" },
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "original": { "type": "string" },
+                    "with_ruby": { "type": "string", "description": "HTML ruby tags." }
+                  }
+                }
+              }
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "integer" },
+                  "text": { "type": "string" },
+                  "is_correct": { "type": "boolean" }
+                }
+              }
+            },
+            "correct_answer_id": { "type": "integer" },
+            "explanation": {
+              "type": "object",
+              "description": "Phần giải thích cực kỳ chi tiết, bóc tách mọi tầng lớp của ngữ pháp.",
+              "properties": {
+                "translations": {
+                  "type": "object",
+                  "properties": {
+                    "english": { "type": "string" },
+                    "vietnamese": { "type": "string" }
+                  }
+                },
+                "general_explanation": { "type": "string", "description": "Giải thích tổng quan lý do chọn đáp án." },
+                "grammar_breakdown": {
+                  "type": "array",
+                  "description": "Danh sách các ngữ pháp con, ngữ pháp tương đương, hoặc ngữ pháp mở rộng liên quan đến câu hỏi. Mỗi item là một điểm ngữ pháp chi tiết.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "grammar_pattern": { "type": "string", "description": "Cấu trúc ngữ pháp con/tương đương." },
+                      "meaning_vi": { "type": "string" },
+                      "meaning_en": { "type": "string" },
+                      "formation": { "type": "string", "description": "Cách chia/kết hợp." },
+                      "usage_notes": { "type": "string", "description": "Lưu ý sử dụng sắc thái." },
+                      "textbook_examples": {
+                        "type": "array",
+                        "description": "Các ví dụ có sẵn trong sách/hình ảnh.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "original": { "type": "string" },
+                            "with_ruby": { "type": "string" },
+                            "english": { "type": "string" },
+                            "vietnamese": { "type": "string" }
+                          }
+                        }
+                      },
+                      "it_context_examples": {
+                        "type": "array",
+                        "description": "Ít nhất 3 ví dụ IT thực tế cho MỖI cấu trúc ngữ pháp con.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "original": { "type": "string" },
+                            "with_ruby": { "type": "string" },
+                            "english": { "type": "string" },
+                            "vietnamese": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "metadata": {
+              "type": "object",
+              "properties": {
+                "section_type": { "type": "string" },
+                "difficulty": { "type": "integer" },
+                "tags": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "bunpo_data": [
+    {
+      "id": "q_bunpo_n1_003",
+      "book_level": "N1",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "BUNPO"
+      },
+      "question": {
+        "number": 3,
+        "type": "fill_in_the_blank",
+        "content": {
+          "original": "態度が悪いのはあの店員に___ことではない。",
+          "with_ruby": "<ruby>態度<rt>たいど</rt></ruby>が<ruby>悪<rt>わる</rt></ruby>いのはあの<ruby>店員<rt>てんいん</rt></ruby>に___ことではない。"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "限る", "is_correct": false },
+        { "id": 2, "text": "限らない", "is_correct": false },
+        { "id": 3, "text": "限って", "is_correct": false },
+        { "id": 4, "text": "限った", "is_correct": true }
+      ],
+      "correct_answer_id": 4,
+      "explanation": {
+        "translations": {
+          "english": "Bad attitude is not limited to just that shop clerk (it's common among others too).",
+          "vietnamese": "Thái độ phục vụ tồi không chỉ giới hạn ở mỗi nhân viên đó đâu (mà còn phổ biến ở những nhân viên khác nữa)."
+        },
+        "general_explanation": "Dựa trên tài liệu ảnh, cấu trúc gốc của chữ 限る ở N1 được chia thành 2 nhánh nghĩa chính, đồng thời có 2 mẫu ngữ pháp tương đương. Phần này bóc tách thành 4 mẫu ngữ pháp con hoàn chỉnh.",
+        "grammar_breakdown": [
+          {
+            "grammar_pattern": "〜に限る",
+            "meaning_vi": "Là tốt nhất / Là tuyệt nhất",
+            "meaning_en": "Is the best / Nothing is better than",
+            "formation": "N / Vる / Vない ＋ に限る",
+            "usage_notes": "Dùng để diễn đạt ý kiến chủ quan của người nói rằng trong tình huống đó, phương pháp hoặc sự vật đó là sự lựa chọn tối ưu nhất.",
+            "textbook_examples": [
+              {
+                "original": "疲れたときは、温泉に行くに限る。",
+                "with_ruby": "<ruby>疲<rt>つか</rt></ruby>れたときは、<ruby>温泉<rt>おんせん</rt></ruby>に<ruby>行<rt>い</rt></ruby>くに<ruby>限<rt>かぎ</rt></ruby>る。",
+                "english": "When you are tired, going to a hot spring is the best.",
+                "vietnamese": "Lúc mệt mỏi thì đi tắm suối nước nóng là tuyệt nhất."
+              }
+            ],
+            "it_context_examples": [
+              {
+                "original": "本番環境で障害が発生した時は、まずサーバーのログを確認するに限る。",
+                "with_ruby": "<ruby>本番<rt>ほんばん</rt></ruby><ruby>環境<rt>かんきょう</rt></ruby>で<ruby>障害<rt>しょうがい</rt></ruby>が<ruby>発生<rt>はっせい</rt></ruby>した<ruby>時<rt>とき</rt></ruby>は、まずサーバーのログを<ruby>確認<rt>かくにん</rt></ruby>するに<ruby>限<rt>かぎ</rt></ruby>る。",
+                "english": "When a failure occurs in the production environment, checking the server logs first is the best approach.",
+                "vietnamese": "Khi xảy ra sự cố trên môi trường production, trước tiên cứ check log server là tốt nhất."
+              },
+              {
+                "original": "新しいフレームワークを学ぶ時は、公式ドキュメントを読むに限る。",
+                "with_ruby": "<ruby>新<rt>あたら</rt></ruby>しいフレームワークを<ruby>学<rt>まな</rt></ruby>ぶ<ruby>時<rt>とき</rt></ruby>は、<ruby>公式<rt>こうしき</rt></ruby>ドキュメントを<ruby>読<rt>よ</rt></ruby>むに<ruby>限<rt>かぎ</rt></ruby>る。",
+                "english": "When learning a new framework, reading the official documentation is the best way.",
+                "vietnamese": "Khi học một framework mới, đọc tài liệu chính thức (official docs) là tuyệt nhất."
+              },
+              {
+                "original": "複雑なロジックを実装する前は、フローチャートを書くに限る。",
+                "with_ruby": "<ruby>複雑<rt>ふくざつ</rt></ruby>なロジックを<ruby>実装<rt>じっそう</rt></ruby>する<ruby>前<rt>まえ</rt></ruby>は、フローチャートを<ruby>書<rt>か</rt></ruby>くに<ruby>限<rt>かぎ</rt></ruby>る。",
+                "english": "Before implementing complex logic, drawing a flowchart is the best.",
+                "vietnamese": "Trước khi implement các logic phức tạp, vẽ flowchart ra là giải pháp tối ưu nhất."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜が一番いい",
+            "meaning_vi": "Là tốt nhất (Cách nói tương đương với 〜に限る)",
+            "meaning_en": "Is the best (Equivalent to 〜に限る)",
+            "formation": "N / Vること ＋ が一番いい",
+            "usage_notes": "Đây là mẫu câu tương đương trực tiếp với 〜に限る, mang sắc thái đời thường và dễ hiểu hơn, thường dùng trong văn nói.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "セキュリティを考慮すると、パスワードは定期的に変更するのが一番いい。",
+                "with_ruby": "セキュリティを<ruby>考慮<rt>こうりょ</rt></ruby>すると、パスワードは<ruby>定期的<rt>ていきてき</rt></ruby>に<ruby>変更<rt>へんこう</rt></ruby>するのが<ruby>一番<rt>いちばん</rt></ruby>いい。",
+                "english": "Considering security, changing passwords regularly is the best.",
+                "vietnamese": "Nếu xét về mặt bảo mật, việc thay đổi mật khẩu định kỳ là tốt nhất."
+              },
+              {
+                "original": "パフォーマンスを上げるためには、データベースのインデックスを最適化するのが一番いい。",
+                "with_ruby": "パフォーマンスを<ruby>上<rt>あ</rt></ruby>げるためには、データベースのインデックスを<ruby>最適化<rt>さいてきか</rt></ruby>するのが<ruby>一番<rt>いちばん</rt></ruby>いい。",
+                "english": "To improve performance, optimizing database indexes is the best method.",
+                "vietnamese": "Để tăng hiệu suất, việc tối ưu hóa index của database là cách tốt nhất."
+              },
+              {
+                "original": "チーム開発では、Gitのようなバージョン管理システムを使うのが一番いい。",
+                "with_ruby": "チーム<ruby>開発<rt>かいはつ</rt></ruby>では、Gitのようなバージョン<ruby>管理<rt>かんり</rt></ruby>システムを<ruby>使<rt>つか</rt></ruby>うのが<ruby>一番<rt>いちばん</rt></ruby>いい。",
+                "english": "In team development, using a version control system like Git is the best.",
+                "vietnamese": "Trong phát triển phần mềm theo nhóm, sử dụng hệ thống quản lý phiên bản như Git là tốt nhất."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜に限ったことではない",
+            "meaning_vi": "Không chỉ giới hạn ở...",
+            "meaning_en": "Not limited to...",
+            "formation": "N ＋ に限ったことではない",
+            "usage_notes": "Sử dụng để chỉ ra rằng một vấn đề, hiện tượng nào đó (thường là tiêu cực) không chỉ xảy ra với đối tượng đang được nhắc đến, mà còn diễn ra ở những đối tượng khác.",
+            "textbook_examples": [
+              {
+                "original": "態度が悪いのはあの店員に限ったことではない。",
+                "with_ruby": "<ruby>態度<rt>たいど</rt></ruby>が<ruby>悪<rt>わる</rt></ruby>いのはあの<ruby>店員<rt>てんいん</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ったことではない。",
+                "english": "Bad attitude is not limited to just that shop clerk.",
+                "vietnamese": "Thái độ phục vụ tồi không chỉ giới hạn ở mỗi nhân viên đó đâu."
+              }
+            ],
+            "it_context_examples": [
+              {
+                "original": "仕様書に不備があるのは、このプロジェクトに限ったことではない。",
+                "with_ruby": "<ruby>仕様書<rt>しようしょ</rt></ruby>に<ruby>不備<rt>ふび</rt></ruby>があるのは、このプロジェクトに<ruby>限<rt>かぎ</rt></ruby>ったことではない。",
+                "english": "Flaws in the specification document are not limited to this project.",
+                "vietnamese": "Việc tài liệu đặc tả (spec) có sai sót không phải là chuyện chỉ có ở dự án này."
+              },
+              {
+                "original": "リリース直後にバグが多発するのは、うちの会社に限ったことではない。",
+                "with_ruby": "リリース<ruby>直後<rt>ちょくご</rt></ruby>にバグが<ruby>多発<rt>たはつ</rt></ruby>するのは、うちの<ruby>会社<rt>かいしゃ</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ったことではない。",
+                "english": "Frequent bugs immediately after release are not limited to our company.",
+                "vietnamese": "Việc bug phát sinh liên tục ngay sau khi release không phải là chuyện riêng của công ty chúng ta."
+              },
+              {
+                "original": "古いシステムが技術的負債になるのは、金融業界に限ったことではない。",
+                "with_ruby": "<ruby>古<rt>ふる</rt></ruby>いシステムが<ruby>技術的負債<rt>ぎじゅつてきふさい</rt></ruby>になるのは、<ruby>金融<rt>きんゆう</rt></ruby><ruby>業界<rt>ぎょうかい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ったことではない。",
+                "english": "Old systems becoming technical debt is not limited to the financial industry.",
+                "vietnamese": "Việc các hệ thống cũ trở thành nợ kỹ thuật (technical debt) không chỉ giới hạn ở ngành tài chính."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜だけではない",
+            "meaning_vi": "Không chỉ riêng... (Cách nói tương đương với 〜に限ったことではない)",
+            "meaning_en": "Not only... (Equivalent to 〜に限ったことではない)",
+            "formation": "N / Vる / Adj ＋ だけではない",
+            "usage_notes": "Là mẫu cấu trúc phổ biến và cơ bản hơn để diễn đạt ý 'không chỉ có A mà còn có B'. Có thể dùng cho cả ý tích cực lẫn tiêu cực.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "このAPIはデータを取得するだけではない。データの更新も可能だ。",
+                "with_ruby": "このAPIはデータを<ruby>取得<rt>しゅとく</rt></ruby>するだけではない。データの<ruby>更新<rt>こうしん</rt></ruby>も<ruby>可能<rt>かのう</rt></ruby>だ。",
+                "english": "This API does not only fetch data. It can also update data.",
+                "vietnamese": "API này không chỉ dùng để lấy dữ liệu. Nó còn có khả năng cập nhật dữ liệu nữa."
+              },
+              {
+                "original": "クラウド移行のメリットはコスト削減だけではない。",
+                "with_ruby": "クラウド<ruby>移行<rt>いこう</rt></ruby>のメリットはコスト<ruby>削減<rt>さくげん</rt></ruby>だけではない。",
+                "english": "The benefits of cloud migration are not just cost reduction.",
+                "vietnamese": "Lợi ích của việc chuyển đổi lên Cloud không chỉ nằm ở việc cắt giảm chi phí."
+              },
+              {
+                "original": "ハッカーの標的になるのは大企業だけではない。中小企業も狙われている。",
+                "with_ruby": "ハッカーの<ruby>標的<rt>ひょうてき</rt></ruby>になるのは<ruby>大企業<rt>だいきぎょう</rt></ruby>だけではない。<ruby>中小<rt>ちゅうしょう</rt></ruby><ruby>企業<rt>きぎょう</rt></ruby>も<ruby>狙<rt>ねら</rt></ruby>われている。",
+                "english": "Large enterprises are not the only targets of hackers. Small and medium-sized enterprises are also targeted.",
+                "vietnamese": "Mục tiêu của hacker không chỉ là các doanh nghiệp lớn. Các công ty vừa và nhỏ cũng đang bị nhắm tới."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "BUNPO",
+        "difficulty": 4,
+        "tags": ["limitation", "negative_context", "equivalents", "advanced_grammar"]
+      }
+    },
+    {
+      "id": "q_bunpo_n2_003",
+      "book_level": "N2",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "BUNPO"
+      },
+      "question": {
+        "number": 3,
+        "type": "fill_in_the_blank",
+        "content": {
+          "original": "風邪___なので、今日は早く寝よう。",
+          "with_ruby": "<ruby>風邪<rt>かぜ</rt></ruby>___なので、<ruby>今日<rt>きょう</rt></ruby>は<ruby>早<rt>はや</rt></ruby>く<ruby>寝<rt>ね</rt></ruby>よう。"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "げ", "is_correct": false },
+        { "id": 2, "text": "がち", "is_correct": false },
+        { "id": 3, "text": "め", "is_correct": false },
+        { "id": 4, "text": "ぎみ", "is_correct": true }
+      ],
+      "correct_answer_id": 4,
+      "explanation": {
+        "translations": {
+          "english": "I feel a bit like I'm catching a cold, so I'll go to bed early today.",
+          "vietnamese": "Tôi cảm thấy hơi có triệu chứng cảm cúm nên hôm nay sẽ đi ngủ sớm."
+        },
+        "general_explanation": "Câu này yêu cầu tìm hậu tố diễn tả trạng thái sức khỏe hoặc xu hướng hơi có phần tiêu cực. Để phân tích toàn diện, ta sẽ so sánh các hậu tố có ý nghĩa tương đồng thường gây nhầm lẫn: 気味 (ぎみ), がち, và っぽい.",
+        "grammar_breakdown": [
+          {
+            "grammar_pattern": "〜気味（ぎみ）",
+            "meaning_vi": "Hơi có vẻ..., có khuynh hướng (trạng thái)...",
+            "meaning_en": "To have a slight tendency to..., looking a little bit...",
+            "formation": "Danh từ / Động từ thể ます (bỏ ます) ＋ 気味",
+            "usage_notes": "Diễn tả một trạng thái (tâm lý, sinh lý, tình hình) hiện tại đang có chiều hướng diễn ra, chưa quá nặng nhưng cảm nhận được rõ ràng. Thường dùng cho các tình huống tiêu cực.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "最近、サーバーのメモリ使用率が上がり気味なので、監視を強化しましょう。",
+                "with_ruby": "<ruby>最近<rt>さいきん</rt></ruby>、サーバーのメモリ<ruby>使用率<rt>しようりつ</rt></ruby>が<ruby>上<rt>あ</rt></ruby>がり<ruby>気味<rt>ぎみ</rt></ruby>なので、<ruby>監視<rt>かんし</rt></ruby>を<ruby>強化<rt>きょうか</rt></ruby>しましょう。",
+                "english": "Recently, the server's memory usage has been on the rise, so let's strengthen our monitoring.",
+                "vietnamese": "Dạo gần đây, tỷ lệ sử dụng RAM của server đang có chiều hướng tăng, nên hãy tăng cường giám sát nhé."
+              },
+              {
+                "original": "仕様変更が多くて、プロジェクトの進捗が少し遅れ気味です。",
+                "with_ruby": "<ruby>仕様<rt>しよう</rt></ruby><ruby>変更<rt>へんこう</rt></ruby>が<ruby>多<rt>おお</rt></ruby>くて、プロジェクトの<ruby>進捗<rt>しんちょく</rt></ruby>が<ruby>少<rt>すこ</rt></ruby>し<ruby>遅<rt>おく</rt></ruby>れ<ruby>気味<rt>ぎみ</rt></ruby>です。",
+                "english": "Due to many specification changes, the project's progress is running slightly behind.",
+                "vietnamese": "Do thay đổi spec nhiều quá nên tiến độ của dự án đang có vẻ hơi bị trễ."
+              },
+              {
+                "original": "連日のデプロイ作業で、開発チーム全員が疲れ気味だ。",
+                "with_ruby": "<ruby>連日<rt>れんじつ</rt></ruby>のデプロイ<ruby>作業<rt>さぎょう</rt></ruby>で、<ruby>開発<rt>かいはつ</rt></ruby>チーム<ruby>全員<rt>ぜんいん</rt></ruby>が<ruby>疲<rt>つか</rt></ruby>れ<ruby>気味<rt>ぎみ</rt></ruby>だ。",
+                "english": "With days of deployment work, the entire development team seems a bit exhausted.",
+                "vietnamese": "Do công việc deploy diễn ra liên tục nhiều ngày nên toàn bộ team dev có vẻ hơi mệt mỏi."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜気味がある",
+            "meaning_vi": "Có triệu chứng..., có vẻ như...",
+            "meaning_en": "To show signs of...",
+            "formation": "Vます(bỏ ます) / N ＋ 気味がある",
+            "usage_notes": "Cách nói mở rộng của 気味, dùng để nhấn mạnh việc tồn tại dấu hiệu hoặc khuynh hướng đó.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "このコードベースには、スパゲッティコードになり気味がある。",
+                "with_ruby": "このコードベースには、スパゲッティコードになり<ruby>気味<rt>ぎみ</rt></ruby>がある。",
+                "english": "This codebase shows signs of turning into spaghetti code.",
+                "vietnamese": "Source code này có dấu hiệu đang dần biến thành spaghetti code."
+              },
+              {
+                "original": "あのAPIはリクエストが集中すると、タイムアウトし気味がある。",
+                "with_ruby": "あのAPIはリクエストが<ruby>集中<rt>しゅうちゅう</rt></ruby>すると、タイムアウトし<ruby>気味<rt>ぎみ</rt></ruby>がある。",
+                "english": "That API has a tendency to time out when requests are concentrated.",
+                "vietnamese": "API đó có triệu chứng hay bị timeout khi lượng request tập trung quá đông."
+              },
+              {
+                "original": "最近のリリースでは、十分なテストが行われていない気味がある。",
+                "with_ruby": "<ruby>最近<rt>さいきん</rt></ruby>のリリースでは、<ruby>十分<rt>じゅうぶん</rt></ruby>なテストが<ruby>行<rt>おこな</rt></ruby>われていない<ruby>気味<rt>ぎみ</rt></ruby>がある。",
+                "english": "In recent releases, there is a tendency that sufficient testing is not being conducted.",
+                "vietnamese": "Trong các đợt release gần đây, có vẻ như việc test chưa được thực hiện đầy đủ."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜がち",
+            "meaning_vi": "Thường hay... (Tần suất cao)",
+            "meaning_en": "Apt to do, tend to do (High frequency)",
+            "formation": "Danh từ / Động từ thể ます (bỏ ます) ＋ がち",
+            "usage_notes": "Sử dụng để nói về một sự việc THƯỜNG XUYÊN XẢY RA, tạo thành thói quen xấu hoặc xu hướng không tốt lặp đi lặp lại nhiều lần. Khác với 気味 là trạng thái hiện tại, がち nhấn mạnh vào tần suất.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "初心者のエンジニアは、エラーハンドリングを忘れがちだ。",
+                "with_ruby": "<ruby>初心者<rt>しょしんしゃ</rt></ruby>のエンジニアは、エラーハンドリングを<ruby>忘<rt>わす</rt></ruby>れがちだ。",
+                "english": "Beginner engineers tend to forget error handling.",
+                "vietnamese": "Các kỹ sư mới vào nghề thường hay quên xử lý lỗi (error handling)."
+              },
+              {
+                "original": "複雑なブランチ戦略を採用すると、マージミスが起こりがちです。",
+                "with_ruby": "<ruby>複雑<rt>ふくざつ</rt></ruby>なブランチ<ruby>戦略<rt>せんりゃく</rt></ruby>を<ruby>採用<rt>さいよう</rt></ruby>すると、マージミスが<ruby>起<rt>お</rt></ruby>こりがちです。",
+                "english": "Adopting a complex branch strategy tends to lead to merge mistakes.",
+                "vietnamese": "Nếu áp dụng chiến lược phân nhánh (branch) quá phức tạp thì rất thường hay xảy ra lỗi khi merge."
+              },
+              {
+                "original": "締め切り直前は、コードの品質が低下しがちになる。",
+                "with_ruby": "<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>り<ruby>直前<rt>ちょくぜん</rt></ruby>は、コードの<ruby>品質<rt>ひんしつ</rt></ruby>が<ruby>低下<rt>ていか</rt></ruby>しがちになる。",
+                "english": "Right before the deadline, code quality tends to drop.",
+                "vietnamese": "Ngay sát deadline, chất lượng code thường hay bị giảm sút."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜っぽい",
+            "meaning_vi": "Trông có vẻ..., mang tính chất...",
+            "meaning_en": "ish, -like, looks like",
+            "formation": "Danh từ / Động từ thể ます (bỏ ます) / Tính từ い (bỏ い) ＋ っぽい",
+            "usage_notes": "Dùng để đánh giá bề ngoài hoặc cảm giác mang tính chất của một cái gì đó. Khác với 気味, っぽい có thể dùng cho tính cách (怒りっぽい - dễ nổi cáu) hoặc hình thức (子供っぽい - trẻ con).",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "このUIデザインは少し古っぽいですね。モダンにしましょう。",
+                "with_ruby": "このUIデザインは<ruby>少<rt>すこ</rt></ruby>し<ruby>古<rt>ふる</rt></ruby>っぽいですね。モダンにしましょう。",
+                "english": "This UI design looks a bit old-fashioned. Let's make it modern.",
+                "vietnamese": "Thiết kế UI này trông có vẻ hơi cũ kỹ nhỉ. Hãy làm cho nó hiện đại hơn đi."
+              },
+              {
+                "original": "彼の書いたコードは、どうしても素人っぽいところがある。",
+                "with_ruby": "<ruby>彼<rt>かれ</rt></ruby>の<ruby>書<rt>か</rt></ruby>いたコードは、どうしても<ruby>素人<rt>しろうと</rt></ruby>っぽいところがある。",
+                "english": "The code he wrote inevitably has an amateurish feel to it.",
+                "vietnamese": "Đoạn code anh ta viết kiểu gì cũng mang dáng dấp hơi nghiệp dư."
+              },
+              {
+                "original": "システムの挙動がおかしい。どうもメモリリークっぽいな。",
+                "with_ruby": "システムの<ruby>挙動<rt>きょどう</rt></ruby>がおかしい。どうもメモリリークっぽいな。",
+                "english": "The system's behavior is strange. It looks like a memory leak.",
+                "vietnamese": "Hành vi của hệ thống lạ quá. Trông có vẻ giống lỗi rò rỉ bộ nhớ (memory leak) rồi."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "BUNPO",
+        "difficulty": 3,
+        "tags": ["tendency", "negative_nuance", "state", "comparison"]
+      }
+    },
+    {
+      "id": "q_bunpo_n3_015",
+      "book_level": "N3",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "BUNPO"
+      },
+      "question": {
+        "number": 15,
+        "type": "fill_in_the_blank",
+        "content": {
+          "original": "A「全部___ちゃおうか。」\nB「明日の分、とっとこうよ。」",
+          "with_ruby": "A「<ruby>全部<rt>ぜんぶ</rt></ruby>___ちゃおうか。」\nB「<ruby>明日<rt>あした</rt></ruby>の<ruby>分<rt>ぶん</rt></ruby>、とっとこうよ。」"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "食べる", "is_correct": false },
+        { "id": 2, "text": "食べて", "is_correct": true },
+        { "id": 3, "text": "食べ", "is_correct": false },
+        { "id": 4, "text": "食べた", "is_correct": false }
+      ],
+      "correct_answer_id": 2,
+      "explanation": {
+        "translations": {
+          "english": "A: 'Shall we just eat it all?'\nB: 'Let's save some for tomorrow.'",
+          "vietnamese": "A: 'Hay là mình ăn hết sạch luôn nhỉ?'\nB: 'Hãy để dành một phần cho ngày mai đi.'"
+        },
+        "general_explanation": "Câu này kiểm tra dạng rút gọn (contraction) cực kỳ phổ biến trong văn nói của tiếng Nhật: Vてしまう -> Vちゃう và Vておく -> Vとく.",
+        "grammar_breakdown": [
+          {
+            "grammar_pattern": "〜ちゃう / 〜じゃう",
+            "meaning_vi": "Làm xong hẳn / Lỡ làm mất rồi",
+            "meaning_en": "To finish doing / To accidentally do",
+            "formation": "Vて ＋ しまう -> Vちゃう ; Vで ＋ しまう -> Vじゃう",
+            "usage_notes": "Dạng rút gọn trong giao tiếp thân mật của 〜てしまう. Biểu thị việc hoàn thành 100% một hành động, hoặc sự tiếc nuối khi lỡ làm sai việc gì đó.",
+            "textbook_examples": [
+              {
+                "original": "全部食べちゃおうか。",
+                "with_ruby": "<ruby>全部<rt>ぜんぶ</rt></ruby><ruby>食<rt>た</rt></ruby>べちゃおうか。",
+                "english": "Shall we just eat it all?",
+                "vietnamese": "Hay là mình ăn hết sạch luôn nhỉ?"
+              }
+            ],
+            "it_context_examples": [
+              {
+                "original": "本番のデータベースを間違えて消しちゃった！",
+                "with_ruby": "<ruby>本番<rt>ほんばん</rt></ruby>のデータベースを<ruby>間違<rt>まちが</rt></ruby>えて<ruby>消<rt>け</rt></ruby>しちゃった！",
+                "english": "I accidentally deleted the production database!",
+                "vietnamese": "Tôi lỡ tay xóa béng mất database production rồi!"
+              },
+              {
+                "original": "今日の会議の前に、このバグ修正を終わらせちゃおう。",
+                "with_ruby": "<ruby>今日<rt>きょう</rt></ruby>の<ruby>会議<rt>かいぎ</rt></ruby>の<ruby>前<rt>まえ</rt></ruby>に、このバグ<ruby>修正<rt>しゅうせい</rt></ruby>を<ruby>終<rt>お</rt></ruby>わらせちゃおう。",
+                "english": "Let's finish up this bug fix completely before today's meeting.",
+                "vietnamese": "Hãy làm xong hẳn cái fix bug này trước buổi họp hôm nay đi."
+              },
+              {
+                "original": "間違ったブランチにマージしちゃって、コンフリクトだらけだ。",
+                "with_ruby": "<ruby>間違<rt>まちが</rt></ruby>ったブランチにマージしちゃって、コンフリクトだらけだ。",
+                "english": "I merged into the wrong branch, and now it's full of conflicts.",
+                "vietnamese": "Lỡ tay merge vào nhầm branch mất rồi, giờ toàn là conflict thôi."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜てしまう",
+            "meaning_vi": "Hoàn thành / Lỡ làm (Dạng chuẩn)",
+            "meaning_en": "To finish doing / To accidentally do (Standard form)",
+            "formation": "Vて ＋ しまう",
+            "usage_notes": "Phiên bản chuẩn của ちゃう, dùng trong văn bản viết, email công việc, hoặc giao tiếp trang trọng.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "セッションがタイムアウトしてしまいました。",
+                "with_ruby": "セッションがタイムアウトしてしまいました。",
+                "english": "The session has timed out.",
+                "vietnamese": "Phiên làm việc (session) đã bị timeout mất rồi."
+              },
+              {
+                "original": "メモリリークにより、サーバーがクラッシュしてしまいました。",
+                "with_ruby": "メモリリークにより、サーバーがクラッシュしてしまいました。",
+                "english": "The server crashed due to a memory leak.",
+                "vietnamese": "Do bị rò rỉ bộ nhớ nên server đã bị crash mất."
+              },
+              {
+                "original": "金曜日までにこのモジュールの開発を完了してしまいます。",
+                "with_ruby": "<ruby>金曜日<rt>きんようび</rt></ruby>までにこのモジュールの<ruby>開発<rt>かいはつ</rt></ruby>を<ruby>完了<rt>かんりょう</rt></ruby>してしまいます。",
+                "english": "I will completely finish the development of this module by Friday.",
+                "vietnamese": "Tôi sẽ hoàn thành dứt điểm việc phát triển module này trước ngày thứ sáu."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜とく / 〜どく",
+            "meaning_vi": "Làm sẵn, chuẩn bị sẵn",
+            "meaning_en": "To do something in advance",
+            "formation": "Vて ＋ おく -> Vとく ; Vで ＋ おく -> Vどく",
+            "usage_notes": "Xuất hiện trong câu ví dụ của đáp án B (とっとこう). Là dạng nói tắt của ておく, biểu thị hành động làm trước để chuẩn bị cho tương lai.",
+            "textbook_examples": [
+              {
+                "original": "明日の分、とっとこうよ。",
+                "with_ruby": "<ruby>明日<rt>あした</rt></ruby>の<ruby>分<rt>ぶん</rt></ruby>、とっとこうよ。",
+                "english": "Let's save some for tomorrow.",
+                "vietnamese": "Hãy để dành sẵn một phần cho ngày mai đi."
+              }
+            ],
+            "it_context_examples": [
+              {
+                "original": "アップデートする前に、データベースをバックアップしといてね。",
+                "with_ruby": "アップデートする<ruby>前<rt>まえ</rt></ruby>に、データベースをバックアップしといてね。",
+                "english": "Before updating, please back up the database in advance.",
+                "vietnamese": "Trước khi update, nhớ backup sẵn database nhé."
+              },
+              {
+                "original": "後で他の人が読めるように、コメントを書いといてください。",
+                "with_ruby": "<ruby>後<rt>あと</rt></ruby>で<ruby>他<rt>ほか</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>が<ruby>読<rt>よ</rt></ruby>めるように、コメントを<ruby>書<rt>か</rt></ruby>いといてください。",
+                "english": "Please write comments in advance so others can read it later.",
+                "vietnamese": "Hãy viết sẵn comment code để sau này người khác có thể đọc hiểu được nhé."
+              },
+              {
+                "original": "テスト用のサーバー、立ち上げといたよ。",
+                "with_ruby": "テスト<ruby>用<rt>よう</rt></ruby>のサーバー、<ruby>立<rt>た</rt></ruby>ち<ruby>上<rt>あ</rt></ruby>げといたよ。",
+                "english": "I've started up the test server for you.",
+                "vietnamese": "Mình đã khởi động sẵn server dùng để test rồi đấy."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "〜ておく",
+            "meaning_vi": "Làm sẵn, chuẩn bị sẵn (Dạng chuẩn)",
+            "meaning_en": "To do something in advance (Standard form)",
+            "formation": "Vて ＋ おく",
+            "usage_notes": "Phiên bản chuẩn của とく, dùng trong tài liệu kỹ thuật, task quản lý, hoặc nói chuyện với cấp trên.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "リリース前に、本番環境の構成を確認しておきます。",
+                "with_ruby": "リリース<ruby>前<rt>まえ</rt></ruby>に、<ruby>本番<rt>ほんばん</rt></ruby><ruby>環境<rt>かんきょう</rt></ruby>の<ruby>構成<rt>こうせい</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>しておきます。",
+                "english": "Before the release, I will confirm the production environment configuration in advance.",
+                "vietnamese": "Trước khi release, tôi sẽ kiểm tra sẵn cấu hình của môi trường production."
+              },
+              {
+                "original": "APIのキーは、環境変数に設定しておく必要があります。",
+                "with_ruby": "APIのキーは、<ruby>環境変数<rt>かんきょうへんすう</rt></ruby>に<ruby>設定<rt>せってい</rt></ruby>しておく<ruby>必要<rt>ひつよう</rt></ruby>があります。",
+                "english": "The API key needs to be set in the environment variables in advance.",
+                "vietnamese": "Cần phải thiết lập sẵn API key trong biến môi trường (environment variables)."
+              },
+              {
+                "original": "エラーが発生した時のために、ログを出力するようにしておいてください。",
+                "with_ruby": "エラーが<ruby>発生<rt>はっせい</rt></ruby>した<ruby>時<rt>とき</rt></ruby>のために、ログを<ruby>出力<rt>しゅつりょく</rt></ruby>するようにしておいてください。",
+                "english": "In case an error occurs, please make sure it outputs a log.",
+                "vietnamese": "Phòng trường hợp xảy ra lỗi, vui lòng setup sẵn việc in ra log nhé."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "BUNPO",
+        "difficulty": 2,
+        "tags": ["spoken_language", "contraction", "completion", "regret", "preparation"]
+      }
+    },
+    {
+      "id": "q_bunpo_n4n5_001",
+      "book_level": "N4-N5",
+      "chapter": {
+        "week": "第1週",
+        "day": "1日目",
+        "section": "BUNPO"
+      },
+      "question": {
+        "number": 3,
+        "type": "multiple_choice",
+        "content": {
+          "original": "黒いペン___書いてください。",
+          "with_ruby": "<ruby>黒<rt>くろ</rt></ruby>いペン___<ruby>書<rt>か</rt></ruby>いてください。"
+        }
+      },
+      "options": [
+        { "id": 1, "text": "を", "is_correct": false },
+        { "id": 2, "text": "に", "is_correct": false },
+        { "id": 3, "text": "が", "is_correct": false },
+        { "id": 4, "text": "で", "is_correct": true }
+      ],
+      "correct_answer_id": 4,
+      "explanation": {
+        "translations": {
+          "english": "Please write with a black pen.",
+          "vietnamese": "Vui lòng viết bằng bút đen."
+        },
+        "general_explanation": "Trợ từ で có nhiều cách sử dụng, nhưng trong trường hợp này nó chỉ ra công cụ, phương tiện để thực hiện hành động. Để hiểu sâu hơn, ta sẽ phân tích thêm các cách dùng khác của で và cấu trúc tương đương.",
+        "grammar_breakdown": [
+          {
+            "grammar_pattern": "N ＋ で (Phương tiện / Công cụ)",
+            "meaning_vi": "Bằng (công cụ, phương tiện, phương pháp, ngôn ngữ)",
+            "meaning_en": "By means of, with, using",
+            "formation": "Danh từ (Phương tiện) ＋ で",
+            "usage_notes": "Sử dụng để biểu thị việc dùng vật gì, công cụ gì hoặc ngôn ngữ gì để thực hiện hành động.",
+            "textbook_examples": [
+              {
+                "original": "黒いペンで書いてください。",
+                "with_ruby": "<ruby>黒<rt>くろ</rt></ruby>いペンで<ruby>書<rt>か</rt></ruby>いてください。",
+                "english": "Please write with a black pen.",
+                "vietnamese": "Vui lòng viết bằng bút đen."
+              }
+            ],
+            "it_context_examples": [
+              {
+                "original": "バックエンドはPythonで開発しています。",
+                "with_ruby": "バックエンドはPythonで<ruby>開発<rt>かいはつ</rt></ruby>しています。",
+                "english": "We are developing the backend with Python.",
+                "vietnamese": "Chúng tôi đang phát triển backend bằng Python."
+              },
+              {
+                "original": "Dockerでテスト環境を構築しました。",
+                "with_ruby": "Dockerでテスト<ruby>環境<rt>かんきょう</rt></ruby>を<ruby>構築<rt>こうちく</rt></ruby>しました。",
+                "english": "I built the test environment using Docker.",
+                "vietnamese": "Tôi đã xây dựng môi trường test bằng Docker."
+              },
+              {
+                "original": "APIの動作はPostmanで確認できます。",
+                "with_ruby": "APIの<ruby>動作<rt>どうさ</rt></ruby>はPostmanで<ruby>確認<rt>かくにん</rt></ruby>できます。",
+                "english": "You can verify the API's behavior using Postman.",
+                "vietnamese": "Có thể kiểm tra hoạt động của API bằng Postman."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "N ＋ を使って",
+            "meaning_vi": "Sử dụng... (Cấu trúc tương đương Nで)",
+            "meaning_en": "Using... (Equivalent to Nで)",
+            "formation": "Danh từ ＋ を使って (を使います)",
+            "usage_notes": "Là cách diễn đạt rõ ràng hơn của hành động 'sử dụng một cái gì đó' làm công cụ. Hoàn toàn có thể thay thế cho Nで trong ý nghĩa công cụ.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "Reactを使って、フロントエンドを実装します。",
+                "with_ruby": "Reactを<ruby>使<rt>つか</rt></ruby>って、フロントエンドを<ruby>実装<rt>じっそう</rt></ruby>します。",
+                "english": "We will implement the frontend using React.",
+                "vietnamese": "Chúng ta sẽ implement phần frontend sử dụng React."
+              },
+              {
+                "original": "SSHを使って、リモートサーバーにログインします。",
+                "with_ruby": "SSHを<ruby>使<rt>つか</rt></ruby>って、リモートサーバーにログインします。",
+                "english": "I will log in to the remote server using SSH.",
+                "vietnamese": "Tôi sẽ đăng nhập vào remote server sử dụng giao thức SSH."
+              },
+              {
+                "original": "このライブラリを使って、グラフを描画してください。",
+                "with_ruby": "このライブラリを<ruby>使<rt>つか</rt></ruby>って、グラフを<ruby>描画<rt>びょうが</rt></ruby>してください。",
+                "english": "Please draw the graph using this library.",
+                "vietnamese": "Vui lòng vẽ biểu đồ sử dụng thư viện này."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "N ＋ で (Nguyên nhân / Lý do)",
+            "meaning_vi": "Vì, do (Nguyên nhân)",
+            "meaning_en": "Due to, because of",
+            "formation": "Danh từ (Tai nạn, thiên tai, lỗi...) ＋ で",
+            "usage_notes": "Một cách dùng khác rất phổ biến của で, chỉ ra nguyên nhân khách quan dẫn đến một hệ quả nào đó.",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "急なトラフィック増加で、サーバーがダウンしました。",
+                "with_ruby": "<ruby>急<rt>きゅう</rt></ruby>なトラフィック<ruby>増加<rt>ぞうか</rt></ruby>で、サーバーがダウンしました。",
+                "english": "Due to a sudden increase in traffic, the server went down.",
+                "vietnamese": "Do lượng truy cập tăng đột biến, server đã bị sập."
+              },
+              {
+                "original": "タイポのミスで、ビルドが失敗してしまった。",
+                "with_ruby": "タイポのミスで、ビルドが<ruby>失敗<rt>しっぱい</rt></ruby>してしまった。",
+                "english": "Due to a typo mistake, the build failed.",
+                "vietnamese": "Do lỗi gõ nhầm (typo) mà quá trình build đã thất bại."
+              },
+              {
+                "original": "ネットワークの障害で、データベースに接続できません。",
+                "with_ruby": "ネットワークの<ruby>障害<rt>しょうがい</rt></ruby>で、データベースに<ruby>接続<rt>せつぞく</rt></ruby>できません。",
+                "english": "Due to a network failure, I cannot connect to the database.",
+                "vietnamese": "Vì sự cố mạng nên không thể kết nối tới cơ sở dữ liệu."
+              }
+            ]
+          },
+          {
+            "grammar_pattern": "N ＋ に (Điểm đến / Nơi tồn tại)",
+            "meaning_vi": "Ở, tại, vào (Thời gian, Không gian)",
+            "meaning_en": "At, in, on (Target, Location)",
+            "formation": "Danh từ (Thời gian, Địa điểm) ＋ に",
+            "usage_notes": "Là đáp án sai trong câu hỏi, nhưng là trợ từ hay bị nhầm với で. に nhấn mạnh ĐIỂM ĐẾN của hành động (viết vào đâu) hoặc NƠI TỒN TẠI (có ở đâu).",
+            "textbook_examples": [],
+            "it_context_examples": [
+              {
+                "original": "ログをテキストファイルに書き出してください。",
+                "with_ruby": "ログをテキストファイルに<ruby>書<rt>か</rt></ruby>き<ruby>出<rt>だ</rt></ruby>してください。",
+                "english": "Please write the logs out to a text file.",
+                "vietnamese": "Vui lòng xuất log ra vào một file text."
+              },
+              {
+                "original": "変更をマスターブランチにマージします。",
+                "with_ruby": "<ruby>変更<rt>へんこう</rt></ruby>をマスターブランチにマージします。",
+                "english": "I will merge the changes into the master branch.",
+                "vietnamese": "Tôi sẽ merge các thay đổi vào nhánh master."
+              },
+              {
+                "original": "新しいデータをデータベースに保存しました。",
+                "with_ruby": "<ruby>新<rt>あたら</rt></ruby>しいデータをデータベースに<ruby>保存<rt>ほぞん</rt></ruby>しました。",
+                "english": "I saved the new data into the database.",
+                "vietnamese": "Tôi đã lưu dữ liệu mới vào cơ sở dữ liệu."
+              }
+            ]
+          }
+        ]
+      },
+      "metadata": {
+        "section_type": "BUNPO",
+        "difficulty": 1,
+        "tags": ["particles", "tool_means", "basic_grammar", "particle_contrast"]
+      }
+    }
+  ]
+}
