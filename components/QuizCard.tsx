@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Question, QuestionOption } from '@/lib/types';
 import FuriganaText from './FuriganaText';
 import ExplanationPanel from './ExplanationPanel';
+import { useFurigana } from './Header';
+import { useSettings } from './SettingsProvider';
 
 interface QuizCardProps {
   question: Question;
@@ -27,25 +29,67 @@ export default function QuizCard({
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [answered, setAnswered] = useState(false);
   const [starred, setStarred] = useState(isStarred);
+  const { toggleFurigana, setShowFurigana } = useFurigana();
+  const { settings } = useSettings();
+  const answeredRef = useRef(answered);
+  answeredRef.current = answered;
 
-  const handleSelect = (option: QuestionOption) => {
-    if (answered) return;
+  // Auto-furigana: turn OFF when new question appears
+  useEffect(() => {
+    setShowFurigana(false);
+  }, [question.id, setShowFurigana]);
+
+  const handleSelect = useCallback((option: QuestionOption) => {
+    if (answeredRef.current) return;
     setSelectedOption(option.id);
     setAnswered(true);
+    // Auto-furigana: turn ON after answering
+    setShowFurigana(true);
     onAnswer(question.id, option.is_correct);
-  };
+  }, [question.id, onAnswer, setShowFurigana]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setSelectedOption(null);
     setAnswered(false);
     onNext();
-  };
+  }, [onNext]);
 
   const handleStar = () => {
     const newStarred = !starred;
     setStarred(newStarred);
     onStar(question.id, newStarred);
   };
+
+  // Keyboard shortcuts: 1,2,3,4 = select answer, Space = toggle furigana, Enter = next
+  useEffect(() => {
+    if (!settings.keyboardShortcuts) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if (e.key === ' ' || e.code === 'Space') {
+        e.preventDefault();
+        toggleFurigana();
+        return;
+      }
+
+      if (['1', '2', '3', '4'].includes(e.key)) {
+        const idx = parseInt(e.key) - 1;
+        if (idx < question.options.length && !answeredRef.current) {
+          handleSelect(question.options[idx]);
+        }
+        return;
+      }
+
+      if ((e.key === 'Enter' || e.key === 'ArrowRight') && answeredRef.current) {
+        e.preventDefault();
+        handleNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [settings.keyboardShortcuts, question.options, toggleFurigana, handleSelect, handleNext]);
 
   const getSectionBadge = () => {
     const section = question.chapter?.section || question.metadata?.section_type;
@@ -95,7 +139,8 @@ export default function QuizCard({
             <div className="question-text">
               <FuriganaText
                 original={question.question.content.original}
-                withRuby={question.question.content.with_red_highlight || question.question.content.with_ruby}
+                withRuby={question.question.content.with_ruby}
+                withRedHighlight={question.question.content.with_red_highlight}
               />
             </div>
           </div>
@@ -180,6 +225,21 @@ export default function QuizCard({
           <button onClick={handleNext} className="btn-primary text-lg px-8">
             {questionIndex + 1 < totalQuestions ? 'Câu tiếp theo →' : '🏁 Xem kết quả'}
           </button>
+        </div>
+      )}
+
+      {/* Keyboard shortcuts hint */}
+      {settings.keyboardShortcuts && (
+        <div className="mt-4 text-center text-xs text-slate-400 dark:text-slate-500">
+          ⌨️ <kbd className="px-1 py-0.5 bg-slate-100 dark:bg-slate-700 rounded text-[10px]">1-4</kbd> chọn đáp án
+          {' • '}
+          <kbd className="px-1 py-0.5 bg-slate-100 dark:bg-slate-700 rounded text-[10px]">Space</kbd> furigana
+          {answered && (
+            <>
+              {' • '}
+              <kbd className="px-1 py-0.5 bg-slate-100 dark:bg-slate-700 rounded text-[10px]">Enter</kbd> tiếp
+            </>
+          )}
         </div>
       )}
     </div>

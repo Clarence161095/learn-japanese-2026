@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/components/AuthProvider';
 import Header, { FuriganaProvider } from '@/components/Header';
-import { SettingsProvider, SettingsBubble } from '@/components/SettingsProvider';
+import { SettingsProvider, SettingsModal } from '@/components/SettingsProvider';
+import { LevelProvider } from '@/components/LevelProvider';
 
 export const metadata: Metadata = {
   title: '日本語マスター - Japanese Learning App',
@@ -19,13 +20,15 @@ export default function RootLayout({
       <body>
         <SettingsProvider>
           <AuthProvider>
-            <FuriganaProvider>
-              <Header />
-              <SettingsBubble />
-              <main className="min-h-[calc(100vh-64px)]">
-                {children}
-              </main>
-            </FuriganaProvider>
+            <LevelProvider>
+              <FuriganaProvider>
+                <Header />
+                <SettingsModal />
+                <main className="min-h-[calc(100vh-64px)] app-scale-wrapper">
+                  {children}
+                </main>
+              </FuriganaProvider>
+            </LevelProvider>
           </AuthProvider>
         </SettingsProvider>
       </body>

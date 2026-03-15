@@ -4,14 +4,16 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import QuizCard from '@/components/QuizCard';
+import { useLevel } from '@/components/LevelProvider';
 import type { Question } from '@/lib/types';
 
 export default function QuizSectionPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const section = (params.section as string)?.toUpperCase();
+  const { level: contextLevel } = useLevel();
   
-  const level = searchParams.get('level') || undefined;
+  const level = searchParams.get('level') || (contextLevel !== 'ALL' ? contextLevel : undefined);
   const random = searchParams.get('random') === 'true';
   const starred = searchParams.get('starred') === 'true';
   const wrong = searchParams.get('wrong') === 'true';
@@ -52,7 +54,7 @@ export default function QuizSectionPage() {
         setStarredMap(stars);
       })
       .catch(console.error);
-  }, [section, level, random, starred, wrong]);
+  }, [section, level, random, starred, wrong, contextLevel]);
 
   const handleAnswer = useCallback((questionId: string, isCorrect: boolean) => {
     if (isCorrect) setScore(prev => prev + 1);

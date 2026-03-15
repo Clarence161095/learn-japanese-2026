@@ -121,6 +121,7 @@ export interface BunpoExplanation {
 
 export type SectionType = 'MOJI' | 'GOI' | 'BUNPO';
 export type BookLevel = 'N1' | 'N2' | 'N3' | 'N4-N5';
+export type UserRole = 'admin' | 'collaborator' | 'user';
 
 export interface Question {
   id: string;
@@ -167,6 +168,7 @@ export interface UserRow {
   username: string;
   password_hash: string;
   display_name: string;
+  role: string;
   created_at: string;
 }
 
@@ -254,6 +256,7 @@ export interface User {
   id: number;
   username: string;
   display_name: string;
+  role: UserRole;
 }
 
 export interface AuthState {
@@ -281,6 +284,9 @@ export interface AppSettings {
   fontSize: number;                  // px
   fontFamily: string;
   textColor: string;                 // empty = default
+  globalScale: number;               // 0.5-2.0, multiplier for app zoom
+  penWidth: number;                  // 2-20, KanjiWriter drawing width
+  keyboardShortcuts: boolean;        // enable 1234/space shortcuts in quiz
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -291,4 +297,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   fontSize: 16,
   fontFamily: '"Noto Sans JP", sans-serif',
   textColor: '',
+  globalScale: 1.0,
+  penWidth: 6,
+  keyboardShortcuts: true,
 };

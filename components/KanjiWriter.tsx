@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSettings } from './SettingsProvider';
 
 interface KanjiWriterProps {
   character: string;
@@ -33,6 +34,7 @@ export default function KanjiWriter({ character, size = 250, onComplete }: Kanji
   const [mode, setMode] = useState<'view' | 'animate' | 'quiz'>('view');
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { settings } = useSettings();
 
   useEffect(() => {
     // Load HanziWriter from CDN
@@ -68,7 +70,7 @@ export default function KanjiWriter({ character, size = 250, onComplete }: Kanji
         drawingColor: '#6366f1',
         highlightColor: '#a5b4fc',
         radicalColor: '#818cf8',
-        drawingWidth: 6,
+        drawingWidth: settings.penWidth || 6,
         showHintAfterMisses: 3,
       });
 
@@ -78,7 +80,7 @@ export default function KanjiWriter({ character, size = 250, onComplete }: Kanji
     } catch {
       setError(`Không thể hiển thị chữ「${character}」`);
     }
-  }, [character, size, loaded]);
+  }, [character, size, loaded, settings.penWidth]);
 
   const handleAnimate = () => {
     if (!writerRef.current) return;

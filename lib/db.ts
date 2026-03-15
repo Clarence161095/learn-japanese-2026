@@ -37,6 +37,7 @@ function initializeDatabase(db: Database.Database): void {
       username TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL,
       display_name TEXT NOT NULL DEFAULT '',
+      role TEXT NOT NULL DEFAULT 'user',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -103,6 +104,9 @@ function initializeDatabase(db: Database.Database): void {
   try {
     db.exec(`ALTER TABLE user_progress ADD COLUMN weight INTEGER DEFAULT 0`);
   } catch { /* column already exists */ }
+  try {
+    db.exec(`ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'user'`);
+  } catch { /* column already exists */ }
 }
 
 // --- Question Operations ---
@@ -163,8 +167,12 @@ export function getQuestions(filters?: {
   }
 
   if (filters?.level) {
-    conditions.push('q.book_level = ?');
-    params.push(filters.level);
+    if (filters.level === 'N4-N5') {
+      conditions.push("(q.book_level = 'N4-N5' OR q.book_level = 'N4' OR q.book_level = 'N5')");
+    } else {
+      conditions.push('q.book_level = ?');
+      params.push(filters.level);
+    }
   }
 
   if (filters?.starred) {
@@ -221,11 +229,11 @@ export function getQuestionCount(): { total: number; bySection: Record<string, n
 
 // --- User Operations ---
 
-export function createUser(username: string, passwordHash: string, displayName: string): number {
+export function createUser(username: string, passwordHash: string, displayName: string, role: string = 'user'): number {
   const db = getDb();
   const result = db.prepare(
-    'INSERT INTO users (username, password_hash, display_name) VALUES (?, ?, ?)'
-  ).run(username, passwordHash, displayName);
+    'INSERT INTO users (username, password_hash, display_name, role) VALUES (?, ?, ?, ?)'
+  ).run(username, passwordHash, displayName, role);
   return result.lastInsertRowid as number;
 }
 
@@ -483,6 +491,37 @@ export function getUserStats(userId: number): import('./types').UserStats {
     by_section: bySection as import('./types').UserStats['by_section'],
     by_level: byLevel,
   };
+}
+
+// --- Duplicate Detection ---
+
+export function findDuplicateByContent(contentOriginal: string): import('./types').QuestionRow | undefined {
+  const db = getDb();
+  return db.prepare(
+    'SELECT * FROM questions WHERE content_original = ?'
+  ).get(contentOriginal) as import('./types').QuestionRow | undefined;
+}
+
+// --- Ensure Admin User ---
+
+export function ensureAdminUser(): void {
+  const db = getDb();
+  const adminUsername = process.env.ADMIN_USERNAME;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminUsername || !adminPassword) return;
+
+  const existing = db.prepare('SELECT * FROM users WHERE username = ?').get(adminUsername) as import('./types').UserRow | undefined;
+  if (!existing) {
+    // Lazy import to avoid circular dependency
+    const { hashSync } = require('bcryptjs');
+    const hash = hashSync(adminPassword, 10);
+    db.prepare(
+      'INSERT INTO users (username, password_hash, display_name, role) VALUES (?, ?, ?, ?)'
+    ).run(adminUsername, hash, 'Admin', 'admin');
+    console.log(`✅ Admin user "${adminUsername}" created`);
+  } else if (existing.role !== 'admin') {
+    db.prepare('UPDATE users SET role = ? WHERE username = ?').run('admin', adminUsername);
+  }
 }
 
 // --- Mastery-based question filters ---

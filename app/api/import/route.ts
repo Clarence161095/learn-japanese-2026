@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { insertQuestion } from '@/lib/db';
+import { insertQuestion, findDuplicateByContent } from '@/lib/db';
 import type { Question } from '@/lib/types';
 import fs from 'fs';
 import path from 'path';
 
+const VALID_LEVELS = ['N1', 'N2', 'N3', 'N4-N5', 'N4', 'N5'];
+
 export async function POST(request: NextRequest) {
   try {
+    // Role check: only admin or collaborator can import
+    const role = request.headers.get('x-user-role') || 'user';
+    if (role !== 'admin' && role !== 'collaborator') {
+      return NextResponse.json(
+        { error: 'Bạn không có quyền import. Chỉ admin hoặc collaborator mới được phép.' },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
     let questions: Question[] = [];
 
@@ -32,6 +43,7 @@ export async function POST(request: NextRequest) {
 
     let imported = 0;
     let skipped = 0;
+    let duplicates = 0;
     const errors: string[] = [];
 
     for (const q of questions) {
@@ -43,12 +55,33 @@ export async function POST(request: NextRequest) {
           continue;
         }
 
+        // Validate book_level is present and valid
+        if (!q.book_level) {
+          errors.push(`Câu ${q.id}: thiếu book_level (bắt buộc)`);
+          skipped++;
+          continue;
+        }
+        if (!VALID_LEVELS.includes(q.book_level)) {
+          errors.push(`Câu ${q.id}: book_level "${q.book_level}" không hợp lệ. Cho phép: ${VALID_LEVELS.join(', ')}`);
+          skipped++;
+          continue;
+        }
+
+        // Duplicate detection by content.original
+        const existingByContent = findDuplicateByContent(q.question.content.original);
+        if (existingByContent && existingByContent.id !== q.id) {
+          errors.push(`Câu ${q.id}: nội dung trùng lặp với câu "${existingByContent.id}" (${existingByContent.content_original.slice(0, 40)}...)`);
+          duplicates++;
+          skipped++;
+          continue;
+        }
+
         // Determine section from chapter or metadata
         const section = q.chapter?.section || q.metadata?.section_type || 'UNKNOWN';
 
         insertQuestion({
           id: q.id,
-          book_level: q.book_level || 'N/A',
+          book_level: q.book_level,
           chapter_week: q.chapter?.week || '',
           chapter_day: q.chapter?.day || '',
           chapter_section: section,
@@ -88,6 +121,7 @@ export async function POST(request: NextRequest) {
         success: true,
         imported,
         skipped,
+        duplicates,
         errors,
         filename,
       });
@@ -97,6 +131,7 @@ export async function POST(request: NextRequest) {
         success: true,
         imported,
         skipped,
+        duplicates,
         errors: [...errors, 'Cảnh báo: Không thể lưu file backup'],
       });
     }

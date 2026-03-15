@@ -1,26 +1,30 @@
 'use client';
 
-import { useState, createContext, useContext, ReactNode } from 'react';
+import { useState, createContext, useContext, ReactNode, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from './AuthProvider';
+import { useLevel, type LevelFilter } from './LevelProvider';
+import { useSettings } from './SettingsProvider';
 
 // Furigana context
 interface FuriganaContextType {
   showFurigana: boolean;
   toggleFurigana: () => void;
+  setShowFurigana: (value: boolean) => void;
 }
 
 const FuriganaContext = createContext<FuriganaContextType>({
   showFurigana: true,
   toggleFurigana: () => {},
+  setShowFurigana: () => {},
 });
 
 export function FuriganaProvider({ children }: { children: ReactNode }) {
   const [showFurigana, setShowFurigana] = useState(true);
-  const toggleFurigana = () => setShowFurigana(prev => !prev);
+  const toggleFurigana = useCallback(() => setShowFurigana(prev => !prev), []);
   return (
-    <FuriganaContext.Provider value={{ showFurigana, toggleFurigana }}>
+    <FuriganaContext.Provider value={{ showFurigana, toggleFurigana, setShowFurigana }}>
       {children}
     </FuriganaContext.Provider>
   );
@@ -35,24 +39,38 @@ const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: '📊' },
   { href: '/quiz', label: 'Quiz', icon: '📝' },
   { href: '/moji-practice', label: 'Kanji', icon: '✍️' },
-  { href: '/import', label: 'Import', icon: '📥' },
   { href: '/review', label: 'Review', icon: '⭐' },
+];
+
+const levels: { key: LevelFilter; label: string; color: string }[] = [
+  { key: 'N4-N5', label: 'N4-N5', color: 'from-teal-400 to-emerald-500' },
+  { key: 'N3', label: 'N3', color: 'from-blue-400 to-indigo-500' },
+  { key: 'N2', label: 'N2', color: 'from-purple-400 to-violet-500' },
+  { key: 'N1', label: 'N1', color: 'from-rose-400 to-red-500' },
+  { key: 'ALL', label: 'All', color: 'from-amber-400 to-orange-500' },
 ];
 
 export default function Header() {
   const { user, logout } = useAuth();
   const pathname = usePathname();
   const { showFurigana, toggleFurigana } = useFurigana();
+  const { level, setLevel } = useLevel();
+  const { openSettings } = useSettings();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (!user) return null;
 
+  const canImport = user.role === 'admin' || user.role === 'collaborator';
+  const allNavItems = canImport
+    ? [...navItems.slice(0, 3), { href: '/import', label: 'Import', icon: '📥' }, ...navItems.slice(3)]
+    : navItems;
+
   return (
     <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link href="/dashboard" className="flex items-center gap-2">
+          <Link href="/dashboard" className="flex items-center gap-2 shrink-0">
             <span className="text-2xl">🇯🇵</span>
             <span className="font-bold text-lg text-primary-700 dark:text-primary-300 hidden sm:block">
               日本語マスター
@@ -61,7 +79,7 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map(item => (
+            {allNavItems.map(item => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -75,17 +93,30 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            {user.role === 'admin' && (
+              <Link
+                href="/admin/create-user"
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  pathname.startsWith('/admin')
+                    ? 'bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300'
+                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+                }`}
+              >
+                <span className="mr-1.5">👤</span>
+                Users
+              </Link>
+            )}
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {/* Furigana Toggle */}
             <button
               onClick={toggleFurigana}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+              className={`px-2 py-1 rounded-lg text-xs font-medium border transition-all ${
                 showFurigana
-                  ? 'bg-primary-50 border-primary-200 text-primary-700'
-                  : 'bg-slate-50 border-slate-200 text-slate-500'
+                  ? 'bg-primary-50 dark:bg-primary-900/30 border-primary-200 dark:border-primary-700 text-primary-700 dark:text-primary-300'
+                  : 'bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400'
               }`}
               title={showFurigana ? 'Furigana: BẬT' : 'Furigana: TẮT'}
             >
@@ -95,17 +126,18 @@ export default function Header() {
               {showFurigana ? ' ON' : ' OFF'}
             </button>
 
-            {/* User */}
-            <div className="hidden sm:flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+            {/* User + Settings button (where logout was) */}
+            <div className="hidden sm:flex items-center gap-1 text-sm text-slate-600 dark:text-slate-300">
               <span>👤</span>
-              <span>{user.display_name || user.username}</span>
+              <span className="max-w-[80px] truncate">{user.display_name || user.username}</span>
             </div>
 
             <button
-              onClick={logout}
-              className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+              onClick={openSettings}
+              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+              title="Cài đặt"
             >
-              Đăng xuất
+              ⚙️
             </button>
 
             {/* Mobile menu toggle */}
@@ -124,10 +156,27 @@ export default function Header() {
           </div>
         </div>
 
+        {/* Level Selector Bar */}
+        <div className="flex items-center gap-1.5 pb-2 overflow-x-auto scrollbar-hide">
+          {levels.map(l => (
+            <button
+              key={l.key}
+              onClick={() => setLevel(l.key)}
+              className={`px-3 py-1 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
+                level === l.key
+                  ? `bg-gradient-to-r ${l.color} text-white shadow-md scale-105`
+                  : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
+              }`}
+            >
+              {l.label}
+            </button>
+          ))}
+        </div>
+
         {/* Mobile Nav */}
         {mobileMenuOpen && (
-          <nav className="md:hidden py-3 border-t border-slate-100 dark:border-slate-700">
-            {navItems.map(item => (
+          <nav className="md:hidden py-3 border-t border-slate-100 dark:border-slate-700 space-y-1">
+            {allNavItems.map(item => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -142,6 +191,24 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            {user.role === 'admin' && (
+              <Link
+                href="/admin/create-user"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
+              >
+                <span className="mr-2">👤</span>
+                Quản lý Users
+              </Link>
+            )}
+            {/* Logout in mobile menu */}
+            <button
+              onClick={() => { setMobileMenuOpen(false); logout(); }}
+              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20"
+            >
+              <span className="mr-2">🚪</span>
+              Đăng xuất
+            </button>
           </nav>
         )}
       </div>

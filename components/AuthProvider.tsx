@@ -1,13 +1,12 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import type { User } from '@/lib/types';
+import type { User, UserRole } from '@/lib/types';
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (username: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  register: (username: string, password: string, displayName?: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
@@ -47,25 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       const data = await res.json();
       if (res.ok) {
-        setUser(data.user);
-        return { success: true };
-      }
-      return { success: false, error: data.error };
-    } catch {
-      return { success: false, error: 'Lỗi kết nối server' };
-    }
-  };
-
-  const register = async (username: string, password: string, displayName?: string) => {
-    try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, displayName }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setUser(data.user);
+        setUser({ ...data.user, role: (data.user.role || 'user') as UserRole });
         return { success: true };
       }
       return { success: false, error: data.error };
@@ -81,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, refreshUser }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

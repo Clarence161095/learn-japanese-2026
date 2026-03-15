@@ -27,6 +27,7 @@ db.exec(`
     username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     display_name TEXT NOT NULL DEFAULT '',
+    role TEXT NOT NULL DEFAULT 'user',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
@@ -221,6 +222,24 @@ const total = (db.prepare('SELECT COUNT(*) as c FROM questions').get() as { c: n
 const bySection = db.prepare(
   'SELECT chapter_section, COUNT(*) as c FROM questions GROUP BY chapter_section'
 ).all() as { chapter_section: string; c: number }[];
+
+// Create admin user if not exists
+try {
+  const bcrypt = require('bcryptjs');
+  const adminUser = 'admin';
+  const adminPass = bcrypt.hashSync('admin2026', 10);
+  const existing = db.prepare('SELECT id FROM users WHERE username = ?').get(adminUser);
+  if (!existing) {
+    db.prepare(
+      'INSERT INTO users (username, password_hash, display_name, role) VALUES (?, ?, ?, ?)'
+    ).run(adminUser, adminPass, 'Admin', 'admin');
+    console.log('✅ Admin user created (admin/admin2026)');
+  } else {
+    console.log('ℹ️ Admin user already exists');
+  }
+} catch (err) {
+  console.error('⚠️ Could not create admin user:', (err as Error).message);
+}
 
 console.log('\n════════════════════════════════');
 console.log('🎉 Seed hoàn tất!');

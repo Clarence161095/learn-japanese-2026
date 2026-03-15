@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 
 export default function LoginPage() {
@@ -81,11 +80,8 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-slate-500">
-            Chưa có tài khoản?{' '}
-            <Link href="/register" className="text-primary-600 hover:text-primary-700 font-medium">
-              Đăng ký ngay
-            </Link>
+          <p className="text-xs text-slate-400">
+            🔒 App riêng tư — Liên hệ Admin để được cấp tài khoản.
           </p>
         </div>
       </div>

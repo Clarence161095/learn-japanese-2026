@@ -185,6 +185,10 @@ export default function ImportForm() {
           <div className="text-sm space-y-1">
             <p>📥 Đã import: <strong>{result.imported}</strong> câu hỏi</p>
             {result.skipped > 0 && <p>⏭ Bỏ qua: {result.skipped}</p>}
+            {(result as ImportResult & { duplicates?: number }).duplicates !== undefined && 
+              (result as ImportResult & { duplicates?: number }).duplicates! > 0 && (
+              <p>🔁 Trùng lặp: {(result as ImportResult & { duplicates?: number }).duplicates}</p>
+            )}
             {result.filename && <p>💾 Backup: data/imported/{result.filename}</p>}
             {result.errors?.length > 0 && (
               <div className="mt-2">
@@ -199,14 +203,16 @@ export default function ImportForm() {
       )}
 
       {/* Help */}
-      <div className="card bg-slate-50">
-        <h4 className="font-medium text-slate-700 mb-2">💡 Hướng dẫn Import</h4>
-        <ul className="text-sm text-slate-600 space-y-1">
-          <li>• JSON có thể là mảng các câu hỏi hoặc object chứa key <code className="bg-slate-200 px-1 rounded">moji_data</code>, <code className="bg-slate-200 px-1 rounded">goi_data</code>, <code className="bg-slate-200 px-1 rounded">bunpo_data</code></li>
-          <li>• Hoặc mixed array (giống file Input.json mẫu)</li>
-          <li>• Mỗi câu hỏi cần có: id, question.content.original, options, correct_answer_id</li>
-          <li>• Data sẽ tự động được lưu backup vào <code className="bg-slate-200 px-1 rounded">data/imported/</code></li>
+      <div className="card bg-slate-50 dark:bg-slate-800/50">
+        <h4 className="font-medium text-slate-700 dark:text-slate-300 mb-2">💡 Hướng dẫn Import</h4>
+        <ul className="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+          <li>• JSON có thể là mảng các câu hỏi hoặc object chứa key <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded">moji_data</code>, <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded">goi_data</code>, <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded">bunpo_data</code></li>
+          <li>• Mỗi câu hỏi cần có: id, book_level, question.content.original, options, correct_answer_id</li>
+          <li>• <strong>book_level</strong> bắt buộc: N1, N2, N3, N4-N5</li>
+          <li>• Tự động phát hiện <strong>trùng lặp</strong> nội dung câu hỏi (content.original)</li>
+          <li>• Data sẽ tự động được lưu backup vào <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded">data/imported/</code></li>
           <li>• Nếu câu hỏi có cùng ID sẽ được cập nhật (không bị trùng)</li>
+          <li>• Chỉ <strong>admin</strong> hoặc <strong>collaborator</strong> mới có quyền import</li>
         </ul>
       </div>
     </div>

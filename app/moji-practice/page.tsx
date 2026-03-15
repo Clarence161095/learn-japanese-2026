@@ -3,7 +3,32 @@
 import { useState, useEffect } from 'react';
 import KanjiWriter from '@/components/KanjiWriter';
 import FuriganaText from '@/components/FuriganaText';
-import type { Question, MojiExplanation, KanjiFocus } from '@/lib/types';
+import { useLevel } from '@/components/LevelProvider';
+import type { Question, MojiExplanation, KanjiFocus, RelatedWord } from '@/lib/types';
+
+/** Merge two KanjiFocus entries with the same kanji, deduplicating related_words */
+function mergeKanjiFocus(existing: KanjiFocus, incoming: KanjiFocus): KanjiFocus {
+  const mergedWords = [...existing.related_words];
+  const existingWordKeys = new Set(mergedWords.map(w => `${w.word}|${w.reading}`));
+
+  for (const word of incoming.related_words) {
+    const key = `${word.word}|${word.reading}`;
+    if (!existingWordKeys.has(key)) {
+      mergedWords.push(word);
+      existingWordKeys.add(key);
+    }
+  }
+
+  return {
+    ...existing,
+    related_words: mergedWords,
+    // Merge readings (deduplicate)
+    readings: {
+      onyomi: Array.from(new Set([...(existing.readings?.onyomi || []), ...(incoming.readings?.onyomi || [])])),
+      kunyomi: Array.from(new Set([...(existing.readings?.kunyomi || []), ...(incoming.readings?.kunyomi || [])])),
+    },
+  };
+}
 
 export default function MojiPracticePage() {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -11,22 +36,29 @@ export default function MojiPracticePage() {
   const [selectedKanji, setSelectedKanji] = useState<KanjiFocus | null>(null);
   const [loading, setLoading] = useState(true);
   const [practiceIndex, setPracticeIndex] = useState(0);
+  const { level } = useLevel();
 
   useEffect(() => {
-    fetch('/api/questions?section=MOJI')
+    const params = new URLSearchParams({ section: 'MOJI' });
+    if (level && level !== 'ALL') params.set('level', level);
+
+    fetch(`/api/questions?${params.toString()}`)
       .then(res => res.json())
       .then(data => {
         const qs = data.questions || [];
         setQuestions(qs);
 
-        // Extract all unique kanji from questions
+        // Extract all kanji from questions, merging duplicates
         const kanjiMap = new Map<string, KanjiFocus>();
         qs.forEach((q: Question) => {
           const explanation = q.explanation as MojiExplanation;
           if (explanation.kanji_focus) {
             explanation.kanji_focus.forEach((kf: KanjiFocus) => {
-              if (!kanjiMap.has(kf.kanji)) {
-                kanjiMap.set(kf.kanji, kf);
+              const existing = kanjiMap.get(kf.kanji);
+              if (existing) {
+                kanjiMap.set(kf.kanji, mergeKanjiFocus(existing, kf));
+              } else {
+                kanjiMap.set(kf.kanji, { ...kf });
               }
             });
           }
@@ -40,7 +72,7 @@ export default function MojiPracticePage() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
+  }, [level]);
 
   const handleKanjiSelect = (kanji: KanjiFocus) => {
     setSelectedKanji(kanji);

@@ -18,17 +18,17 @@ export function verifyPassword(password: string, hash: string): boolean {
 }
 
 export async function createToken(user: User): Promise<string> {
-  return new SignJWT({ userId: user.id, username: user.username })
+  return new SignJWT({ userId: user.id, username: user.username, role: user.role || 'user' })
     .setProtectedHeader({ alg: 'HS256' })
     .setExpirationTime('30d')
     .setIssuedAt()
     .sign(JWT_SECRET);
 }
 
-export async function verifyToken(token: string): Promise<{ userId: number; username: string } | null> {
+export async function verifyToken(token: string): Promise<{ userId: number; username: string; role: string } | null> {
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
-    return payload as unknown as { userId: number; username: string };
+    return payload as unknown as { userId: number; username: string; role: string };
   } catch {
     return null;
   }
@@ -51,6 +51,7 @@ export async function getSessionUser(): Promise<User | null> {
       id: userRow.id,
       username: userRow.username,
       display_name: userRow.display_name,
+      role: (userRow.role || 'user') as User['role'],
     };
   } catch {
     return null;
