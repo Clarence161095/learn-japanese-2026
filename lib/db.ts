@@ -247,6 +247,159 @@ export function getUserById(id: number): import('./types').UserRow | undefined {
   return db.prepare('SELECT * FROM users WHERE id = ?').get(id) as import('./types').UserRow | undefined;
 }
 
+export function getAllUsers(): import('./types').UserRow[] {
+  const db = getDb();
+  return db.prepare('SELECT id, username, display_name, role, created_at FROM users ORDER BY id').all() as import('./types').UserRow[];
+}
+
+export function updateUser(id: number, data: { display_name?: string; role?: string }): void {
+  const db = getDb();
+  const updates: string[] = [];
+  const params: (string | number)[] = [];
+
+  if (data.display_name !== undefined) {
+    updates.push('display_name = ?');
+    params.push(data.display_name);
+  }
+  if (data.role !== undefined) {
+    updates.push('role = ?');
+    params.push(data.role);
+  }
+
+  if (updates.length > 0) {
+    params.push(id);
+    db.prepare(`UPDATE users SET ${updates.join(', ')} WHERE id = ?`).run(...params);
+  }
+}
+
+export function updateUserPassword(id: number, passwordHash: string): void {
+  const db = getDb();
+  db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(passwordHash, id);
+}
+
+export function deleteUser(id: number): void {
+  const db = getDb();
+  // Delete user progress first (cascade should handle it, but be explicit)
+  db.prepare('DELETE FROM user_progress WHERE user_id = ?').run(id);
+  db.prepare('DELETE FROM kanji_progress WHERE user_id = ?').run(id);
+  db.prepare('DELETE FROM users WHERE id = ?').run(id);
+}
+
+// --- Backup / Export all data as JSON ---
+export function exportAllData(): { users: import('./types').UserRow[]; questions: import('./types').QuestionRow[]; user_progress: import('./types').ProgressRow[]; kanji_progress: import('./types').KanjiProgressRow[] } {
+  const db = getDb();
+  const users = db.prepare('SELECT * FROM users').all() as import('./types').UserRow[];
+  const questions = db.prepare('SELECT * FROM questions').all() as import('./types').QuestionRow[];
+  const user_progress = db.prepare('SELECT * FROM user_progress').all() as import('./types').ProgressRow[];
+  const kanji_progress = db.prepare('SELECT * FROM kanji_progress').all() as import('./types').KanjiProgressRow[];
+  return { users, questions, user_progress, kanji_progress };
+}
+
+// --- Stats by level (for level-specific filtering) ---
+export function getUserStatsByLevel(userId: number, level: string): import('./types').UserStats {
+  const db = getDb();
+
+  // Build level condition
+  let levelCondition: string;
+  const levelParams: string[] = [];
+  if (level === 'N4-N5') {
+    levelCondition = "(q.book_level = 'N4-N5' OR q.book_level = 'N4' OR q.book_level = 'N5')";
+  } else {
+    levelCondition = "q.book_level = ?";
+    levelParams.push(level);
+  }
+
+  const totalQ = (db.prepare(`SELECT COUNT(*) as c FROM questions q WHERE ${levelCondition}`).get(...levelParams) as { c: number }).c;
+  
+  const answered = (db.prepare(
+    `SELECT COUNT(*) as c FROM user_progress up JOIN questions q ON up.question_id = q.id WHERE up.user_id = ? AND up.attempts > 0 AND ${levelCondition}`
+  ).get(userId, ...levelParams) as { c: number }).c;
+  
+  const correct = (db.prepare(
+    `SELECT COUNT(*) as c FROM user_progress up JOIN questions q ON up.question_id = q.id WHERE up.user_id = ? AND up.is_correct = 1 AND ${levelCondition}`
+  ).get(userId, ...levelParams) as { c: number }).c;
+  
+  const starred = (db.prepare(
+    `SELECT COUNT(*) as c FROM user_progress up JOIN questions q ON up.question_id = q.id WHERE up.user_id = ? AND up.is_starred = 1 AND ${levelCondition}`
+  ).get(userId, ...levelParams) as { c: number }).c;
+  
+  const learned = (db.prepare(
+    `SELECT COUNT(*) as c FROM user_progress up JOIN questions q ON up.question_id = q.id WHERE up.user_id = ? AND up.is_learned = 1 AND ${levelCondition}`
+  ).get(userId, ...levelParams) as { c: number }).c;
+
+  // Mastery breakdown
+  const masteryRows = db.prepare(`
+    SELECT up.weight, COUNT(*) as c FROM user_progress up JOIN questions q ON up.question_id = q.id WHERE up.user_id = ? AND up.attempts > 0 AND ${levelCondition} GROUP BY up.weight
+  `).all(userId, ...levelParams) as { weight: number; c: number }[];
+
+  const mastery: import('./types').MasteryBreakdown = {
+    mastered: 0, learning: 0, not_studied: totalQ - answered, weak: 0,
+  };
+  masteryRows.forEach(r => {
+    if (r.weight >= 3) mastery.mastered += r.c;
+    else if (r.weight >= 1) mastery.learning += r.c;
+    else if (r.weight === -1) mastery.weak += r.c;
+  });
+
+  const emptyMastery = (): import('./types').MasteryBreakdown => ({
+    mastered: 0, learning: 0, not_studied: 0, weak: 0,
+  });
+
+  // By section (with mastery)
+  const sectionStats = db.prepare(`
+    SELECT q.chapter_section as section,
+           COUNT(q.id) as total,
+           COUNT(CASE WHEN up.attempts > 0 THEN 1 END) as answered,
+           COUNT(CASE WHEN up.is_correct = 1 THEN 1 END) as correct,
+           COUNT(CASE WHEN up.weight >= 3 THEN 1 END) as mastered,
+           COUNT(CASE WHEN up.weight >= 1 AND up.weight < 3 THEN 1 END) as learning,
+           COUNT(CASE WHEN up.weight = -1 THEN 1 END) as weak
+    FROM questions q
+    LEFT JOIN user_progress up ON q.id = up.question_id AND up.user_id = ?
+    WHERE ${levelCondition}
+    GROUP BY q.chapter_section
+  `).all(userId, ...levelParams) as { section: string; total: number; answered: number; correct: number; mastered: number; learning: number; weak: number }[];
+
+  const bySection: Record<string, import('./types').SectionStats> = {
+    MOJI: { total: 0, answered: 0, correct: 0, accuracy: 0, mastery: emptyMastery() },
+    GOI: { total: 0, answered: 0, correct: 0, accuracy: 0, mastery: emptyMastery() },
+    BUNPO: { total: 0, answered: 0, correct: 0, accuracy: 0, mastery: emptyMastery() },
+  };
+
+  sectionStats.forEach(s => {
+    if (bySection[s.section]) {
+      bySection[s.section] = {
+        total: s.total,
+        answered: s.answered,
+        correct: s.correct,
+        accuracy: s.answered > 0 ? Math.round((s.correct / s.answered) * 100) : 0,
+        mastery: {
+          mastered: s.mastered,
+          learning: s.learning,
+          not_studied: s.total - s.answered,
+          weak: s.weak,
+        },
+      };
+    }
+  });
+
+  // By level
+  const byLevel: Record<string, import('./types').LevelStats> = {};
+  byLevel[level] = { total: totalQ, answered, correct };
+
+  return {
+    total_questions: totalQ,
+    answered_questions: answered,
+    correct_answers: correct,
+    starred_questions: starred,
+    learned_questions: learned,
+    accuracy_rate: answered > 0 ? Math.round((correct / answered) * 100) : 0,
+    mastery,
+    by_section: bySection as import('./types').UserStats['by_section'],
+    by_level: byLevel,
+  };
+}
+
 // --- Progress Operations (Streak-based mastery) ---
 
 /**

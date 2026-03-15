@@ -10,20 +10,38 @@
   --app-font-size: 16px;
   --app-font-family: "Noto Sans JP", sans-serif;
   --app-global-scale: 1;
+  /* Theme variables with fallbacks */
+  --theme-bg: #f8fafc;
+  --theme-card-bg: #ffffff;
+  --theme-question-text: #1e293b;
+  --theme-furigana: #6366f1;
+  --theme-accent: #4f46e5;
+  --theme-explanation-bg: transparent;
 }
 
 @layer base {
   body {
-    @apply font-japanese bg-slate-50 text-slate-900 antialiased;
+    @apply font-japanese antialiased;
     font-size: var(--app-font-size);
     font-family: var(--app-font-family);
-    color: var(--app-text-color, inherit);
+    color: var(--app-text-color, var(--theme-question-text));
+    background-color: var(--theme-bg);
   }
 
   /* Dark mode base */
   .dark body,
   .dark {
-    @apply bg-slate-900 text-slate-100;
+    color: var(--theme-question-text, #e2e8f0);
+    background-color: var(--theme-bg, #0f172a);
+  }
+
+  /* Headings readable in all themes */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--theme-question-text, inherit);
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--theme-question-text, #f1f5f9);
   }
 
   ruby {
@@ -31,7 +49,8 @@
   }
 
   ruby rt {
-    @apply text-primary-500 font-normal;
+    font-weight: normal;
+    color: var(--theme-furigana, #6366f1);
     font-size: var(--furigana-question-size);
   }
 
@@ -71,11 +90,13 @@
 
 @layer components {
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-slate-100 p-6 transition-all duration-200;
+    @apply rounded-2xl shadow-sm border border-slate-100 p-6 transition-all duration-200;
+    background-color: var(--theme-card-bg, #ffffff);
   }
 
   .dark .card {
-    @apply bg-slate-800 border-slate-700;
+    @apply border-slate-700;
+    background-color: var(--theme-card-bg, #1e293b);
   }
 
   .card:hover {
@@ -190,11 +211,12 @@
   }
 
   .explanation-section {
-    @apply bg-gradient-to-br from-slate-50 to-primary-50/30 rounded-2xl p-6 space-y-4;
+    @apply rounded-2xl p-6 space-y-4;
+    background: var(--theme-explanation-bg, linear-gradient(to bottom right, #f8fafc, rgba(238, 242, 255, 0.3)));
   }
 
   .dark .explanation-section {
-    @apply from-slate-800 to-primary-900/20;
+    background: var(--theme-explanation-bg, linear-gradient(to bottom right, #1e293b, rgba(49, 46, 129, 0.2)));
   }
 }
 
@@ -216,10 +238,18 @@
   }
 }
 
-/* Global app scale wrapper */
+/* Global app scale wrapper - only scales content, not header */
 .app-scale-wrapper {
   transform: scale(var(--app-global-scale, 1));
   transform-origin: top center;
+  width: 100%;
+}
+
+/* On mobile, limit scale to avoid breaking layout */
+@media (max-width: 768px) {
+  .app-scale-wrapper {
+    transform: scale(min(var(--app-global-scale, 1), 1.1));
+  }
 }
 
 /* HanziWriter container styles */

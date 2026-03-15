@@ -3,23 +3,27 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
+import { useLevel } from '@/components/LevelProvider';
 import ProgressStats from '@/components/ProgressStats';
 import type { UserStats } from '@/lib/types';
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const { level } = useLevel();
   const [stats, setStats] = useState<UserStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/stats')
+    setLoading(true);
+    const params = level !== 'ALL' ? `?level=${level}` : '';
+    fetch(`/api/stats${params}`)
       .then(res => res.json())
       .then(data => {
         setStats(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
+  }, [level]);
 
   const quickActions = [
     {
@@ -59,7 +63,9 @@ export default function DashboardPage() {
         <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
           ようこそ、{user?.display_name || user?.username}さん！👋
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-1">Hôm nay bạn muốn học gì?</p>
+        <p className="text-slate-500 dark:text-slate-400 mt-1">
+          Hôm nay bạn muốn học gì? {level !== 'ALL' && <span className="text-primary-600 dark:text-primary-400 font-medium">• Level: {level}</span>}
+        </p>
       </div>
 
       {/* Quick Actions */}

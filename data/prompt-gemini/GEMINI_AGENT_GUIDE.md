@@ -487,3 +487,30 @@ Khi import nhiều câu cùng lúc, sử dụng một trong các format sau:
 3. **Ví dụ IT phải thực tế** - Dùng thuật ngữ thật (API, server, database, deploy...)
 4. **Âm Hán Việt phải đúng** - Sai âm Hán Việt sẽ gây nhầm lẫn khi học
 5. **Mỗi câu phải có đủ metadata** - section_type, difficulty, tags
+6. **`with_red_highlight` BẮT BUỘC** - Mỗi câu MOJI phải highlight Kanji đang hỏi, GOI/BUNPO highlight chỗ trống
+7. **`english_with_ipa` BẮT BUỘC** - Có ở translations VÀ tất cả examples, it_context_examples, textbook_examples
+8. **Duplicate check** - App sẽ tự kiểm tra trùng lặp dựa trên `question.content.original` khi import. Nếu câu hỏi đã tồn tại sẽ bị bỏ qua
+
+---
+
+## 🔗 APP IMPORT API
+
+App hỗ trợ import qua:
+- **Web UI**: `/import` → Paste JSON hoặc upload file .json
+- **API**: `POST /api/import` với body JSON
+
+Sau khi import thành công:
+- Data được lưu vào SQLite database
+- File JSON backup được lưu tại `data/imported/` để tham khảo lại
+- Câu hỏi trùng lặp (cùng `question.content.original`) sẽ tự động skip
+
+### App Features Chính:
+- Quiz theo section (MOJI / GOI / BUNPO) hoặc Random
+- Filter theo level (N1 / N2 / N3 / N4-N5 / ALL)
+- Tập viết Kanji (HanziWriter) cho các Kanji trong `kanji_focus` / `kanji_components`
+- Hiển thị furigana tắt/bật
+- IPA cho tiếng Anh tắt/bật
+- Highlight đỏ từ đang hỏi
+- Review câu sai & câu đánh dấu sao
+- Theo dõi tiến trình (mastered / learning / weak / not studied)
+- 6 theme: Light, Dark, Dracula, Dark+, Nord, Solarized Dark + Custom colors

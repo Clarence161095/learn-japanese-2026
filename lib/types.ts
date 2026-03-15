@@ -276,14 +276,36 @@ export interface ImportResult {
 
 // --- App Settings Types ---
 
+export type ThemeMode = 'light' | 'dark' | 'dracula' | 'dark-plus' | 'nord' | 'solarized-dark' | 'custom';
+
+export interface CustomColors {
+  questionText: string;
+  explanationBg: string;
+  furiganaColor: string;
+  background: string;
+  cardBg: string;
+  accentColor: string;
+}
+
+export const DEFAULT_CUSTOM_COLORS: CustomColors = {
+  questionText: '',
+  explanationBg: '',
+  furiganaColor: '',
+  background: '',
+  cardBg: '',
+  accentColor: '',
+};
+
 export interface AppSettings {
   furiganaQuestionSize: number;      // rem unit for question furigana
   furiganaExplanationSize: number;   // rem unit for explanation furigana
   showIPA: boolean;
   darkMode: boolean;
+  themeMode: ThemeMode;
   fontSize: number;                  // px
   fontFamily: string;
   textColor: string;                 // empty = default
+  customColors: CustomColors;
   globalScale: number;               // 0.5-2.0, multiplier for app zoom
   penWidth: number;                  // 2-20, KanjiWriter drawing width
   keyboardShortcuts: boolean;        // enable 1234/space shortcuts in quiz
@@ -294,9 +316,11 @@ export const DEFAULT_SETTINGS: AppSettings = {
   furiganaExplanationSize: 0.5,
   showIPA: true,
   darkMode: false,
+  themeMode: 'light',
   fontSize: 16,
   fontFamily: '"Noto Sans JP", sans-serif',
   textColor: '',
+  customColors: { ...DEFAULT_CUSTOM_COLORS },
   globalScale: 1.0,
   penWidth: 6,
   keyboardShortcuts: true,

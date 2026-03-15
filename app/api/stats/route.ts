@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getUserStats } from '@/lib/db';
+import { getUserStats, getUserStatsByLevel } from '@/lib/db';
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,7 +8,16 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const stats = getUserStats(userId);
+    const { searchParams } = new URL(request.url);
+    const level = searchParams.get('level') || undefined;
+
+    let stats;
+    if (level && level !== 'ALL') {
+      stats = getUserStatsByLevel(userId, level);
+    } else {
+      stats = getUserStats(userId);
+    }
+
     return NextResponse.json(stats);
   } catch (error) {
     console.error('Stats API error:', error);

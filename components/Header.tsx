@@ -42,16 +42,16 @@ const navItems = [
   { href: '/review', label: 'Review', icon: '⭐' },
 ];
 
-const levels: { key: LevelFilter; label: string; color: string }[] = [
-  { key: 'N4-N5', label: 'N4-N5', color: 'from-teal-400 to-emerald-500' },
-  { key: 'N3', label: 'N3', color: 'from-blue-400 to-indigo-500' },
-  { key: 'N2', label: 'N2', color: 'from-purple-400 to-violet-500' },
-  { key: 'N1', label: 'N1', color: 'from-rose-400 to-red-500' },
-  { key: 'ALL', label: 'All', color: 'from-amber-400 to-orange-500' },
+const levels: { key: LevelFilter; label: string }[] = [
+  { key: 'ALL', label: '📚 Tất cả' },
+  { key: 'N4-N5', label: '🟢 N4-N5' },
+  { key: 'N3', label: '🔵 N3' },
+  { key: 'N2', label: '🟣 N2' },
+  { key: 'N1', label: '🔴 N1' },
 ];
 
 export default function Header() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const pathname = usePathname();
   const { showFurigana, toggleFurigana } = useFurigana();
   const { level, setLevel } = useLevel();
@@ -95,7 +95,7 @@ export default function Header() {
             ))}
             {user.role === 'admin' && (
               <Link
-                href="/admin/create-user"
+                href="/admin/users"
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   pathname.startsWith('/admin')
                     ? 'bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300'
@@ -110,6 +110,17 @@ export default function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
+            {/* Level Selector (select box) */}
+            <select
+              value={level}
+              onChange={e => setLevel(e.target.value as LevelFilter)}
+              className="px-2 py-1 rounded-lg text-xs font-bold border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 cursor-pointer focus:ring-2 focus:ring-primary-300 focus:outline-none transition-all"
+            >
+              {levels.map(l => (
+                <option key={l.key} value={l.key}>{l.label}</option>
+              ))}
+            </select>
+
             {/* Furigana Toggle */}
             <button
               onClick={toggleFurigana}
@@ -126,12 +137,13 @@ export default function Header() {
               {showFurigana ? ' ON' : ' OFF'}
             </button>
 
-            {/* User + Settings button (where logout was) */}
+            {/* User info */}
             <div className="hidden sm:flex items-center gap-1 text-sm text-slate-600 dark:text-slate-300">
               <span>👤</span>
               <span className="max-w-[80px] truncate">{user.display_name || user.username}</span>
             </div>
 
+            {/* Settings button */}
             <button
               onClick={openSettings}
               className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
@@ -156,23 +168,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Level Selector Bar */}
-        <div className="flex items-center gap-1.5 pb-2 overflow-x-auto scrollbar-hide">
-          {levels.map(l => (
-            <button
-              key={l.key}
-              onClick={() => setLevel(l.key)}
-              className={`px-3 py-1 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                level === l.key
-                  ? `bg-gradient-to-r ${l.color} text-white shadow-md scale-105`
-                  : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
-              }`}
-            >
-              {l.label}
-            </button>
-          ))}
-        </div>
-
         {/* Mobile Nav */}
         {mobileMenuOpen && (
           <nav className="md:hidden py-3 border-t border-slate-100 dark:border-slate-700 space-y-1">
@@ -193,7 +188,7 @@ export default function Header() {
             ))}
             {user.role === 'admin' && (
               <Link
-                href="/admin/create-user"
+                href="/admin/users"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
               >
@@ -201,14 +196,6 @@ export default function Header() {
                 Quản lý Users
               </Link>
             )}
-            {/* Logout in mobile menu */}
-            <button
-              onClick={() => { setMobileMenuOpen(false); logout(); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20"
-            >
-              <span className="mr-2">🚪</span>
-              Đăng xuất
-            </button>
           </nav>
         )}
       </div>
