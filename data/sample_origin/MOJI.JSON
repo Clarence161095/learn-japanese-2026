@@ -19,8 +19,7 @@
           "type": "String. Phân loại loại câu hỏi (Ví dụ: 'kanji_reading' - tìm cách đọc Kanji, 'kanji_writing' - tìm Kanji từ Hiragana).",
           "content": {
             "original": "String. Nội dung câu hỏi gốc không có Furigana.",
-            "with_ruby": "String. Nội dung câu hỏi có chèn các thẻ HTML <ruby> và <rt> chuẩn xác để hiển thị Furigana, có thể bật tắt dễ dàng trên App.",
-            "with_red_highlight": "String (optional). Giống with_ruby nhưng từ được hỏi được bọc trong <span style='color:red;font-weight:bold;'>...</span> để highlight."
+            "with_ruby": "String. Nội dung câu hỏi có chèn các thẻ HTML <ruby> và <rt> chuẩn xác để hiển thị Furigana, có thể bật tắt dễ dàng trên App."
           }
         }
       },
@@ -29,7 +28,7 @@
       "explanation": {
         "description": "Object chứa toàn bộ nội dung giải thích chi tiết cho câu hỏi và mở rộng từ vựng.",
         "properties": {
-          "translations": "Object dịch nghĩa toàn bộ nội dung câu hỏi ra tiếng Anh (english), tiếng Anh có IPA (english_with_ipa với <ruby>word<rt>/IPA/</rt></ruby>), và tiếng Việt (vietnamese).",
+          "translations": "Object dịch nghĩa toàn bộ nội dung câu hỏi ra tiếng Anh (english) và tiếng Việt (vietnamese).",
           "kanji_focus": {
             "description": "Array. Danh sách các chữ Hán (Kanji) trọng tâm xuất hiện trong đáp án hoặc câu hỏi cần được phân tích kỹ.",
             "properties": {
@@ -84,8 +83,7 @@
         "type": "kanji_reading",
         "content": {
           "original": "この町の人口はどのぐらいですか。",
-          "with_ruby": "この<ruby>町<rt>まち</rt></ruby>の<ruby>人口<rt>じんこう</rt></ruby>はどのぐらいですか。",
-          "with_red_highlight": "この<ruby>町<rt>まち</rt></ruby>の<span style='color:red;font-weight:bold;'><ruby>人口<rt>じんこう</rt></ruby></span>はどのぐらいですか。"
+          "with_ruby": "この<ruby>町<rt>まち</rt></ruby>の<ruby>人口<rt>じんこう</rt></ruby>はどのぐらいですか。"
         }
       },
       "options": [
@@ -98,7 +96,6 @@
       "explanation": {
         "translations": {
           "english": "What is the population of this town?",
-          "english_with_ipa": "What is the <ruby>population<rt>/ˌpɒpjuˈleɪʃən/</rt></ruby> of this <ruby>town<rt>/taʊn/</rt></ruby>?",
           "vietnamese": "Dân số của thị trấn này khoảng bao nhiêu?"
         },
         "kanji_focus": [
@@ -192,8 +189,7 @@
         "type": "kanji_reading",
         "content": {
           "original": "郵便局の近くに引っ越したので便利です。",
-          "with_ruby": "<ruby>郵便局<rt>ゆうびんきょく</rt></ruby>の<ruby>近<rt>ちか</rt></ruby>くに<ruby>引<rt>ひ</rt></ruby>っ<ruby>越<rt>こ</rt></ruby>したので<ruby>便利<rt>べんり</rt></ruby>です。",
-          "with_red_highlight": "<span style='color:red;font-weight:bold;'><ruby>郵便局<rt>ゆうびんきょく</rt></ruby></span>の<ruby>近<rt>ちか</rt></ruby>くに<ruby>引<rt>ひ</rt></ruby>っ<ruby>越<rt>こ</rt></ruby>したので<ruby>便利<rt>べんり</rt></ruby>です。"
+          "with_ruby": "<ruby>郵便局<rt>ゆうびんきょく</rt></ruby>の<ruby>近<rt>ちか</rt></ruby>くに<ruby>引<rt>ひ</rt></ruby>っ<ruby>越<rt>こ</rt></ruby>したので<ruby>便利<rt>べんり</rt></ruby>です。"
         }
       },
       "options": [
@@ -206,7 +202,6 @@
       "explanation": {
         "translations": {
           "english": "It is convenient because I moved near the post office.",
-          "english_with_ipa": "It is <ruby>convenient<rt>/kənˈviːniənt/</rt></ruby> because I <ruby>moved<rt>/muːvd/</rt></ruby> near the <ruby>post office<rt>/poʊst ˈɒfɪs/</rt></ruby>.",
           "vietnamese": "Tôi chuyển nhà đến gần bưu điện nên tiện lợi."
         },
         "kanji_focus": [
@@ -266,8 +261,7 @@
         "type": "kanji_reading",
         "content": {
           "original": "A国の大統領は、日本の印象を次のように述べた。",
-          "with_ruby": "A<ruby>国<rt>こく</rt></ruby>の<ruby>大統領<rt>だいとうりょう</rt></ruby>は、<ruby>日本<rt>にほん</rt></ruby>の<ruby>印象<rt>いんしょう</rt></ruby>を<ruby>次<rt>つぎ</rt></ruby>のように<ruby>述<rt>の</rt></ruby>べた。",
-          "with_red_highlight": "A<ruby>国<rt>こく</rt></ruby>の<ruby>大統領<rt>だいとうりょう</rt></ruby>は、<ruby>日本<rt>にほん</rt></ruby>の<ruby>印象<rt>いんしょう</rt></ruby>を<ruby>次<rt>つぎ</rt></ruby>のように<span style='color:red;font-weight:bold;'><ruby>述<rt>の</rt></ruby>べた</span>。"
+          "with_ruby": "A<ruby>国<rt>こく</rt></ruby>の<ruby>大統領<rt>だいとうりょう</rt></ruby>は、<ruby>日本<rt>にほん</rt></ruby>の<ruby>印象<rt>いんしょう</rt></ruby>を<ruby>次<rt>つぎ</rt></ruby>のように<ruby>述<rt>の</rt></ruby>べた。"
         }
       },
       "options": [
@@ -280,7 +274,6 @@
       "explanation": {
         "translations": {
           "english": "The president of country A expressed his impression of Japan thusly.",
-          "english_with_ipa": "The <ruby>president<rt>/ˈprezɪdənt/</rt></ruby> of <ruby>country<rt>/ˈkʌntri/</rt></ruby> A <ruby>expressed<rt>/ɪkˈsprest/</rt></ruby> his <ruby>impression<rt>/ɪmˈpreʃən/</rt></ruby> of <ruby>Japan<rt>/dʒəˈpæn/</rt></ruby> thusly.",
           "vietnamese": "Tổng thống nước A bày tỏ ấn tượng của mình về nước Nhật như sau."
         },
         "kanji_focus": [
@@ -360,8 +353,7 @@
         "type": "kanji_reading",
         "content": {
           "original": "税金を納めるのは、国民の義務です。",
-          "with_ruby": "<ruby>税金<rt>ぜいきん</rt></ruby>を<ruby>納<rt>おさ</rt></ruby>めるのは、<ruby>国民<rt>こくみん</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>です。",
-          "with_red_highlight": "<ruby>税金<rt>ぜいきん</rt></ruby>を<span style='color:red;font-weight:bold;'><ruby>納<rt>おさ</rt></ruby>める</span>のは、<ruby>国民<rt>こくみん</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>です。"
+          "with_ruby": "<ruby>税金<rt>ぜいきん</rt></ruby>を<ruby>納<rt>おさ</rt></ruby>めるのは、<ruby>国民<rt>こくみん</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>です。"
         }
       },
       "options": [
@@ -374,7 +366,6 @@
       "explanation": {
         "translations": {
           "english": "It is your obligation as a citizen to pay taxes.",
-          "english_with_ipa": "It is your <ruby>obligation<rt>/ˌɒblɪˈɡeɪʃən/</rt></ruby> as a <ruby>citizen<rt>/ˈsɪtɪzən/</rt></ruby> to pay <ruby>taxes<rt>/ˈtæksɪz/</rt></ruby>.",
           "vietnamese": "Nộp thuế là nghĩa vụ của công dân."
         },
         "kanji_focus": [

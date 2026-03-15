@@ -12,8 +12,7 @@
       "type": "kanji_reading",
       "content": {
         "original": "税金を納めるのは、国民の義務です。",
-        "with_ruby": "<ruby>税金<rt>ぜいきん</rt></ruby>を<ruby>納<rt>おさ</rt></ruby>めるのは、<ruby>国民<rt>こくみん</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>です。",
-        "with_red_highlight": "<ruby>税金<rt>ぜいきん</rt></ruby>を<span style='color:red;font-weight:bold;'><ruby>納<rt>おさ</rt></ruby>める</span>のは、<ruby>国民<rt>こくみん</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>です。"
+        "with_ruby": "<ruby>税金<rt>ぜいきん</rt></ruby>を<ruby>納<rt>おさ</rt></ruby>めるのは、<ruby>国民<rt>こくみん</rt></ruby>の<ruby>義務<rt>ぎむ</rt></ruby>です。"
       }
     },
     "options": [
@@ -42,7 +41,6 @@
     "explanation": {
       "translations": {
         "english": "It is your obligation as a citizen to pay taxes.",
-        "english_with_ipa": "It is your <ruby>obligation<rt>/ˌɒblɪˈɡeɪʃən/</rt></ruby> as a <ruby>citizen<rt>/ˈsɪtɪzən/</rt></ruby> to pay <ruby>taxes<rt>/ˈtæksɪz/</rt></ruby>.",
         "vietnamese": "Nộp thuế là nghĩa vụ của công dân."
       },
       "kanji_focus": [

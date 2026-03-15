@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --furigana-question-size: 0.65rem;
+  --furigana-explanation-size: 0.5rem;
+  --app-font-size: 16px;
+  --app-font-family: "Noto Sans JP", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-japanese bg-slate-50 text-slate-900 antialiased;
+    font-size: var(--app-font-size);
+    font-family: var(--app-font-family);
+    color: var(--app-text-color, inherit);
+  }
+
+  /* Dark mode base */
+  .dark body,
+  .dark {
+    @apply bg-slate-900 text-slate-100;
+  }
+
+  ruby {
+    ruby-align: center;
+  }
+
+  ruby rt {
+    @apply text-primary-500 font-normal;
+    font-size: var(--furigana-question-size);
+  }
+
+  /* Question text furigana - larger */
+  .question-text ruby rt {
+    font-size: var(--furigana-question-size);
+  }
+
+  /* Explanation section furigana - smaller */
+  .explanation-section ruby rt {
+    font-size: var(--furigana-explanation-size);
+  }
+
+  .furigana-hidden ruby rt {
+    visibility: hidden;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  .furigana-visible ruby rt {
+    visibility: visible;
+  }
+
+  /* IPA toggle for English text */
+  .ipa-hidden ruby rt {
+    visibility: hidden;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  .ipa-visible ruby rt {
+    visibility: visible;
+    @apply text-emerald-500;
+    font-size: var(--furigana-explanation-size);
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-slate-100 p-6 transition-all duration-200;
+  }
+
+  .dark .card {
+    @apply bg-slate-800 border-slate-700;
+  }
+
+  .card:hover {
+    @apply shadow-md;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-white px-6 py-3 rounded-xl font-medium
+           hover:bg-primary-700 active:bg-primary-800 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-slate-700 px-6 py-3 rounded-xl font-medium border border-slate-200
+           hover:bg-slate-50 active:bg-slate-100 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2;
+  }
+
+  .dark .btn-secondary {
+    @apply bg-slate-700 text-slate-200 border-slate-600 hover:bg-slate-600;
+  }
+
+  .btn-ghost {
+    @apply text-slate-600 px-4 py-2 rounded-lg font-medium
+           hover:bg-slate-100 active:bg-slate-200 transition-all duration-200;
+  }
+
+  .dark .btn-ghost {
+    @apply text-slate-300 hover:bg-slate-700;
+  }
+
+  .option-btn {
+    @apply w-full text-left p-4 rounded-xl border-2 border-slate-200 
+           hover:border-primary-300 hover:bg-primary-50 
+           transition-all duration-200 font-medium text-lg;
+  }
+
+  .dark .option-btn {
+    @apply border-slate-600 hover:border-primary-400 hover:bg-primary-900/30;
+  }
+
+  .option-btn.selected {
+    @apply border-primary-500 bg-primary-50 text-primary-700;
+  }
+
+  .option-btn.correct {
+    @apply border-emerald-500 bg-emerald-50 text-emerald-700;
+  }
+
+  .option-btn.incorrect {
+    @apply border-rose-500 bg-rose-50 text-rose-700;
+  }
+
+  .option-btn.was-correct {
+    @apply border-emerald-400 bg-emerald-50/50;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-level {
+    @apply badge bg-primary-100 text-primary-700;
+  }
+
+  .badge-moji {
+    @apply badge bg-rose-100 text-rose-700;
+  }
+
+  .badge-goi {
+    @apply badge bg-amber-100 text-amber-700;
+  }
+
+  .badge-bunpo {
+    @apply badge bg-emerald-100 text-emerald-700;
+  }
+
+  /* Mastery badges */
+  .badge-mastered {
+    @apply badge bg-emerald-100 text-emerald-700;
+  }
+
+  .badge-learning {
+    @apply badge bg-blue-100 text-blue-700;
+  }
+
+  .badge-weak {
+    @apply badge bg-rose-100 text-rose-700;
+  }
+
+  .badge-not-studied {
+    @apply badge bg-slate-100 text-slate-500;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-xl border border-slate-300 
+           focus:border-primary-500 focus:ring-2 focus:ring-primary-200 
+           outline-none transition-all duration-200 text-base;
+  }
+
+  .dark .input {
+    @apply bg-slate-700 border-slate-600 text-slate-100;
+  }
+
+  .question-text {
+    @apply text-xl md:text-2xl leading-relaxed font-medium;
+  }
+
+  .question-text ruby {
+    @apply text-xl md:text-2xl;
+  }
+
+  .explanation-section {
+    @apply bg-gradient-to-br from-slate-50 to-primary-50/30 rounded-2xl p-6 space-y-4;
+  }
+
+  .dark .explanation-section {
+    @apply from-slate-800 to-primary-900/20;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+  }
+}
+
+/* HanziWriter container styles */
+.kanji-writer-container {
+  @apply flex items-center justify-center;
+}
+
+.kanji-writer-container svg {
+  @apply rounded-xl border-2 border-slate-200;
+}
+
+/* Inline mini kanji writer */
+.kanji-writer-inline {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.kanji-writer-inline svg {
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
+
+/* Page transition */
+.page-enter {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Star animation */
+@keyframes starPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.star-pop {
+  animation: starPop 0.3s ease-out;
+}
