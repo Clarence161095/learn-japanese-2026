@@ -103,3 +103,6 @@ Khi tăng size tổng thể thì tôi thấy quá ok rồi tuy nhiên ở
 Tất nhiên trong lần này vẫn phải update thêm phần GEMINI_AGENT_GUIDE.md chi tiết hơn nữa chuẩn xác hơn nữa chính xác với hệ thống hiện tại để sao cho Agent Gemini có thể khi tôi import 2 bức hình hoặc một bản pdf 2 trang. Một hình/trang là câu hỏi một hình là câu trả lời thì output sẽ là một json như trong /data/sample/Input.json (hãy sửa lại Input.json nếu cần để sao input chuẩn xác vào hệ thống này chuẩn đét). Và ko giải thích gì thêm, vì tương lai tôi sẽ có 1 cái Agent chụp hình và auto chuyển đổi ra json sau đó import vào hệ thống nên cái fiel GEMINI_AGENT_GUIDE.md hướng dẫn chi tiết và chính xác tới từng bước để import data vào hệ thống là rất quan trọng nên hãy update chi tiết và chính xác hơn nữa nhé. Sửa lại data/sample/...json nếu cần thiết vì sau này các file này sẽ là các file Knowledge base để tôi import vào Agent trên gemeni nên các file này phải được update chi tiết và chính xác hơn nữa nhé.
 
 Hãy thực hiện update toàn diện những yêu cầu trên cho tôi sẽ cố gắng lên mọi thứ sắp hoàn thành rồi đây gần như là lần yêu cầu cuối nên hãy làm chuẩn chỉnh nhất có thể nhé.
+
+-------
+

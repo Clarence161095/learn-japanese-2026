@@ -1,0 +1,479 @@
+[
+  {
+    "id": "q_n4n5_007",
+    "book_level": "N4-N5",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "MOJI"
+    },
+    "question": {
+      "number": 7,
+      "type": "kanji_reading",
+      "content": {
+        "original": "今、四時です。",
+        "with_ruby": "<ruby>今<rt>いま</rt></ruby>、<ruby>四時<rt>よじ</rt></ruby>です。",
+        "with_red_highlight": "<ruby>今<rt>いま</rt></ruby>、<span style=\"color: red;\"><ruby>四時<rt>よじ</rt></ruby></span>です。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "よじ",
+        "is_correct": true
+      },
+      {
+        "id": 2,
+        "text": "しじ",
+        "is_correct": false
+      },
+      {
+        "id": 3,
+        "text": "ようじ",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "よんじ",
+        "is_correct": false
+      }
+    ],
+    "correct_answer_id": 1,
+    "explanation": {
+      "translations": {
+        "english": "It's four o'clock right now.",
+        "english_with_ipa": "It's <ruby>four<rt>/fɔːr/</rt></ruby> <ruby>o'clock<rt>/əˈklɒk/</rt></ruby> <ruby>right<rt>/raɪt/</rt></ruby> <ruby>now<rt>/naʊ/</rt></ruby>.",
+        "vietnamese": "Bây giờ là 4 giờ."
+      },
+      "kanji_focus": [
+        {
+          "kanji": "今",
+          "sino_vietnamese": "KIM",
+          "meanings": {
+            "english": "Now",
+            "vietnamese": "Bây giờ, hiện tại"
+          },
+          "readings": {
+            "onyomi": [
+              "コン",
+              "キン"
+            ],
+            "kunyomi": [
+              "いま"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "今回",
+              "reading": "こんかい",
+              "meaning_vi": "Lần này",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "今回のスプリントでこのタスクを完了させます。",
+                  "with_ruby": "<ruby>今回<rt>こんかい</rt></ruby>のスプリントでこのタスクを<ruby>完了<rt>かんりょう</rt></ruby>させます。",
+                  "english": "I will complete this task in this sprint.",
+                  "english_with_ipa": "I will <ruby>complete<rt>/kəmˈpliːt/</rt></ruby> this <ruby>task<rt>/tæsk/</rt></ruby> in this <ruby>sprint<rt>/sprɪnt/</rt></ruby>.",
+                  "vietnamese": "Tôi sẽ hoàn thành task này trong sprint lần này."
+                },
+                {
+                  "original": "今回リリースされた新機能を確認してください。",
+                  "with_ruby": "<ruby>今回<rt>こんかい</rt></ruby>リリースされた<ruby>新機能<rt>しんきのう</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>してください。",
+                  "english": "Please check the new features released this time.",
+                  "english_with_ipa": "Please <ruby>check<rt>/tʃɛk/</rt></ruby> the new <ruby>features<rt>/ˈfiːtʃərz/</rt></ruby> <ruby>released<rt>/rɪˈliːst/</rt></ruby> this <ruby>time<rt>/taɪm/</rt></ruby>.",
+                  "vietnamese": "Vui lòng kiểm tra các tính năng mới được release lần này."
+                }
+              ]
+            },
+            {
+              "word": "今後",
+              "reading": "こんご",
+              "meaning_vi": "Sau này, từ nay về sau",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "今後のアップデート予定を共有します。",
+                  "with_ruby": "<ruby>今後<rt>こんご</rt></ruby>のアップデート<ruby>予定<rt>よてい</rt></ruby>を<ruby>共有<rt>きょうゆう</rt></ruby>します。",
+                  "english": "I will share the future update schedule.",
+                  "english_with_ipa": "I will <ruby>share<rt>/ʃɛr/</rt></ruby> the <ruby>future<rt>/ˈfjuːtʃər/</rt></ruby> <ruby>update<rt>/ʌpˈdeɪt/</rt></ruby> <ruby>schedule<rt>/ˈskɛdʒuːl/</rt></ruby>.",
+                  "vietnamese": "Tôi sẽ chia sẻ dự định update sau này."
+                },
+                {
+                  "original": "今後、このライブラリは非推奨になります。",
+                  "with_ruby": "<ruby>今後<rt>こんご</rt></ruby>、このライブラリは<ruby>非推奨<rt>ひすいしょう</rt></ruby>になります。",
+                  "english": "From now on, this library will be deprecated.",
+                  "english_with_ipa": "From now on, this <ruby>library<rt>/ˈlaɪbrəri/</rt></ruby> will be <ruby>deprecated<rt>/ˈdɛprəˌkeɪtɪd/</rt></ruby>.",
+                  "vietnamese": "Từ nay về sau, library này sẽ bị deprecated (không khuyến khích dùng)."
+                }
+              ]
+            }
+          ],
+          "textbook_notes": "今月 (this month / tháng này), 今日 (today / hôm nay), 今年 (this year / năm nay), 今朝 (this morning / sáng nay)"
+        },
+        {
+          "kanji": "四",
+          "sino_vietnamese": "TỨ",
+          "meanings": {
+            "english": "Four",
+            "vietnamese": "Số bốn"
+          },
+          "readings": {
+            "onyomi": [
+              "シ"
+            ],
+            "kunyomi": [
+              "よ",
+              "よ.つ",
+              "よん"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "四半期",
+              "reading": "しはんき",
+              "meaning_vi": "Quý (1/4 năm)",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "第一四半期のレポートを作成します。",
+                  "with_ruby": "<ruby>第一四半期<rt>だいいちしはんき</rt></ruby>のレポートを<ruby>作成<rt>さくせい</rt></ruby>します。",
+                  "english": "I will create the first quarter report.",
+                  "english_with_ipa": "I will <ruby>create<rt>/kriˈeɪt/</rt></ruby> the <ruby>first<rt>/fɜːrst/</rt></ruby> <ruby>quarter<rt>/ˈkwɔːrtər/</rt></ruby> <ruby>report<rt>/rɪˈpɔːrt/</rt></ruby>.",
+                  "vietnamese": "Tôi sẽ tạo báo cáo cho quý 1."
+                },
+                {
+                  "original": "四半期ごとにシステムのメンテナンスを行います。",
+                  "with_ruby": "<ruby>四半期<rt>しはんき</rt></ruby>ごとにシステムのメンテナンスを<ruby>行<rt>おこな</rt></ruby>います。",
+                  "english": "We perform system maintenance every quarter.",
+                  "english_with_ipa": "We <ruby>perform<rt>/pərˈfɔːrm/</rt></ruby> <ruby>system<rt>/ˈsɪstəm/</rt></ruby> <ruby>maintenance<rt>/ˈmeɪntənəns/</rt></ruby> every <ruby>quarter<rt>/ˈkwɔːrtər/</rt></ruby>.",
+                  "vietnamese": "Chúng tôi tiến hành bảo trì hệ thống mỗi quý."
+                }
+              ]
+            },
+            {
+              "word": "四捨五入",
+              "reading": "ししゃごにゅう",
+              "meaning_vi": "Làm tròn số (4 bỏ 5 lên)",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "計算結果を小数点第二位で四捨五入します。",
+                  "with_ruby": "<ruby>計算結果<rt>けいさんけっか</rt></ruby>を<ruby>小数点第二位<rt>しょうすうてんだいにい</rt></ruby>で<ruby>四捨五入<rt>ししゃごにゅう</rt></ruby>します。",
+                  "english": "Round the calculation result to two decimal places.",
+                  "english_with_ipa": "<ruby>Round<rt>/raʊnd/</rt></ruby> the <ruby>calculation<rt>/ˌkælkjuˈleɪʃən/</rt></ruby> <ruby>result<rt>/rɪˈzʌlt/</rt></ruby> to two <ruby>decimal<rt>/ˈdɛsɪməl/</rt></ruby> <ruby>places<rt>/ˈpleɪsɪz/</rt></ruby>.",
+                  "vietnamese": "Làm tròn kết quả tính toán đến chữ số thập phân thứ hai."
+                },
+                {
+                  "original": "四捨五入のロジックにバグがあります。",
+                  "with_ruby": "<ruby>四捨五入<rt>ししゃごにゅう</rt></ruby>のロジックにバグがあります。",
+                  "english": "There is a bug in the rounding logic.",
+                  "english_with_ipa": "There is a <ruby>bug<rt>/bʌɡ/</rt></ruby> in the <ruby>rounding<rt>/ˈraʊndɪŋ/</rt></ruby> <ruby>logic<rt>/ˈlɒdʒɪk/</rt></ruby>.",
+                  "vietnamese": "Có bug trong logic làm tròn số."
+                }
+              ]
+            }
+          ],
+          "textbook_notes": "四月 (April / tháng 4), 四時 (4 o'clock / 4 giờ), 四十分 (40 minutes / 40 phút), 四つ (four things / 4 cái)"
+        },
+        {
+          "kanji": "時",
+          "sino_vietnamese": "THỜI",
+          "meanings": {
+            "english": "Time, hour",
+            "vietnamese": "Thời gian, giờ"
+          },
+          "readings": {
+            "onyomi": [
+              "ジ"
+            ],
+            "kunyomi": [
+              "とき"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "同時",
+              "reading": "どうじ",
+              "meaning_vi": "Đồng thời, cùng lúc",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "複数のユーザーが同時にアクセスするとエラーになります。",
+                  "with_ruby": "<ruby>複数<rt>ふくすう</rt></ruby>のユーザーが<ruby>同時<rt>どうじ</rt></ruby>にアクセスするとエラーになります。",
+                  "english": "An error occurs when multiple users access simultaneously.",
+                  "english_with_ipa": "An <ruby>error<rt>/ˈɛrər/</rt></ruby> <ruby>occurs<rt>/əˈkɜːrz/</rt></ruby> when <ruby>multiple<rt>/ˈmʌltɪpəl/</rt></ruby> <ruby>users<rt>/ˈjuːzərz/</rt></ruby> <ruby>access<rt>/ˈæksɛs/</rt></ruby> <ruby>simultaneously<rt>/ˌsaɪməlˈteɪniəsli/</rt></ruby>.",
+                  "vietnamese": "Nếu nhiều user truy cập cùng lúc thì sẽ bị lỗi."
+                },
+                {
+                  "original": "フロントエンドとバックエンドを同時に開発します。",
+                  "with_ruby": "フロントエンドとバックエンドを<ruby>同時<rt>どうじ</rt></ruby>に<ruby>開発<rt>かいはつ</rt></ruby>します。",
+                  "english": "Develop front-end and back-end simultaneously.",
+                  "english_with_ipa": "<ruby>Develop<rt>/dɪˈvɛləp/</rt></ruby> front-end and back-end <ruby>simultaneously<rt>/ˌsaɪməlˈteɪniəsli/</rt></ruby>.",
+                  "vietnamese": "Phát triển đồng thời cả frontend và backend."
+                }
+              ]
+            },
+            {
+              "word": "一時的",
+              "reading": "いちじてき",
+              "meaning_vi": "Tạm thời",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "サーバーに一時的な負荷がかかっています。",
+                  "with_ruby": "サーバーに<ruby>一時的<rt>いちじてき</rt></ruby>な<ruby>負荷<rt>ふか</rt></ruby>がかかっています。",
+                  "english": "The server is under temporary load.",
+                  "english_with_ipa": "The <ruby>server<rt>/ˈsɜːrvər/</rt></ruby> is under <ruby>temporary<rt>/ˈtɛmpəˌrɛri/</rt></ruby> <ruby>load<rt>/loʊd/</rt></ruby>.",
+                  "vietnamese": "Server đang bị quá tải tạm thời."
+                },
+                {
+                  "original": "一時的なファイルを削除しました。",
+                  "with_ruby": "<ruby>一時的<rt>いちじてき</rt></ruby>なファイルを<ruby>削除<rt>さくじょ</rt></ruby>しました。",
+                  "english": "Deleted temporary files.",
+                  "english_with_ipa": "<ruby>Deleted<rt>/dɪˈliːtɪd/</rt></ruby> <ruby>temporary<rt>/ˈtɛmpəˌrɛri/</rt></ruby> <ruby>files<rt>/faɪlz/</rt></ruby>.",
+                  "vietnamese": "Đã xóa các file tạm thời."
+                }
+              ]
+            }
+          ],
+          "textbook_notes": "九時 (9 o'clock / 9 giờ), 四時間 (4 hours / 4 tiếng), 子供の時 (when I was a child / hồi bé), 時計 (clock / đồng hồ)"
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "MOJI",
+      "difficulty": 1,
+      "tags": [
+        "kanji_reading",
+        "time",
+        "N4",
+        "N5"
+      ]
+    }
+  },
+  {
+    "id": "q_goi_n4n5_008",
+    "book_level": "N4-N5",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "GOI"
+    },
+    "question": {
+      "number": 8,
+      "type": "fill_in_the_blank",
+      "content": {
+        "original": "すみません、お手洗いを ____ ください。",
+        "with_ruby": "すみません、お<ruby>手洗<rt>てあら</rt></ruby>いを ____ ください。",
+        "with_red_highlight": "すみません、お<ruby>手洗<rt>てあら</rt></ruby>いを <span style=\"color: red;\">____</span> ください。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "かけて",
+        "is_correct": false
+      },
+      {
+        "id": 2,
+        "text": "かりて",
+        "is_correct": false
+      },
+      {
+        "id": 3,
+        "text": "かえして",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "かして",
+        "is_correct": true
+      }
+    ],
+    "correct_answer_id": 4,
+    "explanation": {
+      "translations": {
+        "english": "Excuse me? May I use the washroom?",
+        "english_with_ipa": "<ruby>Excuse<rt>/ɪkˈskjuːz/</rt></ruby> me? <ruby>May<rt>/meɪ/</rt></ruby> I <ruby>use<rt>/juːz/</rt></ruby> the <ruby>washroom<rt>/ˈwɒʃruːm/</rt></ruby>?",
+        "vietnamese": "Xin lỗi, cho tôi đi vệ sinh nhờ với!"
+      },
+      "usage_context": "Trong tiếng Nhật, khi muốn mượn hoặc sử dụng nhờ những thứ như 'nhà vệ sinh' (お手洗い) hoặc 'điện thoại' (電話), người ta thường dùng cụm từ 「貸してください」(Làm ơn hãy cho tôi mượn/dùng nhờ) với ý nghĩa là 「使いたい」(Tôi muốn dùng).",
+      "vocabulary_analysis": [
+        {
+          "word": "貸す",
+          "reading": "かす",
+          "meaning_vi": "Cho mượn, cho dùng nhờ",
+          "meaning_en": "To lend / To let use",
+          "antonyms": [
+            {
+              "word": "借りる",
+              "reading": "かりる",
+              "meaning_vi": "Mượn"
+            }
+          ],
+          "it_context_examples": [
+            {
+              "original": "テスト用のアカウントを貸してください。",
+              "with_ruby": "テスト<ruby>用<rt>よう</rt></ruby>のアカウントを<ruby>貸<rt>か</rt></ruby>してください。",
+              "english": "Please lend me a test account.",
+              "english_with_ipa": "Please <ruby>lend<rt>/lɛnd/</rt></ruby> me a <ruby>test<rt>/tɛst/</rt></ruby> <ruby>account<rt>/əˈkaʊnt/</rt></ruby>.",
+              "vietnamese": "Làm ơn cho tôi mượn account dùng để test."
+            },
+            {
+              "original": "サーバーの管理権限を一時的に貸してもらえますか？",
+              "with_ruby": "サーバーの<ruby>管理権限<rt>かんりけんげん</rt></ruby>を<ruby>一時的<rt>いちじてき</rt></ruby>に<ruby>貸<rt>か</rt></ruby>してもらえますか？",
+              "english": "Could you temporarily lend me server admin privileges?",
+              "english_with_ipa": "Could you <ruby>temporarily<rt>/ˈtɛmpəˌrɛri/</rt></ruby> <ruby>lend<rt>/lɛnd/</rt></ruby> me <ruby>server<rt>/ˈsɜːrvər/</rt></ruby> <ruby>admin<rt>/ˈædmɪn/</rt></ruby> <ruby>privileges<rt>/ˈprɪvəlɪdʒɪz/</rt></ruby>?",
+              "vietnamese": "Bạn có thể cho tôi mượn quyền admin server tạm thời được không?"
+            }
+          ]
+        },
+        {
+          "word": "借りる",
+          "reading": "かりる",
+          "meaning_vi": "Mượn",
+          "meaning_en": "To borrow",
+          "it_context_examples": [
+            {
+              "original": "本番環境のデータを借りて、ローカルで検証します。",
+              "with_ruby": "<ruby>本番環境<rt>ほんばんかんきょう</rt></ruby>のデータを<ruby>借<rt>か</rt></ruby>りて、ローカルで<ruby>検証<rt>けんしょう</rt></ruby>します。",
+              "english": "I will borrow data from the production environment and verify it locally.",
+              "english_with_ipa": "I will <ruby>borrow<rt>/ˈbɒroʊ/</rt></ruby> <ruby>data<rt>/ˈdeɪtə/</rt></ruby> from the <ruby>production<rt>/prəˈdʌkʃən/</rt></ruby> <ruby>environment<rt>/ɪnˈvaɪrənmənt/</rt></ruby> and <ruby>verify<rt>/ˈvɛrɪfaɪ/</rt></ruby> it <ruby>locally<rt>/ˈloʊkəli/</rt></ruby>.",
+              "vietnamese": "Tôi mượn data từ môi trường production để kiểm chứng ở local."
+            },
+            {
+              "original": "GitHubからソースコードを借りてプロジェクトを始めます。",
+              "with_ruby": "GitHubからソースコードを<ruby>借<rt>か</rt></ruby>りてプロジェクトを<ruby>始<rt>はじ</rt></ruby>めます。",
+              "english": "Borrow source code from GitHub and start the project.",
+              "english_with_ipa": "<ruby>Borrow<rt>/ˈbɒroʊ/</rt></ruby> <ruby>source code<rt>/sɔːrs koʊd/</rt></ruby> from GitHub and <ruby>start<rt>/stɑːrt/</rt></ruby> the <ruby>project<rt>/ˈprɒdʒɛkt/</rt></ruby>.",
+              "vietnamese": "Lấy (mượn) source code từ GitHub để bắt đầu project."
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "GOI",
+      "difficulty": 1,
+      "tags": [
+        "vocabulary",
+        "polite_expression",
+        "verbs"
+      ]
+    }
+  },
+  {
+    "id": "q_bunpo_n4n5_009",
+    "book_level": "N4-N5",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "BUNPO"
+    },
+    "question": {
+      "number": 9,
+      "type": "fill_in_the_blank",
+      "content": {
+        "original": "この道をまっすぐ行ってください。",
+        "with_ruby": "この<ruby>道<rt>みち</rt></ruby>をまっすぐ<ruby>行<rt>い</rt></ruby>ってください。",
+        "with_red_highlight": "この<ruby>道<rt>みち</rt></ruby><span style=\"color: red;\">を</span>まっすぐ<ruby>行<rt>い</rt></ruby>ってください。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "に",
+        "is_correct": false
+      },
+      {
+        "id": 2,
+        "text": "を",
+        "is_correct": true
+      },
+      {
+        "id": 3,
+        "text": "で",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "が",
+        "is_correct": false
+      }
+    ],
+    "correct_answer_id": 2,
+    "explanation": {
+      "translations": {
+        "english": "Follow this road straight.",
+        "english_with_ipa": "<ruby>Follow<rt>/ˈfɒloʊ/</rt></ruby> this <ruby>road<rt>/roʊd/</rt></ruby> <ruby>straight<rt>/streɪt/</rt></ruby>.",
+        "vietnamese": "Hãy đi thẳng con đường này!"
+      },
+      "general_explanation": "Trợ từ 「を」 được dùng để chỉ không gian mà một hành động di chuyển đi qua, rời khỏi hoặc băng qua. Cấu trúc: [N (địa điểm) + を + Động từ di chuyển].",
+      "grammar_breakdown": [
+        {
+          "grammar_pattern": "N を [移動動詞]",
+          "meaning_vi": "Đi qua / Rời khỏi / Băng qua (địa điểm N)",
+          "meaning_en": "Through / Along / Leaving (place N)",
+          "usage_notes": "Thường dùng với các động từ như 行く (đi), 出る (rời khỏi), 散歩する (đi dạo), 渡る (băng qua). Lưu ý: Không nói 'この道に行ってください' khi muốn nói đi dọc theo con đường.",
+          "textbook_examples": [
+            {
+              "original": "7時に家を出ました。",
+              "with_ruby": "7<ruby>時<rt>じ</rt></ruby>に<ruby>家<rt>いえ</rt></ruby>を<ruby>出<rt>で</rt></ruby>ました。",
+              "english": "I left home at 7 o'clock.",
+              "english_with_ipa": "I <ruby>left<rt>/lɛft/</rt></ruby> <ruby>home<rt>/hoʊm/</rt></ruby> at 7 <ruby>o'clock<rt>/əˈklɒk/</rt></ruby>.",
+              "vietnamese": "Tôi đã rời nhà lúc 7 giờ."
+            },
+            {
+              "original": "毎日公園を散歩します。",
+              "with_ruby": "<ruby>毎日公園<rt>まいにちこうえん</rt></ruby>を<ruby>散歩<rt>さんぽ</rt></ruby>します。",
+              "english": "I take a walk in the park every day.",
+              "english_with_ipa": "I <ruby>take<rt>/teɪk/</rt></ruby> a <ruby>walk<rt>/wɔːk/</rt></ruby> in the <ruby>park<rt>/pɑːrk/</rt></ruby> every day.",
+              "vietnamese": "Hàng ngày tôi đi dạo trong công viên."
+            }
+          ],
+          "it_context_examples": [
+            {
+              "original": "このループを抜けると、次の処理に進みます。",
+              "with_ruby": "このループを<ruby>抜<rt>ぬ</rt></ruby>けると、<ruby>次<rt>つぎ</rt></ruby>の<ruby>処理<rt>しょり</rt></ruby>に<ruby>進<rt>すす</rt></ruby>みます。",
+              "english": "Once you exit this loop, it proceeds to the next process.",
+              "english_with_ipa": "Once you <ruby>exit<rt>/ˈɛɡzɪt/</rt></ruby> this <ruby>loop<rt>/luːp/</rt></ruby>, it <ruby>proceeds<rt>/prəˈsiːdz/</rt></ruby> to the <ruby>next<rt>/nɛkst/</rt></ruby> <ruby>process<rt>/ˈprɒsɛs/</rt></ruby>.",
+              "vietnamese": "Sau khi thoát khỏi vòng lặp này, chương trình sẽ tiến tới xử lý tiếp theo."
+            },
+            {
+              "original": "APIのパスを通してください。",
+              "with_ruby": "APIのパスを<ruby>通<rt>とお</rt></ruby>してください。",
+              "english": "Please set the API path.",
+              "english_with_ipa": "Please <ruby>set<rt>/sɛt/</rt></ruby> the API <ruby>path<rt>/pæθ/</rt></ruby>.",
+              "vietnamese": "Hãy thông (set) đường dẫn API."
+            },
+            {
+              "original": "バイナリツリーを探索して、ターゲットを探します。",
+              "with_ruby": "バイナリツリーを<ruby>探索<rt>たんさく</rt></ruby>して、ターゲットを<ruby>探<rt>さが</rt></ruby>します。",
+              "english": "Traverse the binary tree to find the target.",
+              "english_with_ipa": "<ruby>Traverse<rt>/trəˈvɜːrs/</rt></ruby> the <ruby>binary<rt>/ˈbaɪnəri/</rt></ruby> <ruby>tree<rt>/triː/</rt></ruby> to find the <ruby>target<rt>/ˈtɑːrɡɪt/</rt></ruby>.",
+              "vietnamese": "Duyệt qua cây nhị phân để tìm đối tượng mục tiêu."
+            },
+            {
+              "original": "ログファイルを読み込んで、エラー箇所を特定します。",
+              "with_ruby": "ログファイルを<ruby>読<rt>よ</rt></ruby>み<ruby>込<rt>こ</rt></ruby>んで、エラー<ruby>箇所<rt>かしょ</rt></ruby>を<ruby>特定<rt>とくてい</rt></ruby>します。",
+              "english": "Read through the log file and identify the error location.",
+              "english_with_ipa": "<ruby>Read<rt>/riːd/</rt></ruby> through the <ruby>log<rt>/lɒɡ/</rt></ruby> <ruby>file<rt>/faɪl/</rt></ruby> and <ruby>identify<rt>/aɪˈdɛntɪfaɪ/</rt></ruby> the <ruby>error<rt>/ˈɛrər/</rt></ruby> <ruby>location<rt>/loʊˈkeɪʃən/</rt></ruby>.",
+              "vietnamese": "Đọc qua file log để xác định vị trí lỗi."
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "BUNPO",
+      "difficulty": 1,
+      "tags": [
+        "grammar",
+        "particles",
+        "N4",
+        "N5",
+        "wo_particle"
+      ]
+    }
+  }
+]

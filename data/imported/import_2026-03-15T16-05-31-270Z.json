@@ -1,0 +1,541 @@
+[
+  {
+    "id": "q_n4n5_004",
+    "book_level": "N4-N5",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "MOJI"
+    },
+    "question": {
+      "number": 4,
+      "type": "kanji_writing",
+      "content": {
+        "original": "あの 人は かいしゃいんです。",
+        "with_ruby": "あの<ruby>人<rt>ひと</rt></ruby>はかいしゃいんです。",
+        "with_red_highlight": "あの<ruby>人<rt>ひと</rt></ruby>は<span style=\"color: red;\">かいしゃいん</span>です。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "会社人",
+        "is_correct": false
+      },
+      {
+        "id": 2,
+        "text": "会社員",
+        "is_correct": true
+      },
+      {
+        "id": 3,
+        "text": "社会人",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "社会員",
+        "is_correct": false
+      }
+    ],
+    "correct_answer_id": 2,
+    "explanation": {
+      "translations": {
+        "english": "That person is a company employee.",
+        "english_with_ipa": "That <ruby>person<rt>/ˈpɜːrsən/</rt></ruby> is a <ruby>company<rt>/ˈkʌmpəni/</rt></ruby> <ruby>employee<rt>/ɪmˈplɔɪiː/</rt></ruby>.",
+        "vietnamese": "Anh ấy là nhân viên công ty."
+      },
+      "kanji_focus": [
+        {
+          "kanji": "会",
+          "sino_vietnamese": "HỘI",
+          "meanings": {
+            "english": "Meet, society",
+            "vietnamese": "Gặp gỡ, hội họp"
+          },
+          "readings": {
+            "onyomi": [
+              "カイ",
+              "エ"
+            ],
+            "kunyomi": [
+              "あ.う"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "会社",
+              "reading": "かいしゃ",
+              "meaning_vi": "Công ty",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "私の会社はITサービスを提供しています。",
+                  "with_ruby": "<ruby>私<rt>わたし</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>はITサービスを<ruby>提供<rt>ていきょう</rt></ruby>しています。",
+                  "english": "My company provides IT services.",
+                  "english_with_ipa": "My <ruby>company<rt>/ˈkʌmpəni/</rt></ruby> <ruby>provides<rt>/prəˈvaɪdz/</rt></ruby> IT <ruby>services<rt>/ˈsɜːrvɪsɪz/</rt></ruby>.",
+                  "vietnamese": "Công ty của tôi cung cấp dịch vụ IT."
+                },
+                {
+                  "original": "IT会社に就職したいです。",
+                  "with_ruby": "IT<ruby>会社<rt>かいしゃ</rt></ruby>に<ruby>就職<rt>しゅうしょく</rt></ruby>したいです。",
+                  "english": "I want to get a job at an IT company.",
+                  "english_with_ipa": "I <ruby>want<rt>/wɒnt/</rt></ruby> to get a <ruby>job<rt>/dʒɒb/</rt></ruby> at an IT <ruby>company<rt>/ˈkʌmpəni/</rt></ruby>.",
+                  "vietnamese": "Tôi muốn xin việc vào một công ty IT."
+                }
+              ]
+            },
+            {
+              "word": "会話",
+              "reading": "かいわ",
+              "meaning_vi": "Hội thoại, cuộc nói chuyện",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "チャットボットは人間と会話できます。",
+                  "with_ruby": "チャットボットは<ruby>人間<rt>にんげん</rt></ruby>と<ruby>会話<rt>かいわ</rt></ruby>できます。",
+                  "english": "Chatbots can converse with humans.",
+                  "english_with_ipa": "<ruby>Chatbots<rt>/ˈtʃætbɒts/</rt></ruby> can <ruby>converse<rt>/kənˈvɜːrs/</rt></ruby> with <ruby>humans<rt>/ˈhjuːmənz/</rt></ruby>.",
+                  "vietnamese": "Chatbot có thể trò chuyện với con người."
+                },
+                {
+                  "original": "クライアントとの会話をログに記録する。",
+                  "with_ruby": "クライアントとの<ruby>会話<rt>かいわ</rt></ruby>をログに<ruby>記録<rt>きろく</rt></ruby>する。",
+                  "english": "Record the conversation with the client in the logs.",
+                  "english_with_ipa": "<ruby>Record<rt>/rɪˈkɔːrd/</rt></ruby> the <ruby>conversation<rt>/ˌkɒnvərˈseɪʃən/</rt></ruby> with the <ruby>client<rt>/ˈklaɪənt/</rt></ruby> in the <ruby>logs<rt>/lɒɡz/</rt></ruby>.",
+                  "vietnamese": "Ghi lại cuộc hội thoại với khách hàng vào log."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kanji": "社",
+          "sino_vietnamese": "XÃ",
+          "meanings": {
+            "english": "Company, society",
+            "vietnamese": "Công ty, xã hội"
+          },
+          "readings": {
+            "onyomi": [
+              "シャ"
+            ],
+            "kunyomi": [
+              "やしろ"
+            ]
+          },
+          "related_words": [
+            {
+              "word": "社長",
+              "reading": "しゃちょう",
+              "meaning_vi": "Giám đốc",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "社長が新しいAIプロジェクトを承認した。",
+                  "with_ruby": "<ruby>社長<rt>しゃちょう</rt></ruby>が<ruby>新<rt>あたら</rt></ruby>しいAIプロジェクトを<ruby>承認<rt>しょうにん</rt></ruby>した。",
+                  "english": "The president approved the new AI project.",
+                  "english_with_ipa": "The <ruby>president<rt>/ˈprɛzɪdənt/</rt></ruby> <ruby>approved<rt>/əˈpruːvd/</rt></ruby> the new AI <ruby>project<rt>/ˈprɒdʒɛkt/</rt></ruby>.",
+                  "vietnamese": "Giám đốc đã phê duyệt dự án AI mới."
+                },
+                {
+                  "original": "うちの会社の社長は元プログラマーです。",
+                  "with_ruby": "うちの<ruby>会社<rt>かいしゃ</rt></ruby>の<ruby>社長<rt>しゃちょう</rt></ruby>は<ruby>元<rt>もと</rt></ruby>プログラマーです。",
+                  "english": "The president of our company is a former programmer.",
+                  "english_with_ipa": "The <ruby>president<rt>/ˈprɛzɪdənt/</rt></ruby> of our <ruby>company<rt>/ˈkʌmpəni/</rt></ruby> is a <ruby>former<rt>/ˈfɔːrmər/</rt></ruby> <ruby>programmer<rt>/ˈproʊɡræmər/</rt></ruby>.",
+                  "vietnamese": "Giám đốc công ty chúng tôi từng là một lập trình viên."
+                }
+              ]
+            },
+            {
+              "word": "社会人",
+              "reading": "しゃかいじん",
+              "meaning_vi": "Người trưởng thành, người đi làm",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "社会人になってから、プログラミングを学びました。",
+                  "with_ruby": "<ruby>社会人<rt>しゃかいじん</rt></ruby>になってから、プログラミングを<ruby>学<rt>まな</rt></ruby>びました。",
+                  "english": "I learned programming after becoming a working adult.",
+                  "english_with_ipa": "I <ruby>learned<rt>/lɜːrnd/</rt></ruby> <ruby>programming<rt>/ˈproʊɡræmɪŋ/</rt></ruby> <ruby>after<rt>/ˈæftər/</rt></ruby> <ruby>becoming<rt>/bɪˈkʌmɪŋ/</rt></ruby> a <ruby>working<rt>/ˈwɜːrkɪŋ/</rt></ruby> <ruby>adult<rt>/əˈdʌlt/</rt></ruby>.",
+                  "vietnamese": "Tôi đã học lập trình sau khi trở thành người đi làm."
+                },
+                {
+                  "original": "IT業界では、社会人としてのマナーも重要です。",
+                  "with_ruby": "IT<ruby>業界<rt>ぎょうかい</rt></ruby>では、<ruby>社会人<rt>しゃかいじん</rt></ruby>としてのマナーも<ruby>重要<rt>じゅうよう</rt></ruby>です。",
+                  "english": "In the IT industry, manners as a working professional are also important.",
+                  "english_with_ipa": "In the IT <ruby>industry<rt>/ˈɪndəstri/</rt></ruby>, <ruby>manners<rt>/ˈmænərz/</rt></ruby> as a <ruby>working<rt>/ˈwɜːrkɪŋ/</rt></ruby> <ruby>professional<rt>/prəˈfɛʃənəl/</rt></ruby> are also <ruby>important<rt>/ɪmˈpɔːrtənt/</rt></ruby>.",
+                  "vietnamese": "Trong ngành IT, tác phong của người đi làm cũng rất quan trọng."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kanji": "員",
+          "sino_vietnamese": "VIÊN",
+          "meanings": {
+            "english": "Employee, member",
+            "vietnamese": "Nhân viên, thành viên"
+          },
+          "readings": {
+            "onyomi": [
+              "イン"
+            ],
+            "kunyomi": []
+          },
+          "related_words": [
+            {
+              "word": "会社員",
+              "reading": "かいしゃいん",
+              "meaning_vi": "Nhân viên công ty",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "彼は普通の会社員からエンジニアに転職した。",
+                  "with_ruby": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>普通<rt>ふつう</rt></ruby>の<ruby>会社員<rt>かいしゃいん</rt></ruby>からエンジニアに<ruby>転職<rt>てんしょく</rt></ruby>した。",
+                  "english": "He changed jobs from a regular company employee to an engineer.",
+                  "english_with_ipa": "He <ruby>changed<rt>/tʃeɪndʒd/</rt></ruby> <ruby>jobs<rt>/dʒɒbz/</rt></ruby> from a <ruby>regular<rt>/ˈrɛɡjʊlər/</rt></ruby> <ruby>company<rt>/ˈkʌmpəni/</rt></ruby> <ruby>employee<rt>/ɪmˈplɔɪiː/</rt></ruby> to an <ruby>engineer<rt>/ˌɛndʒɪˈnɪər/</rt></ruby>.",
+                  "vietnamese": "Anh ấy đã chuyển việc từ nhân viên văn phòng bình thường sang làm kỹ sư."
+                },
+                {
+                  "original": "システムは全会社員が利用します。",
+                  "with_ruby": "システムは<ruby>全<rt>ぜん</rt></ruby><ruby>会社員<rt>かいしゃいん</rt></ruby>が<ruby>利用<rt>りよう</rt></ruby>します。",
+                  "english": "All company employees will use the system.",
+                  "english_with_ipa": "<ruby>All<rt>/ɔːl/</rt></ruby> <ruby>company<rt>/ˈkʌmpəni/</rt></ruby> <ruby>employees<rt>/ɪmˈplɔɪiːz/</rt></ruby> will <ruby>use<rt>/juːz/</rt></ruby> the <ruby>system<rt>/ˈsɪstəm/</rt></ruby>.",
+                  "vietnamese": "Toàn bộ nhân viên công ty sẽ sử dụng hệ thống này."
+                }
+              ]
+            },
+            {
+              "word": "店員",
+              "reading": "てんいん",
+              "meaning_vi": "Nhân viên bán hàng",
+              "is_special_reading": false,
+              "examples_for_it_context": [
+                {
+                  "original": "ECサイトの店員用管理画面を開発する。",
+                  "with_ruby": "ECサイトの<ruby>店員<rt>てんいん</rt></ruby><ruby>用<rt>よう</rt></ruby><ruby>管理<rt>かんり</rt></ruby><ruby>画面<rt>がめん</rt></ruby>を<ruby>開発<rt>かいはつ</rt></ruby>する。",
+                  "english": "Develop the admin panel for store clerks on the e-commerce site.",
+                  "english_with_ipa": "<ruby>Develop<rt>/dɪˈvɛləp/</rt></ruby> the <ruby>admin<rt>/ˈædmɪn/</rt></ruby> <ruby>panel<rt>/ˈpænəl/</rt></ruby> for <ruby>store<rt>/stɔːr/</rt></ruby> <ruby>clerks<rt>/klɜːrks/</rt></ruby> on the <ruby>e-commerce<rt>/ˈiːˌkɒmɜːrs/</rt></ruby> <ruby>site<rt>/saɪt/</rt></ruby>.",
+                  "vietnamese": "Phát triển màn hình quản lý dành cho nhân viên bán hàng của trang thương mại điện tử."
+                },
+                {
+                  "original": "POSシステムは店員の負担を減らします。",
+                  "with_ruby": "POSシステムは<ruby>店員<rt>てんいん</rt></ruby>の<ruby>負担<rt>ふたん</rt></ruby>を<ruby>減<rt>へ</rt></ruby>らします。",
+                  "english": "The POS system reduces the burden on clerks.",
+                  "english_with_ipa": "The POS <ruby>system<rt>/ˈsɪstəm/</rt></ruby> <ruby>reduces<rt>/rɪˈdjuːsɪz/</rt></ruby> the <ruby>burden<rt>/ˈbɜːrdən/</rt></ruby> on <ruby>clerks<rt>/klɜːrks/</rt></ruby>.",
+                  "vietnamese": "Hệ thống POS giúp giảm bớt gánh nặng cho nhân viên cửa hàng."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "MOJI",
+      "difficulty": 2,
+      "tags": [
+        "kanji_writing",
+        "vocabulary",
+        "occupations"
+      ]
+    }
+  },
+  {
+    "id": "q_goi_n4n5_005",
+    "book_level": "N4-N5",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "GOI"
+    },
+    "question": {
+      "number": 5,
+      "type": "fill_in_the_blank",
+      "content": {
+        "original": "ああ、のどが___。つめたい水が飲みたい。",
+        "with_ruby": "ああ、のどが___。つめたい<ruby>水<rt>みず</rt></ruby>が<ruby>飲<rt>の</rt></ruby>みたい。",
+        "with_red_highlight": "ああ、のどが<span style=\"color: red;\">___</span>。つめたい<ruby>水<rt>みず</rt></ruby>が<ruby>飲<rt>の</rt></ruby>みたい。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "いたかった",
+        "is_correct": false
+      },
+      {
+        "id": 2,
+        "text": "かわいた",
+        "is_correct": true
+      },
+      {
+        "id": 3,
+        "text": "すいた",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "ぬれた",
+        "is_correct": false
+      }
+    ],
+    "correct_answer_id": 2,
+    "explanation": {
+      "translations": {
+        "english": "Gosh, I'm so thirsty. I'd like to drink some cold water.",
+        "english_with_ipa": "<ruby>Gosh<rt>/ɡɒʃ/</rt></ruby>, I'm so <ruby>thirsty<rt>/ˈθɜːrsti/</rt></ruby>. I'd like to <ruby>drink<rt>/drɪŋk/</rt></ruby> some <ruby>cold<rt>/koʊld/</rt></ruby> <ruby>water<rt>/ˈwɔːtər/</rt></ruby>.",
+        "vietnamese": "Ôi, khát nước. Tôi muốn uống nước lạnh."
+      },
+      "grammar_and_usage_context": "Câu diễn tả trạng thái cơ thể. Dựa vào vế sau 'muốn uống nước lạnh' thì suy ra vế trước là 'khát nước'. Cụm từ cố định: のどがかわく (khát nước). Các đáp án khác có cụm cố định tương ứng trong tài liệu: おなかがすく (đói bụng), 服がぬれる (ướt quần áo).",
+      "vocabulary_analysis": [
+        {
+          "word": "かわく",
+          "kanji_writing": "渇く",
+          "kanji_components": [
+            {
+              "kanji": "渇",
+              "sino_vietnamese": "KHÁT",
+              "meanings": "Khát nước, khao khát"
+            }
+          ],
+          "meaning_vi": "Khát (nước)",
+          "meaning_en": "Be thirsty",
+          "usage_notes": "Đi với trợ từ が: のどがかわく (khát nước).",
+          "examples_for_it_context": [
+            {
+              "original": "長時間のデバッグで、のどが渇いた。",
+              "with_ruby": "<ruby>長時間<rt>ちょうじかん</rt></ruby>のデバッグで、のどが<ruby>渇<rt>かわ</rt></ruby>いた。",
+              "english": "I got thirsty after a long time debugging.",
+              "english_with_ipa": "I got <ruby>thirsty<rt>/ˈθɜːrsti/</rt></ruby> <ruby>after<rt>/ˈæftər/</rt></ruby> a <ruby>long<rt>/lɒŋ/</rt></ruby> <ruby>time<rt>/taɪm/</rt></ruby> <ruby>debugging<rt>/diːˈbʌɡɪŋ/</rt></ruby>.",
+              "vietnamese": "Sau thời gian dài debug, tôi đã thấy khát nước."
+            },
+            {
+              "original": "エンジニアとして、常に新しい知識に渇いている。",
+              "with_ruby": "エンジニアとして、<ruby>常<rt>つね</rt></ruby>に<ruby>新<rt>あたら</rt></ruby>しい<ruby>知識<rt>ちしき</rt></ruby>に<ruby>渇<rt>かわ</rt></ruby>いている。",
+              "english": "As an engineer, I am always thirsty for new knowledge.",
+              "english_with_ipa": "As an <ruby>engineer<rt>/ˌɛndʒɪˈnɪər/</rt></ruby>, I am <ruby>always<rt>/ˈɔːlweɪz/</rt></ruby> <ruby>thirsty<rt>/ˈθɜːrsti/</rt></ruby> for new <ruby>knowledge<rt>/ˈnɒlɪdʒ/</rt></ruby>.",
+              "vietnamese": "Với tư cách là kỹ sư, tôi luôn khao khát kiến thức mới. (Nghĩa bóng)"
+            }
+          ]
+        },
+        {
+          "word": "すく",
+          "kanji_writing": "空く",
+          "kanji_components": [
+            {
+              "kanji": "空",
+              "sino_vietnamese": "KHÔNG",
+              "meanings": "Trống rỗng, bầu trời"
+            }
+          ],
+          "meaning_vi": "Trống, rỗng, đói",
+          "meaning_en": "Get hungry / become empty",
+          "usage_notes": "Cụm cố định: おなかがすく (đói bụng). Cũng dùng để chỉ không gian trống.",
+          "examples_for_it_context": [
+            {
+              "original": "コーディングに集中して、おなかがすいた。",
+              "with_ruby": "コーディングに<ruby>集中<rt>しゅうちゅう</rt></ruby>して、おなかがすいた。",
+              "english": "I concentrated on coding and got hungry.",
+              "english_with_ipa": "I <ruby>concentrated<rt>/ˈkɒnsəntreɪtɪd/</rt></ruby> on <ruby>coding<rt>/ˈkoʊdɪŋ/</rt></ruby> and got <ruby>hungry<rt>/ˈhʌŋɡri/</rt></ruby>.",
+              "vietnamese": "Tập trung viết code nên tôi đã đói bụng."
+            },
+            {
+              "original": "古いログを削除したら、サーバーの容量が空いた。",
+              "with_ruby": "<ruby>古<rt>ふる</rt></ruby>いログを<ruby>削除<rt>さくじょ</rt></ruby>したら、サーバーの<ruby>容量<rt>ようりょう</rt></ruby>が<ruby>空<rt>あ</rt></ruby>いた。",
+              "english": "Server capacity became free after deleting old logs.",
+              "english_with_ipa": "<ruby>Server<rt>/ˈsɜːrvər/</rt></ruby> <ruby>capacity<rt>/kəˈpæsɪti/</rt></ruby> <ruby>became<rt>/bɪˈkeɪm/</rt></ruby> <ruby>free<rt>/friː/</rt></ruby> <ruby>after<rt>/ˈæftər/</rt></ruby> <ruby>deleting<rt>/dɪˈliːtɪŋ/</rt></ruby> <ruby>old<rt>/oʊld/</rt></ruby> <ruby>logs<rt>/lɒɡz/</rt></ruby>.",
+              "vietnamese": "Sau khi xóa log cũ, dung lượng máy chủ đã trống bớt."
+            }
+          ]
+        },
+        {
+          "word": "ぬれる",
+          "kanji_writing": "濡れる",
+          "kanji_components": [
+            {
+              "kanji": "濡",
+              "sino_vietnamese": "NHU",
+              "meanings": "Ướt, thấm ướt"
+            }
+          ],
+          "meaning_vi": "Ướt",
+          "meaning_en": "Get wet",
+          "usage_notes": "Cụm cố định: 服がぬれる (ướt quần áo).",
+          "examples_for_it_context": [
+            {
+              "original": "水をこぼして、キーボードが濡れてしまった。",
+              "with_ruby": "<ruby>水<rt>みず</rt></ruby>をこぼして、キーボードが<ruby>濡<rt>ぬ</rt></ruby>れてしまった。",
+              "english": "I spilled water and the keyboard got wet.",
+              "english_with_ipa": "I <ruby>spilled<rt>/spɪld/</rt></ruby> <ruby>water<rt>/ˈwɔːtər/</rt></ruby> and the <ruby>keyboard<rt>/ˈkiːbɔːrd/</rt></ruby> got <ruby>wet<rt>/wɛt/</rt></ruby>.",
+              "vietnamese": "Tôi làm đổ nước nên bàn phím bị ướt mất rồi."
+            },
+            {
+              "original": "雨漏りでサーバーラックが濡れないように注意してください。",
+              "with_ruby": "<ruby>雨漏<rt>あまも</rt></ruby>りでサーバーラックが<ruby>濡<rt>ぬ</rt></ruby>れないように<ruby>注意<rt>ちゅうい</rt></ruby>してください。",
+              "english": "Please be careful so the server rack doesn't get wet from a roof leak.",
+              "english_with_ipa": "<ruby>Please<rt>/pliːz/</rt></ruby> be <ruby>careful<rt>/ˈkɛərfʊl/</rt></ruby> so the <ruby>server<rt>/ˈsɜːrvər/</rt></ruby> <ruby>rack<rt>/ræk/</rt></ruby> doesn't get <ruby>wet<rt>/wɛt/</rt></ruby> from a <ruby>roof<rt>/ruːf/</rt></ruby> <ruby>leak<rt>/liːk/</rt></ruby>.",
+              "vietnamese": "Hãy chú ý đừng để tủ máy chủ bị ướt do dột mưa."
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "GOI",
+      "difficulty": 1,
+      "tags": [
+        "verbs",
+        "physical_state",
+        "vocabulary_usage"
+      ]
+    }
+  },
+  {
+    "id": "q_bunpo_n4n5_006",
+    "book_level": "N4-N5",
+    "chapter": {
+      "week": "第1週",
+      "day": "1日目",
+      "section": "BUNPO"
+    },
+    "question": {
+      "number": 6,
+      "type": "fill_in_the_blank",
+      "content": {
+        "original": "田中さんはイギリス人___結婚しました。",
+        "with_ruby": "<ruby>田中<rt>たなか</rt></ruby>さんはイギリス<ruby>人<rt>じん</rt></ruby>___<ruby>結婚<rt>けっこん</rt></ruby>しました。",
+        "with_red_highlight": "<ruby>田中<rt>たなか</rt></ruby>さんはイギリス<ruby>人<rt>じん</rt></ruby><span style=\"color: red;\">___</span><ruby>結婚<rt>けっこん</rt></ruby>しました。"
+      }
+    },
+    "options": [
+      {
+        "id": 1,
+        "text": "と",
+        "is_correct": true
+      },
+      {
+        "id": 2,
+        "text": "に",
+        "is_correct": false
+      },
+      {
+        "id": 3,
+        "text": "を",
+        "is_correct": false
+      },
+      {
+        "id": 4,
+        "text": "へ",
+        "is_correct": false
+      }
+    ],
+    "correct_answer_id": 1,
+    "explanation": {
+      "translations": {
+        "english": "Mr. Tanaka married a British woman.",
+        "english_with_ipa": "Mr. Tanaka <ruby>married<rt>/ˈmærid/</rt></ruby> a <ruby>British<rt>/ˈbrɪtɪʃ/</rt></ruby> <ruby>woman<rt>/ˈwʊmən/</rt></ruby>.",
+        "vietnamese": "Anh Tanaka kết hôn với người Anh."
+      },
+      "general_explanation": "Khi thực hiện một hành động mang tính tương tác cần có đối tác (như kết hôn, cãi nhau, bàn bạc), ta dùng trợ từ と để chỉ đối tượng đó. Chú ý trong tiếng Nhật không dùng に kết hợp với 結婚する (như hình minh họa đã gạch chéo: イギリス人に結婚する là SAI). Ngoài ra, と còn có nghĩa là làm việc gì đó 'cùng với' ai đó.",
+      "grammar_breakdown": [
+        {
+          "grammar_pattern": "Nと (相手を表す)",
+          "meaning_vi": "Với N (Chỉ đối tượng/đối tác của hành động)",
+          "meaning_en": "With N (Describing the other person / target partner)",
+          "formation": "N ＋ と ＋ V (結婚する、けんかする、相談する...)",
+          "usage_notes": "Sử dụng cho các động từ đòi hỏi phải có đối phương tương tác qua lại.",
+          "textbook_examples": [
+            {
+              "original": "弟とけんかした。",
+              "with_ruby": "<ruby>弟<rt>おとうと</rt></ruby>とけんかした。",
+              "english": "I fought with my younger brother.",
+              "english_with_ipa": "I <ruby>fought<rt>/fɔːt/</rt></ruby> with my <ruby>younger<rt>/ˈjʌŋɡər/</rt></ruby> <ruby>brother<rt>/ˈbrʌðər/</rt></ruby>.",
+              "vietnamese": "Tôi đã cãi nhau với em trai."
+            }
+          ],
+          "it_context_examples": [
+            {
+              "original": "要件についてクライアントと相談しました。",
+              "with_ruby": "<ruby>要件<rt>ようけん</rt></ruby>についてクライアントと<ruby>相談<rt>そうだん</rt></ruby>しました。",
+              "english": "I consulted with the client about the requirements.",
+              "english_with_ipa": "I <ruby>consulted<rt>/kənˈsʌltɪd/</rt></ruby> with the <ruby>client<rt>/ˈklaɪənt/</rt></ruby> <ruby>about<rt>/əˈbaʊt/</rt></ruby> the <ruby>requirements<rt>/rɪˈkwaɪərmənts/</rt></ruby>.",
+              "vietnamese": "Tôi đã thảo luận với khách hàng về các yêu cầu."
+            },
+            {
+              "original": "私たちのアプリは外部APIと連携しています。",
+              "with_ruby": "<ruby>私<rt>わたし</rt></ruby>たちのアプリは<ruby>外部<rt>がいぶ</rt></ruby>APIと<ruby>連携<rt>れんけい</rt></ruby>しています。",
+              "english": "Our app is integrated with an external API.",
+              "english_with_ipa": "<ruby>Our<rt>/aʊər/</rt></ruby> <ruby>app<rt>/æp/</rt></ruby> is <ruby>integrated<rt>/ˈɪntɪɡreɪtɪd/</rt></ruby> with an <ruby>external<rt>/ɪkˈstɜːrnəl/</rt></ruby> API.",
+              "vietnamese": "Ứng dụng của chúng tôi đang liên kết với API bên ngoài."
+            },
+            {
+              "original": "データベースと接続できません。",
+              "with_ruby": "データベースと<ruby>接続<rt>せつぞく</rt></ruby>できません。",
+              "english": "Cannot connect with the database.",
+              "english_with_ipa": "<ruby>Cannot<rt>/ˈkænɒt/</rt></ruby> <ruby>connect<rt>/kəˈnɛkt/</rt></ruby> with the <ruby>database<rt>/ˈdeɪtəbeɪs/</rt></ruby>.",
+              "vietnamese": "Không thể kết nối với cơ sở dữ liệu."
+            },
+            {
+              "original": "別のチームとサーバーの移行について交渉する。",
+              "with_ruby": "<ruby>別<rt>べつ</rt></ruby>のチームとサーバーの<ruby>移行<rt>いこう</rt></ruby>について<ruby>交渉<rt>こうしょう</rt></ruby>する。",
+              "english": "Negotiate with another team about server migration.",
+              "english_with_ipa": "<ruby>Negotiate<rt>/nɪˈɡoʊʃieɪt/</rt></ruby> with <ruby>another<rt>/əˈnʌðər/</rt></ruby> <ruby>team<rt>/tiːm/</rt></ruby> <ruby>about<rt>/əˈbaʊt/</rt></ruby> <ruby>server<rt>/ˈsɜːrvər/</rt></ruby> <ruby>migration<rt>/maɪˈɡreɪʃən/</rt></ruby>.",
+              "vietnamese": "Đàm phán với team khác về việc di chuyển máy chủ."
+            }
+          ]
+        },
+        {
+          "grammar_pattern": "Nと(いっしょに)",
+          "meaning_vi": "(Cùng) với N",
+          "meaning_en": "(Together) with N",
+          "formation": "N ＋ と(いっしょに) ＋ V",
+          "usage_notes": "Biểu thị việc thực hiện hành động cùng với một người khác.",
+          "textbook_examples": [
+            {
+              "original": "友だちと映画に行った。",
+              "with_ruby": "<ruby>友<rt>とも</rt></ruby>だちと<ruby>映画<rt>えいが</rt></ruby>に<ruby>行<rt>い</rt></ruby>った。",
+              "english": "I went to a movie with a friend.",
+              "english_with_ipa": "I <ruby>went<rt>/wɛnt/</rt></ruby> to a <ruby>movie<rt>/ˈmuːvi/</rt></ruby> with a <ruby>friend<rt>/frɛnd/</rt></ruby>.",
+              "vietnamese": "Tôi đã đi xem phim với bạn."
+            }
+          ],
+          "it_context_examples": [
+            {
+              "original": "先輩とペアプログラミングをした。",
+              "with_ruby": "<ruby>先輩<rt>せんぱい</rt></ruby>とペアプログラミングをした。",
+              "english": "I did pair programming with my senior.",
+              "english_with_ipa": "I did <ruby>pair<rt>/pɛər/</rt></ruby> <ruby>programming<rt>/ˈproʊɡræmɪŋ/</rt></ruby> with my <ruby>senior<rt>/ˈsiːniər/</rt></ruby>.",
+              "vietnamese": "Tôi đã lập trình đôi cùng với tiền bối."
+            },
+            {
+              "original": "デザイナーと一緒にUIを設計した。",
+              "with_ruby": "デザイナーと<ruby>一緒<rt>いっしょ</rt></ruby>にUIを<ruby>設計<rt>せっけい</rt></ruby>した。",
+              "english": "I designed the UI together with the designer.",
+              "english_with_ipa": "I <ruby>designed<rt>/dɪˈzaɪnd/</rt></ruby> the UI <ruby>together<rt>/təˈɡɛðər/</rt></ruby> with the <ruby>designer<rt>/dɪˈzaɪnər/</rt></ruby>.",
+              "vietnamese": "Tôi đã thiết kế UI cùng với designer."
+            },
+            {
+              "original": "プロジェクトマネージャーとミーティングに参加した。",
+              "with_ruby": "プロジェクトマネージャーとミーティングに<ruby>参加<rt>さんか</rt></ruby>した。",
+              "english": "I attended the meeting with the project manager.",
+              "english_with_ipa": "I <ruby>attended<rt>/əˈtɛndɪd/</rt></ruby> the <ruby>meeting<rt>/ˈmiːtɪŋ/</rt></ruby> with the <ruby>project<rt>/ˈprɒdʒɛkt/</rt></ruby> <ruby>manager<rt>/ˈmænɪdʒər/</rt></ruby>.",
+              "vietnamese": "Tôi đã tham gia cuộc họp cùng với quản lý dự án."
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "section_type": "BUNPO",
+      "difficulty": 1,
+      "tags": [
+        "grammar",
+        "particles",
+        "と"
+      ]
+    }
+  }
+]

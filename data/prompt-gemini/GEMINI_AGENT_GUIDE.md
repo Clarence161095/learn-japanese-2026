@@ -492,9 +492,3 @@ Khi import nhiều câu cùng lúc, sử dụng một trong các format sau:
 8. **Duplicate check** - App sẽ tự kiểm tra trùng lặp dựa trên `question.content.original` khi import. Nếu câu hỏi đã tồn tại sẽ bị bỏ qua
 
 ---
-
-# NOTE quan trọng:
-
-Tóm lại: 
-Input là: 2, 4 hoặc 6 bức hình ảnh dính kèm: mỗi lần yêu cần bạn thực hiện thì tôi sẽ đưa cho bạn 2, 4 hoặc 6 bức hình có format như trong 2 bức hình image.jpg và image1.jpg mà tôi đã upload lên Knowledge (đó là các cặp câu hỏi và đáp án kèm giải thích của 3, 6 hoặc 9 câu hỏi tôi muốn tạo Json) thì ouput mong muốn sẽ có format như là file có format giống Expect-Input.json như tôi đã upload lên Knowledge. Nội dung text thì có thể tôi chỉ sẽ ghi là: "N4-N5" hoặc "N3", "N2", "N1" thì bạn sẽ hiểu là level N4-N5, N3, N2, N1 thì cứ xác định tương ứng. 
-Ouput là: một file json có format như bên dưới nhưng nội dung phải fix với 2 hình ảnh mà tôi đã upload lên trong lần Chat đó và json output nằm trong block-code ngoài ra không giải thích gì thêm.
