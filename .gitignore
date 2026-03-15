@@ -36,3 +36,5 @@ next-env.d.ts
 # database
 data/database/*.db
 data/database/*.db-journal
+data/database/nihongo.db-shm
+data/database/nihongo.db-wal
