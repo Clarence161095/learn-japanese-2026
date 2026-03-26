@@ -12,7 +12,7 @@ echo "========================================="
 # --- Configuration ---
 APP_NAME="nihongo-master"
 APP_DIR="/home/ec2-user/$APP_NAME"
-PORT=3456
+PORT=3000 # Cập nhật Port thành 3000
 NODE_VERSION="20"
 
 # --- Check if running as appropriate user ---
@@ -29,20 +29,22 @@ sudo yum install -y curl git gcc-c++ make openssl-devel --allowerasing
 
 # --- Install Node.js via nvm ---
 echo "📦 Step 2: Install Node.js $NODE_VERSION"
-if ! command -v node &> /dev/null; then
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm install $NODE_VERSION
-    nvm use $NODE_VERSION
-    nvm alias default $NODE_VERSION
-else
-    echo "  Node.js already installed: $(node --version)"
-fi
+# Force install nvm and node 20 even if another version exists
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+echo "  Installing Node.js $NODE_VERSION via nvm..."
+nvm install $NODE_VERSION
+nvm use $NODE_VERSION
+nvm alias default $NODE_VERSION
+
+echo "  Current Node.js version: $(node --version)"
 
 # --- Install PM2 globally ---
 echo "📦 Step 3: Install PM2"
-npm install -g pm2
+# Use sudo to fix EACCES error
+sudo $(which npm) install -g pm2
 
 # --- Clone or copy project ---
 echo "📁 Step 4: Set up project directory"
@@ -100,13 +102,14 @@ pm2 save
 
 # --- Setup PM2 startup ---
 echo "⚡ Step 11: Configure PM2 startup on reboot"
-pm2 startup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER
+# Create startup script based on current environment
+env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER
 pm2 save
 
 # --- Setup Firewall ---
 echo "🔒 Step 12: Configure firewall"
 echo "⚠️  NOTE: UFW is not used on Amazon Linux."
-echo "⚠️  Please ensure ports 22, 80, 443, and $PORT are open in your AWS EC2 Security Group (Inbound Rules)!"
+echo "⚠️  Please ensure port $PORT is open in your AWS EC2 Security Group (Inbound Rules)!"
 
 echo ""
 echo "✅ Deployment complete!"
