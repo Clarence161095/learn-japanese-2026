@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# first-deploy.sh - First-time deployment to EC2
+# first-deploy.sh - First-time deployment to EC2 (Amazon Linux)
 # Usage: chmod +x first-deploy.sh && ./first-deploy.sh
 # ============================================================
 
@@ -11,22 +11,21 @@ echo "========================================="
 
 # --- Configuration ---
 APP_NAME="nihongo-master"
-APP_DIR="/home/ubuntu/$APP_NAME"
+APP_DIR="/home/ec2-user/$APP_NAME"
 PORT=3456
 NODE_VERSION="20"
 
 # --- Check if running as appropriate user ---
 if [ "$(whoami)" = "root" ]; then
-    echo "⚠️  Running as root. Will set up for 'ubuntu' user."
-    DEPLOY_USER="ubuntu"
+    echo "⚠️  Running as root. Will set up for 'ec2-user' user."
+    DEPLOY_USER="ec2-user"
 else
     DEPLOY_USER=$(whoami)
 fi
 
 echo "📦 Step 1: System update & dependencies"
-sudo apt-get update -y
-sudo apt-get upgrade -y
-sudo apt-get install -y curl git build-essential
+sudo yum update -y
+sudo yum install -y curl git gcc-c++ make openssl-devel
 
 # --- Install Node.js via nvm ---
 echo "📦 Step 2: Install Node.js $NODE_VERSION"
@@ -51,7 +50,7 @@ if [ ! -d "$APP_DIR" ]; then
     echo "  Creating $APP_DIR"
     mkdir -p "$APP_DIR"
     echo "  ℹ️  Please copy your project files to $APP_DIR"
-    echo "  Example: scp -r ./* ubuntu@your-ec2-ip:$APP_DIR/"
+    echo "  Example: scp -r ./* ec2-user@your-ec2-ip:$APP_DIR/"
     echo "  Or: git clone your-repo $APP_DIR"
 fi
 
@@ -104,13 +103,10 @@ echo "⚡ Step 11: Configure PM2 startup on reboot"
 pm2 startup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER
 pm2 save
 
-# --- Setup UFW firewall ---
+# --- Setup Firewall ---
 echo "🔒 Step 12: Configure firewall"
-sudo ufw allow 22/tcp
-sudo ufw allow $PORT/tcp
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-echo "y" | sudo ufw enable || true
+echo "⚠️  NOTE: UFW is not used on Amazon Linux."
+echo "⚠️  Please ensure ports 22, 80, 443, and $PORT are open in your AWS EC2 Security Group (Inbound Rules)!"
 
 echo ""
 echo "✅ Deployment complete!"
