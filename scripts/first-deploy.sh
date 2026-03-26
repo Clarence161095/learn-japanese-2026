@@ -40,18 +40,20 @@ npm install -g pm2
 echo "📁 Step 4: Setting working directory to $APP_DIR"
 cd "$APP_DIR"
 
-# --- Create .env.local if not exists ---
+# --- Force overwrite .env file ---
 echo "🔑 Step 5: Environment configuration"
-if [ ! -f ".env.local" ]; then
-    JWT_SECRET=$(openssl rand -hex 32)
-    cat > .env.local << EOF
+# Ghi đè trực tiếp vào file .env chính (không dùng .env.local)
+JWT_SECRET=$(openssl rand -hex 32)
+cat > .env << EOF
 JWT_SECRET=$JWT_SECRET
 DATABASE_PATH=./data/database/nihongo.db
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin2026
+HOSTNAME=0.0.0.0
+PORT=$PORT
 EOF
-    echo "  Created .env.local with generated JWT_SECRET"
-fi
+echo "  Created/Updated .env with required HOSTNAME and PORT"
+
 
 # --- Create necessary directories ---
 echo "📂 Step 6: Create data directories"
@@ -72,17 +74,18 @@ npx tsx scripts/seed.ts
 
 # --- Start with PM2 enforcing 0.0.0.0 ---
 echo "🚀 Step 10: Start with PM2 (Binding to 0.0.0.0)"
-# Tạo file ecosystem để config rõ ràng biến môi trường cho PM2
+# Sử dụng trực tiếp lệnh Next.js start thay vì thông qua npm để đảm bảo nhận đúng port
 cat > ecosystem.config.js << EOF
 module.exports = {
   apps: [
     {
       name: "$APP_NAME",
-      script: "npm",
-      args: "start",
+      script: "node_modules/next/dist/bin/next",
+      args: "start -p $PORT -H 0.0.0.0",
       env: {
         PORT: $PORT,
-        HOSTNAME: "0.0.0.0"
+        HOSTNAME: "0.0.0.0",
+        NODE_ENV: "production"
       }
     }
   ]
@@ -95,7 +98,6 @@ pm2 save
 
 # --- Setup PM2 startup ---
 echo "⚡ Step 11: Configure PM2 startup on reboot"
-# Gỡ cấu hình cũ (nếu có) và cài đặt cấu hình mới với đúng đường dẫn NVM
 sudo env PATH=$PATH:$(dirname $(which node)) $(which pm2) unstartup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER 2>/dev/null || true
 sudo env PATH=$PATH:$(dirname $(which node)) $(which pm2) startup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER
 pm2 save
@@ -104,4 +106,5 @@ echo ""
 echo "✅ Deployment complete!"
 echo "========================================="
 echo "🌐 App running at: http://$(curl -s ifconfig.me):$PORT"
+echo "📋 View logs to confirm binding: pm2 logs $APP_NAME"
 echo "========================================="
