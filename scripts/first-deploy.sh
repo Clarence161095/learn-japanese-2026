@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# first-deploy.sh - Deploy & Start Next.js (Background Mode)
+# first-deploy.sh - Deploy & Start Next.js (Background Mode + Swap)
 # ============================================================
 
 set -e
@@ -18,6 +18,33 @@ echo "========================================="
 APP_DIR=$(dirname $(pwd))
 PORT=3000
 NODE_VERSION="20"
+
+echo -e "${GREEN}🧹 Step 0: Clean up PM2 & Add Swap Memory (Fix EC2 Freeze)${NC}"
+
+# Xoá hoàn toàn PM2 và các service liên quan
+if command -v pm2 &> /dev/null; then
+    echo "  Stopping and removing PM2..."
+    pm2 kill 2>/dev/null || true
+    sudo env PATH=$PATH:$(dirname $(which node)) $(which pm2) unstartup systemd -u ec2-user --hp /home/ec2-user 2>/dev/null || true
+    sudo rm -f /etc/systemd/system/pm2-ec2-user.service
+    sudo systemctl daemon-reload
+    npm uninstall -g pm2
+    rm -rf ~/.pm2
+    echo "  PM2 removed."
+fi
+
+# Tạo Swap file 2GB (Giải quyết lỗi stuck npm install trên t2.micro)
+if [ ! -f /swapfile ]; then
+    echo "  Creating 2GB Swap file to prevent Out-Of-Memory..."
+    sudo dd if=/dev/zero of=/swapfile bs=128M count=16
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile
+    sudo swapon /swapfile
+    echo "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
+    echo "  Swap created successfully!"
+else
+    echo "  Swap file already exists. Moving on."
+fi
 
 echo -e "${GREEN}📦 Step 1: System update & dependencies${NC}"
 sudo yum update -y
@@ -47,7 +74,10 @@ fi
 
 echo -e "${GREEN}📂 Step 5: Setup directories & Install dependencies${NC}"
 mkdir -p data/database data/backup data/imported logs
+# Xoá cache npm để giải phóng thêm bộ nhớ
+npm cache clean --force
 rm -rf node_modules package-lock.json
+# Cài đặt (nhờ có Swap nên sẽ không bị stuck nữa)
 npm install
 
 echo -e "${GREEN}🔨 Step 6: Build Next.js project${NC}"
@@ -57,10 +87,8 @@ echo -e "${GREEN}🌱 Step 7: Seed database${NC}"
 npx tsx scripts/seed.ts
 
 echo -e "${GREEN}🚀 Step 8: Starting Next.js App in Background...${NC}"
-# 1. Tắt PM2 cũ (nếu có) để tránh xung đột
-pm2 delete all 2>/dev/null || true
 
-# 2. Tắt các process Next.js hoặc tiến trình đang chiếm port 3000 cũ
+# Tắt các process Next.js hoặc tiến trình đang chiếm port 3000 cũ
 echo "  Cleaning up old processes..."
 if pgrep -f "next start" > /dev/null; then
     pkill -f "next start"
@@ -68,15 +96,14 @@ if pgrep -f "next start" > /dev/null; then
 fi
 fuser -k $PORT/tcp 2>/dev/null || true
 
-# 3. Chạy Next.js ngầm bằng nohup (Giống y hệt cách Gunicorn --daemon chạy)
+# Chạy Next.js ngầm bằng nohup
 echo -e "${YELLOW}🔄 Starting server on 0.0.0.0:$PORT...${NC}"
-# Ép Next.js bind vào 0.0.0.0 thông qua flag -H
 nohup npx next start -H 0.0.0.0 -p $PORT > logs/output.log 2>&1 &
 
 # Đợi app khởi động
 sleep 4
 
-# 4. Kiểm tra xem tiến trình đã chạy thành công chưa
+# Kiểm tra xem tiến trình đã chạy thành công chưa
 if pgrep -f "next start" > /dev/null; then
     PID=$(pgrep -f "next start" | head -1)
     PUBLIC_IP=$(curl -s ifconfig.me)
