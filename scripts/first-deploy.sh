@@ -16,14 +16,7 @@ NODE_VERSION="20"
 
 # Dùng luôn thư mục chứa project (cha của thư mục scripts/)
 APP_DIR=$(dirname $(pwd))
-
-# --- Check if running as appropriate user ---
-if [ "$(whoami)" = "root" ]; then
-    echo "⚠️  Running as root. Will set up for 'ec2-user' user."
-    DEPLOY_USER="ec2-user"
-else
-    DEPLOY_USER=$(whoami)
-fi
+DEPLOY_USER=$(whoami)
 
 echo "📦 Step 1: System update & dependencies"
 sudo yum update -y
@@ -35,27 +28,17 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-echo "  Installing Node.js $NODE_VERSION via nvm..."
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
 nvm alias default $NODE_VERSION
 
-echo "  Current Node.js version: $(node --version)"
-
 # --- Install PM2 globally ---
 echo "📦 Step 3: Install PM2"
-sudo $(which npm) install -g pm2
+npm install -g pm2
 
 # --- Set up project directory ---
 echo "📁 Step 4: Setting working directory to $APP_DIR"
 cd "$APP_DIR"
-
-# Kiểm tra xem package.json có tồn tại không
-if [ ! -f "package.json" ]; then
-    echo "❌ LỖI: Không tìm thấy package.json trong $APP_DIR!"
-    echo "Vui lòng chạy script này từ bên trong thư mục scripts/ của project."
-    exit 1
-fi
 
 # --- Create .env.local if not exists ---
 echo "🔑 Step 5: Environment configuration"
@@ -66,24 +49,16 @@ JWT_SECRET=$JWT_SECRET
 DATABASE_PATH=./data/database/nihongo.db
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin2026
-HOSTNAME=0.0.0.0
-PORT=$PORT
 EOF
     echo "  Created .env.local with generated JWT_SECRET"
-    echo "  ⚠️  Please update ADMIN_PASSWORD in .env.local!"
-else
-    echo "  .env.local already exists"
 fi
 
 # --- Create necessary directories ---
 echo "📂 Step 6: Create data directories"
-mkdir -p data/database
-mkdir -p data/backup
-mkdir -p data/imported
+mkdir -p data/database data/backup data/imported
 
 # --- Install dependencies ---
 echo "📦 Step 7: Install npm dependencies"
-# Xoá cache và node_modules cũ để tránh lỗi xung đột phiên bản Node
 rm -rf node_modules package-lock.json
 npm install
 
@@ -95,32 +70,38 @@ npm run build
 echo "🌱 Step 9: Seed database"
 npx tsx scripts/seed.ts
 
-# --- Start with PM2 ---
-echo "🚀 Step 10: Start with PM2"
+# --- Start with PM2 enforcing 0.0.0.0 ---
+echo "🚀 Step 10: Start with PM2 (Binding to 0.0.0.0)"
+# Tạo file ecosystem để config rõ ràng biến môi trường cho PM2
+cat > ecosystem.config.js << EOF
+module.exports = {
+  apps: [
+    {
+      name: "$APP_NAME",
+      script: "npm",
+      args: "start",
+      env: {
+        PORT: $PORT,
+        HOSTNAME: "0.0.0.0"
+      }
+    }
+  ]
+}
+EOF
+
 pm2 delete $APP_NAME 2>/dev/null || true
-pm2 start npm --name "$APP_NAME" -- start
+pm2 start ecosystem.config.js
 pm2 save
 
 # --- Setup PM2 startup ---
 echo "⚡ Step 11: Configure PM2 startup on reboot"
-env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER
+# Gỡ cấu hình cũ (nếu có) và cài đặt cấu hình mới với đúng đường dẫn NVM
+sudo env PATH=$PATH:$(dirname $(which node)) $(which pm2) unstartup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER 2>/dev/null || true
+sudo env PATH=$PATH:$(dirname $(which node)) $(which pm2) startup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER
 pm2 save
-
-# --- Setup Firewall ---
-echo "🔒 Step 12: Configure firewall"
-echo "⚠️  NOTE: UFW is not used on Amazon Linux."
-echo "⚠️  Please ensure port $PORT is open in your AWS EC2 Security Group (Inbound Rules)!"
 
 echo ""
 echo "✅ Deployment complete!"
 echo "========================================="
 echo "🌐 App running at: http://$(curl -s ifconfig.me):$PORT"
-echo "👤 Admin login: admin / admin2026"
-echo "⚠️  Remember to change admin password!"
-echo ""
-echo "📋 Useful commands:"
-echo "  pm2 status          - Check app status"
-echo "  pm2 logs $APP_NAME  - View logs"
-echo "  pm2 restart $APP_NAME - Restart app"
-echo "  pm2 monit           - Monitor dashboard"
 echo "========================================="
