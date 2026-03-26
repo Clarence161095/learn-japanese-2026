@@ -11,9 +11,11 @@ echo "========================================="
 
 # --- Configuration ---
 APP_NAME="nihongo-master"
-APP_DIR="/home/ec2-user/$APP_NAME"
-PORT=3000 # Cập nhật Port thành 3000
+PORT=3000
 NODE_VERSION="20"
+
+# Dùng luôn thư mục chứa project (cha của thư mục scripts/)
+APP_DIR=$(dirname $(pwd))
 
 # --- Check if running as appropriate user ---
 if [ "$(whoami)" = "root" ]; then
@@ -29,7 +31,6 @@ sudo yum install -y curl git gcc-c++ make openssl-devel --allowerasing
 
 # --- Install Node.js via nvm ---
 echo "📦 Step 2: Install Node.js $NODE_VERSION"
-# Force install nvm and node 20 even if another version exists
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -43,20 +44,18 @@ echo "  Current Node.js version: $(node --version)"
 
 # --- Install PM2 globally ---
 echo "📦 Step 3: Install PM2"
-# Use sudo to fix EACCES error
 sudo $(which npm) install -g pm2
 
-# --- Clone or copy project ---
-echo "📁 Step 4: Set up project directory"
-if [ ! -d "$APP_DIR" ]; then
-    echo "  Creating $APP_DIR"
-    mkdir -p "$APP_DIR"
-    echo "  ℹ️  Please copy your project files to $APP_DIR"
-    echo "  Example: scp -r ./* ec2-user@your-ec2-ip:$APP_DIR/"
-    echo "  Or: git clone your-repo $APP_DIR"
-fi
-
+# --- Set up project directory ---
+echo "📁 Step 4: Setting working directory to $APP_DIR"
 cd "$APP_DIR"
+
+# Kiểm tra xem package.json có tồn tại không
+if [ ! -f "package.json" ]; then
+    echo "❌ LỖI: Không tìm thấy package.json trong $APP_DIR!"
+    echo "Vui lòng chạy script này từ bên trong thư mục scripts/ của project."
+    exit 1
+fi
 
 # --- Create .env.local if not exists ---
 echo "🔑 Step 5: Environment configuration"
@@ -84,6 +83,8 @@ mkdir -p data/imported
 
 # --- Install dependencies ---
 echo "📦 Step 7: Install npm dependencies"
+# Xoá cache và node_modules cũ để tránh lỗi xung đột phiên bản Node
+rm -rf node_modules package-lock.json
 npm install
 
 # --- Build the project ---
@@ -102,7 +103,6 @@ pm2 save
 
 # --- Setup PM2 startup ---
 echo "⚡ Step 11: Configure PM2 startup on reboot"
-# Create startup script based on current environment
 env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u $DEPLOY_USER --hp /home/$DEPLOY_USER
 pm2 save
 
