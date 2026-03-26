@@ -25,7 +25,7 @@ fi
 
 echo "📦 Step 1: System update & dependencies"
 sudo yum update -y
-sudo yum install -y curl git gcc-c++ make openssl-devel
+sudo yum install -y curl git gcc-c++ make openssl-devel --allowerasing
 
 # --- Install Node.js via nvm ---
 echo "📦 Step 2: Install Node.js $NODE_VERSION"
