@@ -17,7 +17,18 @@ APP_DIR=$(cd "$(dirname "$0")/.." && pwd)
 PORT=3000
 NODE_VERSION="20"
 
-echo -e "${GREEN}🧹 Step 0: Clean up PM2 & Swap check${NC}"
+echo -e "${GREEN}🛡️ Step 0.1: Mở Port OS Firewall (UFW/Firewalld/Iptables)${NC}"
+# Tự động mở port ở mức hệ điều hành
+if command -v ufw >/dev/null 2>&1; then
+    sudo ufw allow $PORT/tcp || true
+elif command -v firewall-cmd >/dev/null 2>&1; then
+    sudo firewall-cmd --zone=public --add-port=$PORT/tcp --permanent || true
+    sudo firewall-cmd --reload || true
+else
+    sudo iptables -A INPUT -p tcp --dport $PORT -j ACCEPT || true
+fi
+
+echo -e "${GREEN}🧹 Step 0.2: Clean up PM2 & Swap check${NC}"
 if command -v pm2 &> /dev/null; then
     pm2 kill 2>/dev/null || true
     sudo rm -f /etc/systemd/system/pm2-ec2-user.service || true
@@ -63,15 +74,14 @@ npm run build
 npx tsx scripts/seed.ts
 
 echo -e "${GREEN}🚀 Step 8: Starting Next.js App in Background...${NC}"
-# Tắt port 3000 nếu đang bị chiếm
 fuser -k $PORT/tcp 2>/dev/null || true
 pkill -f "next-server" 2>/dev/null || true
 sleep 2
 
-# THE FIX: Gọi thẳng binary của next, ép cứng cờ -H 0.0.0.0
 echo -e "${YELLOW}🔄 Starting server on 0.0.0.0:$PORT...${NC}"
 export PORT=$PORT
-nohup ./node_modules/.bin/next start -H 0.0.0.0 -p $PORT > "$APP_DIR/logs/output.log" 2>&1 &
+# FIX: Dùng biến môi trường HOSTNAME để ép binding 0.0.0.0 triệt để
+HOSTNAME="0.0.0.0" nohup npx next start > "$APP_DIR/logs/output.log" 2>&1 &
 
 sleep 5
 
@@ -82,6 +92,7 @@ if pgrep -f "next-server" > /dev/null || pgrep -f "next start" > /dev/null; then
     echo -e "${GREEN}✅ Listening on: 0.0.0.0:$PORT${NC}"
     echo "  Public URL: http://$PUBLIC_IP:$PORT"
     echo -e "  ${YELLOW}Xem Log:${NC} tail -f $APP_DIR/logs/output.log"
+    echo -e "${RED}⚠️ LƯU Ý: Nếu URL vẫn quay đều/Refused, bắt buộc bạn phải vào AWS Console -> EC2 -> Security Groups -> Edit inbound rules -> Mở port 3000 (0.0.0.0/0). Script không thể bypass tường lửa của AWS.${NC}"
 else
     echo -e "${RED}❌ Failed to start app. Please check the logs:${NC}"
     cat "$APP_DIR/logs/output.log"
